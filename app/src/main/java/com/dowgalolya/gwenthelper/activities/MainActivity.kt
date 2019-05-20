@@ -1,25 +1,28 @@
 package com.dowgalolya.gwenthelper.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.navigation.NavController
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
+import com.crashlytics.android.Crashlytics
 import com.dowgalolya.gwenthelper.R
+import com.google.firebase.analytics.FirebaseAnalytics
+import io.fabric.sdk.android.Fabric
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var navController: NavController
-    lateinit var navHostFragment: NavHostFragment
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Fabric.with(this, Crashlytics())
         setContentView(R.layout.activity_main)
 
-        //NavHostFragment needs to be updated with a new nav_graph when you have more than 1 graphs
-        navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        //This will make our navController accessable from any fragment where we have a reference to mainActivity
-        navController = navHostFragment.navController
+        // Obtain the FirebaseAnalytics instance.
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this)
+
     }
 
     override fun onSupportNavigateUp() = NavHostFragment.findNavController(nav_host_fragment).navigateUp()
