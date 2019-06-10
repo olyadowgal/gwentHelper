@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">GwentHelper</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
+    <string name="add_card">Add Card</string>
+    <string name="cancel">Cancel</string>
 </resources>

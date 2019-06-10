@@ -1,21 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_graph"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/nav_graph"
             app:startDestination="@id/mainFragment">
 
-    <fragment android:id="@+id/mainFragment"
-              android:name="com.dowgalolya.gwenthelper.fragments.MainFragment"
-              android:label="main_fragment"
-              tools:layout="@layout/main_fragment">
+    <fragment
+            android:id="@+id/mainFragment"
+            android:name="com.dowgalolya.gwenthelper.fragments.MainFragment"
+            android:label="main_fragment"
+            tools:layout="@layout/main_fragment">
 
         <action
                 android:id="@+id/action_mainFragment_to_gameFragment"
                 app:destination="@id/gameFragment"/>
     </fragment>
 
-    <fragment android:id="@+id/gameFragment"
-              android:name="com.dowgalolya.gwenthelper.fragments.GameFragment"
-              android:label="game_fragment"
-              tools:layout="@layout/game_fragment"/>
+    <fragment
+            android:id="@+id/gameFragment"
+            android:name="com.dowgalolya.gwenthelper.fragments.GameFragment"
+            android:label="game_fragment"
+            tools:layout="@layout/game_fragment">
+
+        <action
+                android:id="@+id/action_gameFragment_to_cardFragmentDialog"
+                app:destination="@id/cardFragmentDialog"/>
+    </fragment>
+
+    <fragment
+            android:id="@+id/cardFragmentDialog"
+            android:name="com.dowgalolya.gwenthelper.fragments.CardFragmentDialog"
+            android:label="card_dialog_fragment"
+            tools:layout="@layout/card_dialog_fragment">
+
+        <action
+                android:id="@+id/action_cardFragmentDialog_to_gameFragment"
+                app:destination="@id/gameFragment"/>
+
+    </fragment>
+
 </navigation>
