@@ -6,7 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.dowgalolya.gwenthelper.CardConfigDialog
 import com.dowgalolya.gwenthelper.viewmodels.GameViewModel
 import com.dowgalolya.gwenthelper.R
 import kotlinx.android.synthetic.main.game_fragment.*
@@ -32,13 +33,15 @@ class GameFragment : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        card_view.layoutManager = LinearLayoutManager(this.context)
+        card_view.adapter = viewModel.cardRowAdapter
         btn_add_card.setOnClickListener(this)
     }
 
     override fun onClick(view: View) {
         when (view.id) {
             R.id.btn_add_card -> {
-                view.findNavController().navigate(R.id.action_gameFragment_to_cardFragmentDialog)
+                CardConfigDialog(context,viewModel).show()
             }
         }
     }

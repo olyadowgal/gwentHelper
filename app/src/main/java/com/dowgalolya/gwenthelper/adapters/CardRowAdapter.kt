@@ -6,11 +6,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dowgalolya.gwenthelper.R
-import com.dowgalolya.gwenthelper.entities.Card
 
-class CardRowAdapter() : RecyclerView.Adapter<CardRowAdapter.CardViewAdapter>() {
+class CardRowAdapter : RecyclerView.Adapter<CardRowAdapter.CardViewAdapter>() {
 
-    private val cardList: List<Card> = emptyList()
+    private val cardList: MutableList<Int> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewAdapter {
         return CardViewAdapter(
@@ -30,12 +29,17 @@ class CardRowAdapter() : RecyclerView.Adapter<CardRowAdapter.CardViewAdapter>() 
         holder.onBind(cardList[position])
     }
 
+    fun add(card : Int) {
+        cardList.add(card)
+        notifyItemInserted(cardList.size)
+    }
+
     inner class CardViewAdapter(view: View) : RecyclerView.ViewHolder(view) {
 
         private val cardValue: TextView = view.findViewById(R.id.card_value)
 
-        fun onBind(item: Card) {
-            cardValue.text = item.points.toString()
+        fun onBind(item: Int) {
+            cardValue.text = item.toString()
         }
     }
 }

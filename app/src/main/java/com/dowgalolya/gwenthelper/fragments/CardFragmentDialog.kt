@@ -30,13 +30,18 @@ class CardFragmentDialog : DialogFragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        btn_cancel.setOnClickListener(this)
+        btn_minus_value.setOnClickListener(this)
+        btn_plus_value.setOnClickListener(this)
     }
 
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.btn_cancel -> {
-                view.findNavController().navigate(R.id.action_cardFragmentDialog_to_gameFragment)
+            R.id.btn_plus_value -> {
+               text_card_points.text = (text_card_points.text.toString().toInt() + 1).toString()
+            }
+            R.id.btn_minus_value -> {
+                text_card_points.text = (text_card_points.text.toString().toInt() - 1).toString()
+
             }
         }
     }

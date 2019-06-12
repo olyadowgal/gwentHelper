@@ -13,10 +13,6 @@ import kotlinx.android.synthetic.main.main_fragment.*
 
 class MainFragment : Fragment(), View.OnClickListener {
 
-    override fun onClick(view: View) {
-        view.findNavController().navigate(R.id.action_mainFragment_to_gameFragment)
-    }
-
     private val viewModel: MainViewModel by lazy {
         ViewModelProviders.of(this).get(MainViewModel::class.java)
     }
@@ -34,5 +30,8 @@ class MainFragment : Fragment(), View.OnClickListener {
         btn_play.setOnClickListener(this)
     }
 
+    override fun onClick(view: View) {
+        view.findNavController().navigate(R.id.action_mainFragment_to_gameFragment)
+    }
 
 }
