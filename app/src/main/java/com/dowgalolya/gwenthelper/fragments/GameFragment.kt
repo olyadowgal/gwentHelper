@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dowgalolya.gwenthelper.CardConfigDialog
 import com.dowgalolya.gwenthelper.viewmodels.GameViewModel
@@ -36,6 +37,10 @@ class GameFragment : Fragment(), View.OnClickListener {
         card_view.layoutManager = LinearLayoutManager(this.context)
         card_view.adapter = viewModel.cardRowAdapter
         btn_add_card.setOnClickListener(this)
+
+        viewModel.currentRowPoints.observe(this, Observer {
+            txt_row_counter.text = it.toString()
+        })
     }
 
     override fun onClick(view: View) {

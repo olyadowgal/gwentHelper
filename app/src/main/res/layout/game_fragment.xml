@@ -7,6 +7,15 @@
         android:layout_height="match_parent"
         tools:context=".activities.MainActivity">
 
+    <TextView
+            android:id="@+id/txt_row_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/zero"
+            app:layout_constraintBottom_toTopOf="@id/card_view"/>
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/card_view"

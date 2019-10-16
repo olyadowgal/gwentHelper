@@ -10,6 +10,7 @@ import com.dowgalolya.gwenthelper.R
 class CardRowAdapter : RecyclerView.Adapter<CardRowAdapter.CardViewAdapter>() {
 
     private val cardList: MutableList<Int> = ArrayList()
+    private val cardSum: Int = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewAdapter {
         return CardViewAdapter(
