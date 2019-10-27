@@ -27,7 +27,7 @@ class GameViewModel : ViewModel(), CardConfigDialog.OnCardCreateListener {
     override fun onCardSet(buttonId: Int, cardValue: Int) {
 
         when (buttonId) {
-            R.id.btn_add_user1_close_combat -> {
+            R.id.cv_user1_close_combat -> {
                 if (_user1CloseCombatRowPoints.value == null) {
                     _user1CloseCombatRowPoints.value = cardValue
                 } else {
@@ -35,7 +35,7 @@ class GameViewModel : ViewModel(), CardConfigDialog.OnCardCreateListener {
                 }
                 user1CloseCombatRowAdapter.add(cardValue)}
 
-            R.id.btn_add_user1_long_range -> {
+            R.id.cv_user1_long_range -> {
                 if (_user1LongRangePoints.value == null) {
                     _user1LongRangePoints.value = cardValue
                 } else {
@@ -44,7 +44,7 @@ class GameViewModel : ViewModel(), CardConfigDialog.OnCardCreateListener {
                 user1LongRangeAdapter.add(cardValue)
             }
 
-            R.id.btn_add_user1_siege -> {
+            R.id.cv_user1_siege -> {
                 if (_user1SiegePoints.value == null) {
                     _user1SiegePoints.value = cardValue
                 } else {

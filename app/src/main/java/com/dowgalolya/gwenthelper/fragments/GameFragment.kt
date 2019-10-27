@@ -14,7 +14,7 @@ import com.dowgalolya.gwenthelper.R
 import kotlinx.android.synthetic.main.game_fragment.*
 
 
-class GameFragment : Fragment(), View.OnClickListener {
+class GameFragment : Fragment() {
 
     companion object {
         fun newInstance() = GameFragment()
@@ -34,41 +34,32 @@ class GameFragment : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        rv_cards_user1_close_combat.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
-        rv_cards_user1_close_combat.adapter = viewModel.user1CloseCombatRowAdapter
-        btn_add_user1_close_combat.setOnClickListener(this)
 
-        rv_cards_user1_long_range.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
-        rv_cards_user1_long_range.adapter = viewModel.user1LongRangeAdapter
-        btn_add_user1_long_range.setOnClickListener(this)
+        cv_user1_close_combat.setCardRowAdapter(viewModel.user1CloseCombatRowAdapter)
+        cv_user1_close_combat.setOnButtonClickListener(View.OnClickListener {
+            CardConfigDialog(context,viewModel,R.id.cv_user1_close_combat).show()
+        })
 
-        rv_cards_user1_siege.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
-        rv_cards_user1_siege.adapter = viewModel.user1SiegeAdapter
-        btn_add_user1_siege.setOnClickListener(this)
+        cv_user1_long_range.setCardRowAdapter(viewModel.user1LongRangeAdapter)
+        cv_user1_long_range.setOnButtonClickListener(View.OnClickListener {
+            CardConfigDialog(context,viewModel,R.id.cv_user1_long_range).show()
+        })
+
+        cv_user1_siege.setCardRowAdapter(viewModel.user1SiegeAdapter)
+        cv_user1_siege.setOnButtonClickListener(View.OnClickListener {
+            CardConfigDialog(context,viewModel,R.id.cv_user1_siege).show()
+        })
+
 
         viewModel.user1CloseCombatRowPoints.observe(this, Observer {
-            txt_counter_user1_close_combat.text = it.toString()
+            cv_user1_close_combat.setCardCounterValue(it)
         })
         viewModel.user1LongRangePoints.observe(this, Observer {
-            txt_counter_user1_long_range.text = it.toString()
+            cv_user1_long_range.setCardCounterValue(it)
         })
         viewModel.user1SiegePoints.observe(this, Observer {
-            txt_counter_user1_siege.text = it.toString()
+            cv_user1_siege.setCardCounterValue(it)
         })
-    }
-
-    override fun onClick(view: View) {
-        when (view.id) {
-            R.id.btn_add_user1_close_combat -> {
-                CardConfigDialog(context,viewModel,R.id.btn_add_user1_close_combat).show()
-            }
-            R.id.btn_add_user1_long_range -> {
-                CardConfigDialog(context,viewModel,view.id).show()
-            }
-            R.id.btn_add_user1_siege -> {
-                CardConfigDialog(context,viewModel,R.id.btn_add_user1_siege).show()
-            }
-        }
     }
 
 }
