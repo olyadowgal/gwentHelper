@@ -6,4 +6,12 @@
     <string name="cancel">Cancel</string>
     <string name="zero">0</string>
     <string name="pass">Pass</string>
+    <string name="ability_morale_boost">Morale boost</string>
+    <string name="ability_hero">Hero</string>
+    <string name="ability_decoy">Decoy</string>
+    <string name="ability_horn">Horn</string>
+    <string name="ability_mardroeme">Mardroeme</string>
+    <string name="ability_young_berserker">Young berserker</string>
+    <string name="ability_berserker">Berserker</string>
+    <string name="ability_tight_bond">Tight bond</string>
 </resources>
