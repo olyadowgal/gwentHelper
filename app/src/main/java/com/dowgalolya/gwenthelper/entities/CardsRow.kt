@@ -3,7 +3,7 @@ package com.dowgalolya.gwenthelper.entities
 import kotlin.math.min
 import kotlin.math.pow
 
-data class CardsRow(val cards: List<Card>, val horn: Boolean, val buffs: List<Buff>) {
+data class CardsRow(val cards: List<Card>, val horn: Boolean) {
 
     fun totalPoints(badWeather: Boolean) = cards.sumBy { pointsOf(it, badWeather) }
 
