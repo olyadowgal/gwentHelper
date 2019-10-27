@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 
-class CardConfigDialog(context: Context?, val listener: OnCardCreateListener) : AlertDialog(context),
+class CardConfigDialog(context: Context?, val listener: OnCardCreateListener, val buttonId : Int) : AlertDialog(context),
     DialogInterface.OnClickListener, View.OnClickListener {
 
     companion object {
@@ -17,7 +17,7 @@ class CardConfigDialog(context: Context?, val listener: OnCardCreateListener) : 
 
     interface OnCardCreateListener {
 
-        fun onCardSet(cardValue: Int)
+        fun onCardSet(buttonId: Int,cardValue: Int)
     }
 
     private val textCardPoints: TextView
@@ -38,7 +38,7 @@ class CardConfigDialog(context: Context?, val listener: OnCardCreateListener) : 
         when (which) {
             DialogInterface.BUTTON_POSITIVE -> {
                 Log.d(TAG,textCardPoints.text.toString())
-                listener.onCardSet(textCardPoints.text.toString().toInt())
+                listener.onCardSet(buttonId, textCardPoints.text.toString().toInt())
                 dismiss()
             }
             DialogInterface.BUTTON_NEGATIVE -> cancel()
