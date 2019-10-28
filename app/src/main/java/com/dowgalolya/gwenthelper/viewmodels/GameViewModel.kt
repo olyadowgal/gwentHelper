@@ -1,47 +1,66 @@
 package com.dowgalolya.gwenthelper.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.dowgalolya.gwenthelper.CardConfigDialog
 import com.dowgalolya.gwenthelper.R
 import com.dowgalolya.gwenthelper.adapters.CardRowAdapter
 import com.dowgalolya.gwenthelper.entities.Card
-import com.dowgalolya.gwenthelper.entities.CardsRow
+import com.dowgalolya.gwenthelper.entities.GameData
+import com.dowgalolya.gwenthelper.entities.PlayerData
 
 class GameViewModel : ViewModel(), CardConfigDialog.OnCardCreateListener {
 
-    val user1CloseCombatRowAdapter: CardRowAdapter = CardRowAdapter()
-    val user1LongRangeAdapter: CardRowAdapter = CardRowAdapter()
-    val user1SiegeAdapter: CardRowAdapter = CardRowAdapter()
+    enum class Player {
+        FIRST,
+        SECOND
+    }
 
-    private val _user1CloseCombatRowPoints = MutableLiveData<CardsRow>()
-    val user1CloseCombatRowPoints: LiveData<CardsRow> = _user1CloseCombatRowPoints
+    private val _gameData = MutableLiveData<GameData>().apply {
+        value = GameData(
+            firstPlayerData = PlayerData(),
+            secondPlayerData = PlayerData()
+        )
+    }
+    val gameData: LiveData<GameData> = _gameData
 
-    private val _user1LongRangePoints = MutableLiveData<CardsRow>()
-    val user1LongRangePoints: LiveData<CardsRow> = _user1LongRangePoints
+    private val _selectedPlayer = MutableLiveData<Player>().apply {
+        value = Player.FIRST//TODO: check it
+    }
+    val selectedPlayer: LiveData<Player> = _selectedPlayer
 
-    private val _user1SiegePoints = MutableLiveData<CardsRow>()
-    val user1SiegePoints: LiveData<CardsRow> = _user1SiegePoints
+    private val _selectedPlayerData = MediatorLiveData<PlayerData>().apply {
+        value = _gameData.value!!.firstPlayerData//TODO: check it
+        val observer: Observer<Any?> = Observer {
+            value = when (selectedPlayer.value!!) {
+                Player.FIRST -> _gameData.value!!.firstPlayerData
+                Player.SECOND -> _gameData.value!!.secondPlayerData
+            }
+            rowAdapters.forEachIndexed { index, adapter -> adapter.row = value!!.cardRows[index] }
+        }
+        addSource(_gameData, observer)
+        addSource(_selectedPlayer, observer)
+    }
+    val selectedPlayerData: LiveData<PlayerData> = _selectedPlayerData
 
+    val rowAdapters: Array<CardRowAdapter> = Array(3) {
+        CardRowAdapter(_selectedPlayerData.value!!.cardRows[it])
+    }
 
     override fun onCardSet(buttonId: Int, card: Card) {
+        val rowId = when (buttonId) {
+            R.id.cv_user1_close_combat -> 0
+            R.id.cv_user1_long_range -> 1
+            R.id.cv_user1_siege -> 2
+            else -> throw IllegalArgumentException()
+        }
 
-        when (buttonId) {
-            R.id.cv_user1_close_combat -> {
-                user1CloseCombatRowAdapter.add(card)
-                _user1CloseCombatRowPoints.value = user1CloseCombatRowAdapter.getRow()
-            }
-
-            R.id.cv_user1_long_range -> {
-                user1LongRangeAdapter.add(card)
-                _user1LongRangePoints.value = user1LongRangeAdapter.getRow()
-            }
-
-            R.id.cv_user1_siege -> {
-                user1SiegeAdapter.add(card)
-                _user1SiegePoints.value = user1SiegeAdapter.getRow()
+        _selectedPlayerData.value!!.let { playerData ->
+            playerData.cardRows[rowId] = playerData.cardRows[rowId].let {
+                it.copy(
+                    cards = it.cards + card
+                )
             }
         }
+        _gameData.value = _gameData.value
     }
 }

@@ -9,10 +9,13 @@ import com.dowgalolya.gwenthelper.R
 import com.dowgalolya.gwenthelper.entities.Card
 import com.dowgalolya.gwenthelper.entities.CardsRow
 
-class CardRowAdapter : RecyclerView.Adapter<CardRowAdapter.CardViewAdapter>() {
+class CardRowAdapter(cardsRow: CardsRow) : RecyclerView.Adapter<CardRowAdapter.CardViewAdapter>() {
 
-    private var row: CardsRow = CardsRow(emptyList(), false)
-    private var badWeather = false
+    var row: CardsRow = cardsRow
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewAdapter {
         return CardViewAdapter(
@@ -32,24 +35,12 @@ class CardRowAdapter : RecyclerView.Adapter<CardRowAdapter.CardViewAdapter>() {
         holder.onBind(row.cards[position])
     }
 
-    fun getRow() : CardsRow {
-        return row
-    }
-
-    fun add(card : Card) {
-        //TODO HUINYA
-        row = row.copy(
-            cards = row.cards + card
-        )
-        notifyDataSetChanged()
-    }
-
     inner class CardViewAdapter(view: View) : RecyclerView.ViewHolder(view) {
 
         private val cardValue: TextView = view.findViewById(R.id.card_value)
 
         fun onBind(item: Card) {
-            cardValue.text = row.pointsOf(item, badWeather).toString()
+            cardValue.text = row.pointsOf(item).toString()
         }
     }
 }
