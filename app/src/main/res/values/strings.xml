@@ -14,4 +14,5 @@
     <string name="ability_young_berserker">Young berserker</string>
     <string name="ability_berserker">Berserker</string>
     <string name="ability_tight_bond">Tight bond</string>
+    <string name="card_abilities">Card abilities</string>
 </resources>

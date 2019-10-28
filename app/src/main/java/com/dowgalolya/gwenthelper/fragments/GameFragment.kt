@@ -50,15 +50,14 @@ class GameFragment : Fragment() {
             CardConfigDialog(context,viewModel,R.id.cv_user1_siege).show()
         })
 
-
         viewModel.user1CloseCombatRowPoints.observe(this, Observer {
-            cv_user1_close_combat.setCardCounterValue(it)
+            cv_user1_close_combat.setCardCounterValue(it.totalPoints(false))
         })
         viewModel.user1LongRangePoints.observe(this, Observer {
-            cv_user1_long_range.setCardCounterValue(it)
+            cv_user1_long_range.setCardCounterValue(it.totalPoints(false))
         })
         viewModel.user1SiegePoints.observe(this, Observer {
-            cv_user1_siege.setCardCounterValue(it)
+            cv_user1_siege.setCardCounterValue(it.totalPoints(false))
         })
     }
 

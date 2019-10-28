@@ -32,12 +32,16 @@ class CardRowAdapter : RecyclerView.Adapter<CardRowAdapter.CardViewAdapter>() {
         holder.onBind(row.cards[position])
     }
 
+    fun getRow() : CardsRow {
+        return row
+    }
+
     fun add(card : Card) {
         //TODO HUINYA
         row = row.copy(
             cards = row.cards + card
         )
-        notifyItemInserted(row.cards.size)
+        notifyDataSetChanged()
     }
 
     inner class CardViewAdapter(view: View) : RecyclerView.ViewHolder(view) {
