@@ -37,7 +37,7 @@ class CardConfigDialog(context: Context?, val listener: OnCardCreateListener, va
         view.findViewById<Button>(R.id.btn_plus_value).setOnClickListener(this)
     }
 
-    private fun genarateCard(value : Int) : Card {
+    private fun generateCard(value : Int) : Card {
         val  abilities = mutableListOf<Ability>()
         when  {
             sw_hero.isChecked -> abilities.add(Ability.HERO)
@@ -54,7 +54,7 @@ class CardConfigDialog(context: Context?, val listener: OnCardCreateListener, va
             DialogInterface.BUTTON_POSITIVE -> {
                 Log.d(TAG,textCardPoints.text.toString())
 
-                listener.onCardSet(buttonId, genarateCard(textCardPoints.text.toString().toInt()) )
+                listener.onCardSet(buttonId, generateCard(textCardPoints.text.toString().toInt()) )
                 dismiss()
             }
             DialogInterface.BUTTON_NEGATIVE -> cancel()

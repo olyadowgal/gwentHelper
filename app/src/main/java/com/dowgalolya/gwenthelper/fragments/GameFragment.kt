@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -13,6 +14,7 @@ import com.dowgalolya.gwenthelper.entities.PlayerData
 import com.dowgalolya.gwenthelper.viewmodels.GameViewModel
 import com.dowgalolya.gwenthelper.widgets.CardsRowView
 import kotlinx.android.synthetic.main.game_fragment.*
+import kotlinx.android.synthetic.main.view_cards_row.view.*
 
 
 class GameFragment : Fragment() {
@@ -27,9 +29,9 @@ class GameFragment : Fragment() {
 
     private val rowViews: Array<CardsRowView> by lazy {
         arrayOf(
-            cv_user1_close_combat,
-            cv_user1_long_range,
-            cv_user1_siege
+            cv_close_combat,
+            cv_long_range,
+            cv_siege
         )
     }
 
@@ -46,15 +48,30 @@ class GameFragment : Fragment() {
         rowViews.forEachIndexed { index, cardsRowView ->
             cardsRowView.setCardRowAdapter(viewModel.rowAdapters[index])
         }
-        cv_user1_close_combat.setOnButtonClickListener(View.OnClickListener {
-            CardConfigDialog(context, viewModel, R.id.cv_user1_close_combat).show()
+
+        cv_close_combat.setOnButtonClickListener(View.OnClickListener {
+            CardConfigDialog(context, viewModel, R.id.cv_close_combat).show()
         })
-        cv_user1_long_range.setOnButtonClickListener(View.OnClickListener {
-            CardConfigDialog(context, viewModel, R.id.cv_user1_long_range).show()
+
+        cv_close_combat.cb_horn.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.onHornChecked(R.id.cv_close_combat, isChecked)
+        }
+
+        cv_long_range.setOnButtonClickListener(View.OnClickListener {
+            CardConfigDialog(context, viewModel, R.id.cv_long_range).show()
         })
-        cv_user1_siege.setOnButtonClickListener(View.OnClickListener {
-            CardConfigDialog(context, viewModel, R.id.cv_user1_siege).show()
+
+        cv_long_range.cb_horn.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.onHornChecked(R.id.cv_long_range, isChecked)
+        }
+
+        cv_siege.setOnButtonClickListener(View.OnClickListener {
+            CardConfigDialog(context, viewModel, R.id.cv_siege).show()
         })
+
+        cv_siege.cb_horn.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.onHornChecked(R.id.cv_siege, isChecked)
+        }
 
         viewModel.selectedPlayerData.observe(this, Observer { playerData: PlayerData ->
             rowViews.forEachIndexed { index, cardsRowView ->

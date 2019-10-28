@@ -3,6 +3,7 @@ package com.dowgalolya.gwenthelper.widgets
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
+import android.widget.CompoundButton
 import android.widget.FrameLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dowgalolya.gwenthelper.R
@@ -25,11 +26,11 @@ class CardsRowView @JvmOverloads constructor(
         rv_cards_row.adapter = adapter
     }
 
-    fun setOnButtonClickListener(clickListener : OnClickListener) {
+    fun setOnButtonClickListener(clickListener: OnClickListener) {
         btn_add_card.setOnClickListener(clickListener)
     }
 
-    fun setCardCounterValue(value : Int) {
+    fun setCardCounterValue(value: Int) {
         txt_cards_counter.text = value.toString()
     }
 }

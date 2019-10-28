@@ -48,9 +48,9 @@ class GameViewModel : ViewModel(), CardConfigDialog.OnCardCreateListener {
 
     override fun onCardSet(buttonId: Int, card: Card) {
         val rowId = when (buttonId) {
-            R.id.cv_user1_close_combat -> 0
-            R.id.cv_user1_long_range -> 1
-            R.id.cv_user1_siege -> 2
+            R.id.cv_close_combat -> 0
+            R.id.cv_long_range -> 1
+            R.id.cv_siege -> 2
             else -> throw IllegalArgumentException()
         }
 
@@ -62,5 +62,26 @@ class GameViewModel : ViewModel(), CardConfigDialog.OnCardCreateListener {
             }
         }
         _gameData.value = _gameData.value
+    }
+
+    fun onHornChecked(buttonId: Int, isChecked : Boolean) {
+        val rowId = when (buttonId) {
+            R.id.cv_close_combat -> 0
+            R.id.cv_long_range -> 1
+            R.id.cv_siege -> 2
+            else -> throw IllegalArgumentException()
+        }
+
+        _selectedPlayerData.value!!.let {playerData ->
+            playerData.cardRows[rowId] = playerData.cardRows[rowId].let {
+                it.copy(
+                    cards = it.cards,
+                    horn = isChecked,
+                    badWeather = it.badWeather
+                )
+            }
+        }
+        _gameData.value = _gameData.value
+
     }
 }

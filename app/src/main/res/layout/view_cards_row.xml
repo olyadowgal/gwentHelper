@@ -20,6 +20,15 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
 
+        <CheckBox
+                android:id="@+id/cb_horn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/txt_cards_counter"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/rv_cards_row"/>
+
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_cards_row"
                 android:layout_width="0dp"
@@ -28,7 +37,7 @@
                 android:orientation="horizontal"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/txt_cards_counter"
+                app:layout_constraintStart_toEndOf="@id/cb_horn"
                 app:layout_constraintEnd_toStartOf="@id/btn_add_card"/>
 
         <Button
