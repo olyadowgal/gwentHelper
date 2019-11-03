@@ -12,8 +12,11 @@ class WeatherView  @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
+
+
     init {
         View.inflate(context, R.layout.view_weather, this)
+
     }
 
 
