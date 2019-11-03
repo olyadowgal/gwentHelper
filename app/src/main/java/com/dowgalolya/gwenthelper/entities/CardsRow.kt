@@ -6,8 +6,14 @@ import kotlin.math.pow
 data class CardsRow(
     val cards: List<Card> = emptyList(),
     val horn: Boolean = false,
-    val badWeather : Boolean = false
+    var badWeather : Boolean = false
 ) {
+
+    companion object {
+        const val CLOSE_COMBAT = 0
+        const val LONG_RANGE = 1
+        const val SIEGE = 2
+    }
 
     fun totalPoints() = cards.sumBy { pointsOf(it) }
 

@@ -4,11 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.dowgalolya.gwenthelper.CardConfigDialog
+import com.dowgalolya.gwenthelper.dialogs.CardConfigDialog
 import com.dowgalolya.gwenthelper.R
 import com.dowgalolya.gwenthelper.entities.PlayerData
 import com.dowgalolya.gwenthelper.viewmodels.GameViewModel
@@ -49,8 +48,14 @@ class GameFragment : Fragment() {
             cardsRowView.setCardRowAdapter(viewModel.rowAdapters[index])
         }
 
+        cv_weather.listener = viewModel
+
         cv_close_combat.setOnButtonClickListener(View.OnClickListener {
-            CardConfigDialog(context, viewModel, R.id.cv_close_combat).show()
+            CardConfigDialog(
+                context,
+                viewModel,
+                R.id.cv_close_combat
+            ).show()
         })
 
         cv_close_combat.cb_horn.setOnCheckedChangeListener { _, isChecked ->
@@ -58,7 +63,11 @@ class GameFragment : Fragment() {
         }
 
         cv_long_range.setOnButtonClickListener(View.OnClickListener {
-            CardConfigDialog(context, viewModel, R.id.cv_long_range).show()
+            CardConfigDialog(
+                context,
+                viewModel,
+                R.id.cv_long_range
+            ).show()
         })
 
         cv_long_range.cb_horn.setOnCheckedChangeListener { _, isChecked ->

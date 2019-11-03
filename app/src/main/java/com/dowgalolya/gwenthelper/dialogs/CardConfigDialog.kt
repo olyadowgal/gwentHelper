@@ -1,4 +1,4 @@
-package com.dowgalolya.gwenthelper
+package com.dowgalolya.gwenthelper.dialogs
 
 import android.app.AlertDialog
 import android.content.Context
@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import com.dowgalolya.gwenthelper.R
 import com.dowgalolya.gwenthelper.entities.Ability
 import com.dowgalolya.gwenthelper.entities.Card
 import kotlinx.android.synthetic.main.card_dialog_fragment.*
@@ -26,7 +27,8 @@ class CardConfigDialog(context: Context?, val listener: OnCardCreateListener, va
     private val textCardPoints: TextView
 
     init {
-        val view = View.inflate(context, R.layout.card_dialog_fragment, null)
+        val view = View.inflate(context,
+            R.layout.card_dialog_fragment, null)
         setView(view)
 
         setButton(DialogInterface.BUTTON_POSITIVE, "ADD CARD", this)

@@ -9,7 +9,7 @@
             android:layout_height="wrap_content">
 
         <CheckBox
-                android:id="@+id/cb_snow"
+                android:id="@+id/cb_frost"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_margin="4dp"
