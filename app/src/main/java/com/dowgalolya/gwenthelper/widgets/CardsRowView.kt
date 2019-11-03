@@ -3,7 +3,6 @@ package com.dowgalolya.gwenthelper.widgets
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import android.widget.CompoundButton
 import android.widget.FrameLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dowgalolya.gwenthelper.R
