@@ -24,6 +24,8 @@
                 android:id="@+id/cb_horn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:button="@drawable/ic_horn"
+                android:buttonTint="@color/selector_weather"
                 app:layout_constraintStart_toEndOf="@+id/txt_cards_counter"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
