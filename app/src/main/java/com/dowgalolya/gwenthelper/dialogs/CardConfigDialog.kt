@@ -10,10 +10,14 @@ import android.widget.TextView
 import com.dowgalolya.gwenthelper.R
 import com.dowgalolya.gwenthelper.entities.Ability
 import com.dowgalolya.gwenthelper.entities.Card
+import com.dowgalolya.gwenthelper.enums.CardsRowType
 import kotlinx.android.synthetic.main.card_dialog_fragment.*
 
-class CardConfigDialog(context: Context?, val listener: OnCardCreateListener, val buttonId : Int) : AlertDialog(context),
-    DialogInterface.OnClickListener, View.OnClickListener {
+class CardConfigDialog(
+    context: Context?,
+    private val listener: OnCardCreateListener,
+    private val cardsRowType: CardsRowType
+) : AlertDialog(context), DialogInterface.OnClickListener, View.OnClickListener {
 
     companion object {
         const val TAG = "CARDDIALOG"
@@ -21,14 +25,16 @@ class CardConfigDialog(context: Context?, val listener: OnCardCreateListener, va
 
     interface OnCardCreateListener {
 
-        fun onCardSet(buttonId: Int,card: Card)
+        fun onCardSet(cardsRowType: CardsRowType, card: Card)
     }
 
     private val textCardPoints: TextView
 
     init {
-        val view = View.inflate(context,
-            R.layout.card_dialog_fragment, null)
+        val view = View.inflate(
+            context,
+            R.layout.card_dialog_fragment, null
+        )
         setView(view)
 
         setButton(DialogInterface.BUTTON_POSITIVE, "ADD CARD", this)
@@ -39,24 +45,32 @@ class CardConfigDialog(context: Context?, val listener: OnCardCreateListener, va
         view.findViewById<Button>(R.id.btn_plus_value).setOnClickListener(this)
     }
 
-    private fun generateCard(value : Int) : Card {
-        val  abilities = mutableListOf<Ability>()
-        when  {
-            sw_hero.isChecked -> abilities.add(Ability.HERO)
-            sw_decoy.isChecked -> abilities.add(Ability.DECOY)
-            sw_horn.isChecked -> abilities.add(Ability.HORN)
-            sw_moral_boost.isChecked -> abilities.add(Ability.MORALE_BOOST)
-            sw_tight_bond.isChecked -> abilities.add(Ability.TIGHT_BOND)
-        }
+    private fun generateCard(value: Int): Card {
+        val abilities = arrayOf(sw_hero, sw_decoy, sw_horn, sw_moral_boost, sw_tight_bond)
+            .filter { it.isChecked }
+            .map {
+                when (it) {
+                    sw_hero -> Ability.HERO
+                    sw_decoy -> Ability.DECOY
+                    sw_horn -> Ability.HORN
+                    sw_moral_boost -> Ability.MORALE_BOOST
+                    sw_tight_bond -> Ability.TIGHT_BOND
+                    else -> throw RuntimeException()
+                }
+            }
+
         return Card(0, value, abilities)
     }
 
     override fun onClick(dialog: DialogInterface?, which: Int) {
         when (which) {
             DialogInterface.BUTTON_POSITIVE -> {
-                Log.d(TAG,textCardPoints.text.toString())
+                Log.d(TAG, textCardPoints.text.toString())
 
-                listener.onCardSet(buttonId, generateCard(textCardPoints.text.toString().toInt()) )
+                listener.onCardSet(
+                    cardsRowType,
+                    generateCard(textCardPoints.text.toString().toInt())
+                )
                 dismiss()
             }
             DialogInterface.BUTTON_NEGATIVE -> cancel()
@@ -66,13 +80,11 @@ class CardConfigDialog(context: Context?, val listener: OnCardCreateListener, va
     override fun onClick(view: View) {
         when (view.id) {
             R.id.btn_plus_value -> {
-                Log.d(TAG,textCardPoints.text.toString())
+                Log.d(TAG, textCardPoints.text.toString())
                 textCardPoints.text = (textCardPoints.text.toString().toInt() + 1).toString()
             }
             R.id.btn_minus_value -> {
-
                 textCardPoints.text = (textCardPoints.text.toString().toInt() - 1).toString()
-
             }
         }
     }

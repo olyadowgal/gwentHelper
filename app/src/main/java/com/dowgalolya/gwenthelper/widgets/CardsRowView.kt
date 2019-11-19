@@ -7,6 +7,7 @@ import android.widget.FrameLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dowgalolya.gwenthelper.R
 import com.dowgalolya.gwenthelper.adapters.CardRowAdapter
+import com.dowgalolya.gwenthelper.adapters.itemdecoration.CardRowItemDecoration
 import kotlinx.android.synthetic.main.view_cards_row.view.*
 
 class CardsRowView @JvmOverloads constructor(
@@ -20,9 +21,15 @@ class CardsRowView @JvmOverloads constructor(
     }
 
     fun setCardRowAdapter(adapter: CardRowAdapter) {
-        rv_cards_row.layoutManager =
-            LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
-        rv_cards_row.adapter = adapter
+        rv_cards_row.apply {
+            layoutManager = LinearLayoutManager(
+                this.context,
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+            this.adapter = adapter
+            addItemDecoration(CardRowItemDecoration(context))
+        }
     }
 
     fun setOnButtonClickListener(clickListener: OnClickListener) {

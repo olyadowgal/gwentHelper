@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.CompoundButton
 import android.widget.FrameLayout
 import com.dowgalolya.gwenthelper.R
-import com.dowgalolya.gwenthelper.entities.CardsRow
+import com.dowgalolya.gwenthelper.enums.CardsRowType
 import kotlinx.android.synthetic.main.view_weather.view.*
 
 class WeatherView @JvmOverloads constructor(
@@ -27,27 +27,14 @@ class WeatherView @JvmOverloads constructor(
 
     interface OnWeatherChangeListener {
 
-        fun onWeatherChange(rowId: Int, weather : Boolean)
+        fun onWeatherChange(cardsRowType: CardsRowType, weather : Boolean)
     }
 
-    override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
-        if (buttonView != null) {
-            when (buttonView) {
-                cb_frost -> {
-                    listener?.onWeatherChange(CardsRow.CLOSE_COMBAT, isChecked)
-                }
-                cb_fog -> {
-                    listener?.onWeatherChange(CardsRow.LONG_RANGE, isChecked)
-                }
-                cb_rain -> {
-                    listener?.onWeatherChange(CardsRow.SIEGE, isChecked)
-                }
-            }
+    override fun onCheckedChanged(buttonView: CompoundButton, isChecked: Boolean) {
+        when (buttonView) {
+            cb_frost -> listener?.onWeatherChange(CardsRowType.CLOSE_COMBAT, isChecked)
+            cb_fog -> listener?.onWeatherChange(CardsRowType.LONG_RANGE, isChecked)
+            cb_rain -> listener?.onWeatherChange(CardsRowType.SIEGE, isChecked)
         }
-
     }
-
-
-
-
 }

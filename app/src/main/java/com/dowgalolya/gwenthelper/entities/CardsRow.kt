@@ -1,23 +1,19 @@
 package com.dowgalolya.gwenthelper.entities
 
+import com.dowgalolya.gwenthelper.enums.CardsRowType
 import kotlin.math.min
 import kotlin.math.pow
 
 data class CardsRow(
-    val cards: List<Card> = emptyList(),
-    val horn: Boolean = false,
+    val type: CardsRowType,
+    var cards: List<Card> = emptyList(),
+    var horn: Boolean = false,
     var badWeather : Boolean = false
 ) {
 
-    companion object {
-        const val CLOSE_COMBAT = 0
-        const val LONG_RANGE = 1
-        const val SIEGE = 2
-    }
+    val totalPoints get() = cards.sumBy { pointsOf(it) }
 
-    fun totalPoints() = cards.sumBy { pointsOf(it) }
-
-    private val hornsCount = (if (horn) 1 else 0) + cards.count { it.abilities.contains(Ability.HORN) }
+    private val hornsCount get() = (if (horn) 1 else 0) + cards.count { it.abilities.contains(Ability.HORN) }
 
     fun pointsOf(card: Card): Int {
         if (card.abilities.contains(Ability.DECOY)) return 0
