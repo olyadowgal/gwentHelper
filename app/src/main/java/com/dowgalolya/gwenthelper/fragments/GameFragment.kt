@@ -8,7 +8,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.dowgalolya.gwenthelper.R
-import com.dowgalolya.gwenthelper.dialogs.CardConfigDialog
+import com.dowgalolya.gwenthelper.dialogs.AddCardDialog
+import com.dowgalolya.gwenthelper.dialogs.EditCardDialog
 import com.dowgalolya.gwenthelper.entities.Card
 import com.dowgalolya.gwenthelper.entities.CardsRow
 import com.dowgalolya.gwenthelper.entities.PlayerData
@@ -85,11 +86,20 @@ class GameFragment : BaseFragment() {
         when (action) {
             is ViewAction.Custom -> when (action.action) {
                 CustomViewAction.SHOW_ADD_CARD_DIALOG -> {
-                    CardConfigDialog(
-                        context,
+                    AddCardDialog(
+                        context!!,
                         viewModel,
                         action.args[CARD_ROW] as CardsRowType
                     ).show()
+                }
+                CustomViewAction.SHOW_EDIT_CARD_DIALOG -> {
+                    EditCardDialog(
+                        context!!,
+                        viewModel,
+                        action.args[CARD_ROW] as CardsRow,
+                        action.args[CARD] as Card
+                    ).show()
+
                 }
                 CustomViewAction.SHOW_CONFIG_CARD_DIALOG -> {
                     val cardsRow = action.args[CARD_ROW] as CardsRow

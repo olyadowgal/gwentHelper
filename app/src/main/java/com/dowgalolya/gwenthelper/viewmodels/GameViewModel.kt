@@ -7,20 +7,23 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.dowgalolya.gwenthelper.adapters.CardRowAdapter
-import com.dowgalolya.gwenthelper.dialogs.CardConfigDialog
+import com.dowgalolya.gwenthelper.dialogs.AddCardDialog
+import com.dowgalolya.gwenthelper.dialogs.EditCardDialog
 import com.dowgalolya.gwenthelper.entities.Card
 import com.dowgalolya.gwenthelper.entities.CardsRow
 import com.dowgalolya.gwenthelper.entities.GameData
 import com.dowgalolya.gwenthelper.entities.PlayerData
 import com.dowgalolya.gwenthelper.enums.CardsRowType
 import com.dowgalolya.gwenthelper.enums.Player
-import com.dowgalolya.gwenthelper.livedata.SingleLiveEvent
+import com.dowgalolya.gwenthelper.extensions.notifyDataChanged
 import com.dowgalolya.gwenthelper.livedata.ViewAction
 import com.dowgalolya.gwenthelper.widgets.WeatherView
 
 class GameViewModel(application: Application) : BaseViewModel(application),
-    CardConfigDialog.OnCardCreateListener,
-    WeatherView.OnWeatherChangeListener, CardRowAdapter.OnCardLongClickCallback {
+    AddCardDialog.OnCardAddListener,
+    WeatherView.OnWeatherChangeListener,
+    CardRowAdapter.OnCardLongClickCallback,
+    EditCardDialog.OnCardEditListener{
 
     companion object {
         const val CARD_ROW = "CARD_ROW"
@@ -30,6 +33,7 @@ class GameViewModel(application: Application) : BaseViewModel(application),
     object CustomViewAction {
         const val SHOW_ADD_CARD_DIALOG = "SHOW_ADD_CARD_DIALOG"
         const val SHOW_CONFIG_CARD_DIALOG = "SHOW_CONFIG_CARD_DIALOG"
+        const val SHOW_EDIT_CARD_DIALOG = "SHOW_EDIT_CARD_DIALOG"
     }
 
     private val _gameData = MutableLiveData<GameData>().apply {
@@ -65,18 +69,14 @@ class GameViewModel(application: Application) : BaseViewModel(application),
         .map { it.key to CardRowAdapter(it.value, this) }
         .toMap()
 
-    private val _clickLiveEvent: SingleLiveEvent<Int> =
-        SingleLiveEvent()
-    val clickLiveEvent: LiveData<Int> = _clickLiveEvent
-
-    override fun onCardSet(cardsRowType: CardsRowType, card: Card) {
+    override fun onCardAdd(cardsRowType: CardsRowType, card: Card) {
 
         _selectedPlayerData.value!!.let { playerData ->
             playerData.cardsRows.getValue(cardsRowType).apply {
                 cards += card
             }
         }
-        _gameData.value = _gameData.value
+        _gameData.notifyDataChanged()
     }
 
     @MainThread
@@ -90,7 +90,7 @@ class GameViewModel(application: Application) : BaseViewModel(application),
         _selectedPlayerData.value!!.let { playerData ->
             playerData.cardsRows.getValue(cardsRowType).horn = isChecked
         }
-        _gameData.value = _gameData.value
+        _gameData.notifyDataChanged()
 
     }
 
@@ -99,7 +99,7 @@ class GameViewModel(application: Application) : BaseViewModel(application),
             it.firstPlayerData.cardsRows.getValue(cardsRowType).badWeather = weather
             it.secondPlayerData.cardsRows.getValue(cardsRowType).badWeather = weather
         }
-        _gameData.value = _gameData.value
+        _gameData.notifyDataChanged()
     }
 
     override fun onItemLongClicked(row: CardsRow, card: Card) {
@@ -110,6 +110,9 @@ class GameViewModel(application: Application) : BaseViewModel(application),
 
     @MainThread
     fun onEditClicked(row: CardsRow, card: Card) {
+        _viewAction.value = ViewAction.Custom(CustomViewAction.SHOW_EDIT_CARD_DIALOG)
+            .putArg(CARD_ROW, row)
+            .putArg(CARD, card)
     }
 
     @MainThread
@@ -117,6 +120,16 @@ class GameViewModel(application: Application) : BaseViewModel(application),
         row.apply {
             cards -= card
         }
-        _gameData.value = _gameData.value
+        _gameData.notifyDataChanged()
+    }
+
+    override fun onCardEdit(row: CardsRow, card: Card) {
+//        row.apply {
+//            cards[cards.indexOf(card)].copy(
+//                cardId = card.cardId,
+//                abilities = card.abilities,
+//                points = card.points
+//            )
+//        }
     }
 }
