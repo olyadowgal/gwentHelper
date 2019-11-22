@@ -23,7 +23,7 @@ class GameViewModel(application: Application) : BaseViewModel(application),
     AddCardDialog.OnCardAddListener,
     WeatherView.OnWeatherChangeListener,
     CardRowAdapter.OnCardLongClickCallback,
-    EditCardDialog.OnCardEditListener{
+    EditCardDialog.OnCardEditListener {
 
     companion object {
         const val CARD_ROW = "CARD_ROW"
@@ -124,12 +124,10 @@ class GameViewModel(application: Application) : BaseViewModel(application),
     }
 
     override fun onCardEdit(row: CardsRow, card: Card) {
-//        row.apply {
-//            cards[cards.indexOf(card)].copy(
-//                cardId = card.cardId,
-//                abilities = card.abilities,
-//                points = card.points
-//            )
-//        }
+        row.apply {
+            cards = cards.filterNot { it.cardId == card.cardId } + card
+        }
+        _gameData.notifyDataChanged()
     }
+
 }
