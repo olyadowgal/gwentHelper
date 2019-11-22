@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="card_item_margin_regular">4dp</dimen>
+    <dimen name="card_item_margin_start_end">8dp</dimen>
+    <dimen name="card_item_margin_top_bottom">2dp</dimen>
+</resources>

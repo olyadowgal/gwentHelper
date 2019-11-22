@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "452300242881",
+    "firebase_url": "https://gwenthelper-8bc51.firebaseio.com",
+    "project_id": "gwenthelper-8bc51",
+    "storage_bucket": "gwenthelper-8bc51.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:452300242881:android:5f98ff86299b5676",
+        "android_client_info": {
+          "package_name": "com.dowgalolya.gwenthelper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "452300242881-06u27bi3j9fle0mhu34965otur71ang1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsccD8D8-vTNKM_1gVccYuOvn9WdRtuWc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "452300242881-06u27bi3j9fle0mhu34965otur71ang1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
