@@ -7,31 +7,31 @@
         tools:context=".activities.MainActivity">
 
     <com.dowgalolya.gwenthelper.widgets.UserView
-            android:id="@+id/cv_user1"
+            android:id="@+id/widget_user1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/cv_weather"
+            app:layout_constraintBottom_toTopOf="@+id/widget_weather"
             app:layout_constraintEnd_toStartOf="@id/divider_vertical"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     <com.dowgalolya.gwenthelper.widgets.WeatherView
-            android:id="@+id/cv_weather"
+            android:id="@+id/widget_weather"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/cv_user2"
+            app:layout_constraintBottom_toTopOf="@id/widget_user2"
             app:layout_constraintEnd_toStartOf="@id/divider_vertical"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cv_user1" />
+            app:layout_constraintTop_toBottomOf="@id/widget_user1" />
 
     <com.dowgalolya.gwenthelper.widgets.UserView
-            android:id="@+id/cv_user2"
+            android:id="@+id/widget_user2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/divider_vertical"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cv_weather" />
+            app:layout_constraintTop_toBottomOf="@id/widget_weather" />
 
     <View
             android:id="@+id/divider_vertical"
@@ -40,7 +40,7 @@
             android:background="@android:color/darker_gray"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/cv_weather"
+            app:layout_constraintStart_toEndOf="@+id/widget_weather"
             app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
@@ -53,19 +53,19 @@
             app:layout_constraintTop_toTopOf="parent">
 
         <com.dowgalolya.gwenthelper.widgets.CardsRowView
-                android:id="@+id/cv_close_combat"
+                android:id="@+id/widget_close_combat"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1" />
 
         <com.dowgalolya.gwenthelper.widgets.CardsRowView
-                android:id="@+id/cv_long_range"
+                android:id="@+id/widget_long_range"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1" />
 
         <com.dowgalolya.gwenthelper.widgets.CardsRowView
-                android:id="@+id/cv_siege"
+                android:id="@+id/widget_siege"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1" />

@@ -94,6 +94,11 @@ class GameViewModel(application: Application) : BaseViewModel(application),
 
     }
 
+    fun onUserClicked(player : Player) {
+        _selectedPlayer.value = player
+        _gameData.notifyDataChanged()
+    }
+
     override fun onWeatherChange(cardsRowType: CardsRowType, weather: Boolean) {
         _gameData.value!!.let {
             it.firstPlayerData.cardsRows.getValue(cardsRowType).badWeather = weather

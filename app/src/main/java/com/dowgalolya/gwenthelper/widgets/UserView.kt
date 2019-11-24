@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
 import com.dowgalolya.gwenthelper.R
+import kotlinx.android.synthetic.main.view_user.view.*
 
 class UserView @JvmOverloads constructor(
     context: Context,
@@ -15,6 +16,5 @@ class UserView @JvmOverloads constructor(
     init {
         View.inflate(context, R.layout.view_user, this)
     }
-    
 
 }
