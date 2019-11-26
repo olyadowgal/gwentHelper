@@ -53,6 +53,8 @@ class GameFragment : BaseFragment(), View.OnClickListener {
 
         widget_weather.listener = viewModel
 
+        widget_user1.txt_user_name.text = GameFragmentArgs.fromBundle(arguments!!).user1
+        widget_user2.txt_user_name.text = GameFragmentArgs.fromBundle(arguments!!).user2
 
         widget_close_combat.setOnButtonClickListener(this)
         widget_long_range.setOnButtonClickListener(this)

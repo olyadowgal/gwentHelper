@@ -48,7 +48,9 @@ dependencies {
         transitive = true
     }
     implementation 'com.google.firebase:firebase-core:16.0.9'
-}
 
+    implementation "android.arch.navigation:navigation-fragment-ktx:1.0.0"
+}
+apply plugin: "androidx.navigation.safeargs"
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'io.fabric'

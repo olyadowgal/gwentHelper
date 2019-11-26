@@ -20,6 +20,15 @@
             android:id="@+id/gameFragment"
             android:name="com.dowgalolya.gwenthelper.fragments.GameFragment"
             android:label="game_fragment"
-            tools:layout="@layout/game_fragment"/>
+            tools:layout="@layout/game_fragment">
+        <argument
+                android:name="user1"
+                app:argType="string"
+                android:defaultValue="User 1"/>
+        <argument
+                android:name="user2"
+                app:argType="string"
+                android:defaultValue="User 2"/>
+    </fragment>
 
 </navigation>
