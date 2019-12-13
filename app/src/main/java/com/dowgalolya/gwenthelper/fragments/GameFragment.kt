@@ -14,6 +14,7 @@ import com.dowgalolya.gwenthelper.entities.Card
 import com.dowgalolya.gwenthelper.entities.CardsRow
 import com.dowgalolya.gwenthelper.entities.PlayerData
 import com.dowgalolya.gwenthelper.enums.CardsRowType
+import com.dowgalolya.gwenthelper.enums.Player
 import com.dowgalolya.gwenthelper.livedata.ViewAction
 import com.dowgalolya.gwenthelper.viewmodels.GameViewModel
 import com.dowgalolya.gwenthelper.viewmodels.GameViewModel.Companion.CARD
@@ -22,8 +23,9 @@ import com.dowgalolya.gwenthelper.viewmodels.GameViewModel.CustomViewAction
 import com.dowgalolya.gwenthelper.widgets.CardsRowView
 import kotlinx.android.synthetic.main.game_fragment.*
 import kotlinx.android.synthetic.main.view_cards_row.view.*
+import kotlinx.android.synthetic.main.view_user.view.*
 
-class GameFragment : BaseFragment() {
+class GameFragment : BaseFragment(), View.OnClickListener {
 
     override val viewModel: GameViewModel by lazy {
         ViewModelProviders.of(this).get(GameViewModel::class.java)
@@ -31,9 +33,9 @@ class GameFragment : BaseFragment() {
 
     private val rowViews: Map<CardsRowType, CardsRowView> by lazy {
         mapOf(
-            CardsRowType.CLOSE_COMBAT to cv_close_combat,
-            CardsRowType.LONG_RANGE to cv_long_range,
-            CardsRowType.SIEGE to cv_siege
+            CardsRowType.CLOSE_COMBAT to widget_close_combat,
+            CardsRowType.LONG_RANGE to widget_long_range,
+            CardsRowType.SIEGE to widget_siege
         )
     }
 
@@ -49,35 +51,36 @@ class GameFragment : BaseFragment() {
             view.setCardRowAdapter(viewModel.rowAdapters.getValue(type))
         }
 
-        cv_weather.listener = viewModel
+        widget_weather.listener = viewModel
 
-        cv_close_combat.setOnButtonClickListener(View.OnClickListener {
-            viewModel.onPlusClicked(CardsRowType.CLOSE_COMBAT)
-        })
+        widget_user1.txt_user_name.text = GameFragmentArgs.fromBundle(arguments!!).user1
+        widget_user2.txt_user_name.text = GameFragmentArgs.fromBundle(arguments!!).user2
 
-        cv_close_combat.cb_horn.setOnCheckedChangeListener { _, isChecked ->
+        widget_close_combat.setOnButtonClickListener(this)
+        widget_long_range.setOnButtonClickListener(this)
+        widget_siege.setOnButtonClickListener(this)
+        widget_user1.setOnClickListener(this)
+        widget_user2.setOnClickListener(this)
+
+        widget_close_combat.cb_horn.setOnCheckedChangeListener { _, isChecked ->
             viewModel.onHornChecked(CardsRowType.CLOSE_COMBAT, isChecked)
         }
 
-        cv_long_range.setOnButtonClickListener(View.OnClickListener {
-            viewModel.onPlusClicked(CardsRowType.LONG_RANGE)
-        })
-
-        cv_long_range.cb_horn.setOnCheckedChangeListener { _, isChecked ->
+        widget_long_range.cb_horn.setOnCheckedChangeListener { _, isChecked ->
             viewModel.onHornChecked(CardsRowType.LONG_RANGE, isChecked)
         }
 
-        cv_siege.setOnButtonClickListener(View.OnClickListener {
-            viewModel.onPlusClicked(CardsRowType.SIEGE)
-        })
-
-        cv_siege.cb_horn.setOnCheckedChangeListener { _, isChecked ->
+        widget_siege.cb_horn.setOnCheckedChangeListener { _, isChecked ->
             viewModel.onHornChecked(CardsRowType.SIEGE, isChecked)
         }
 
         viewModel.selectedPlayerData.observe(this, Observer { playerData: PlayerData ->
             rowViews.forEach { (type, view) ->
                 view.setCardCounterValue(playerData.cardsRows.getValue(type).totalPoints)
+            }
+            when (viewModel.selectedPlayer.value) {
+                Player.FIRST -> widget_user1.txt_user_points.text = playerData.totalPoints.toString()
+                Player.SECOND -> widget_user2.txt_user_points.text = playerData.totalPoints.toString()
             }
         })
     }
@@ -125,5 +128,15 @@ class GameFragment : BaseFragment() {
             }
             else -> super.handleViewAction(action)
         }
+    }
+
+    override fun onClick(view: View) {
+       when (view) {
+           widget_close_combat.btn_add_card -> viewModel.onPlusClicked(CardsRowType.CLOSE_COMBAT)
+           widget_long_range.btn_add_card ->  viewModel.onPlusClicked(CardsRowType.LONG_RANGE)
+           widget_siege.btn_add_card -> viewModel.onPlusClicked(CardsRowType.SIEGE)
+           widget_user1 -> viewModel.onUserClicked(Player.FIRST)
+           widget_user2 -> viewModel.onUserClicked(Player.SECOND)
+       }
     }
 }

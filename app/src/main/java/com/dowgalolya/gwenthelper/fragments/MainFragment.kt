@@ -31,7 +31,10 @@ class MainFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(view: View) {
-        view.findNavController().navigate(R.id.action_mainFragment_to_gameFragment)
+       val direction = MainFragmentDirections.actionMainFragmentToGameFragment()
+        if (!txt_user1_name.text.isNullOrBlank()) { direction.user1 = txt_user1_name.text.toString()}
+        if (!txt_user2_name.text.isNullOrBlank()) { direction.user2 = txt_user2_name.text.toString()}
+        view.findNavController().navigate(direction)
     }
 
 }
