@@ -4,12 +4,12 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/selector_user"
         android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/selector_user">
 
         <ImageView
                 android:id="@+id/img_user_avatar"
@@ -28,6 +28,7 @@
                 android:layout_margin="8dp"
                 app:layout_constraintBottom_toTopOf="@id/txt_user_points"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/img_user_avatar"
                 tools:text="User 1" />
 
@@ -36,9 +37,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
+                android:text="0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txt_user_name"
-                tools:text="Points 1" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_user_name" />
 
         <!--        <ImageView-->
         <!--                android:id="@+id/iv_user_coin1"-->

@@ -94,6 +94,14 @@ class GameViewModel(application: Application) : BaseViewModel(application),
 
     }
 
+    fun onPassClicked() {
+        _gameData.value =  GameData(
+            firstPlayerData = PlayerData(),
+            secondPlayerData = PlayerData()
+        )
+        _gameData.notifyDataChanged()
+    }
+
     fun onUserClicked(player : Player) {
         _selectedPlayer.value = player
         _gameData.notifyDataChanged()

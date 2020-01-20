@@ -61,6 +61,7 @@ class GameFragment : BaseFragment(), View.OnClickListener {
         widget_siege.setOnButtonClickListener(this)
         widget_user1.setOnClickListener(this)
         widget_user2.setOnClickListener(this)
+        btn_pass.setOnClickListener(this)
 
         widget_close_combat.cb_horn.setOnCheckedChangeListener { _, isChecked ->
             viewModel.onHornChecked(CardsRowType.CLOSE_COMBAT, isChecked)
@@ -137,6 +138,7 @@ class GameFragment : BaseFragment(), View.OnClickListener {
            widget_siege.btn_add_card -> viewModel.onPlusClicked(CardsRowType.SIEGE)
            widget_user1 -> viewModel.onUserClicked(Player.FIRST)
            widget_user2 -> viewModel.onUserClicked(Player.SECOND)
+           btn_pass -> viewModel.onPassClicked()
        }
     }
 }
