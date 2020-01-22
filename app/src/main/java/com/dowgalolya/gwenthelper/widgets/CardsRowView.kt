@@ -39,4 +39,8 @@ class CardsRowView @JvmOverloads constructor(
     fun setCardCounterValue(value: Int) {
         txt_cards_counter.text = value.toString()
     }
+
+    fun setHornValue(isChecked : Boolean) {
+        cb_horn.isChecked = isChecked
+    }
 }

@@ -78,6 +78,7 @@ class GameFragment : BaseFragment(), View.OnClickListener {
         viewModel.selectedPlayerData.observe(this, Observer { playerData: PlayerData ->
             rowViews.forEach { (type, view) ->
                 view.setCardCounterValue(playerData.cardsRows.getValue(type).totalPoints)
+                view.setHornValue(playerData.cardsRows.getValue(type).horn)
             }
             when (viewModel.selectedPlayer.value) {
                 Player.FIRST -> widget_user1.txt_user_points.text = playerData.totalPoints.toString()
