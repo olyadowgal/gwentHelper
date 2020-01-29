@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--get colors names from here: http://www.htmlcsscolor.com/-->
+
+<resources>
+    <color name="tropical_rain_forest">#007A56</color>
+    <color name="mountain_meadow">#1FAA83</color>
+    <color name="medium_aquamarine">#5FDCB3</color>
+    <color name="dark_goldenrod">#C79A00</color>
+    <color name="sunglow">#FFCA28</color>
+    <color name="laser_lemon">#FFFD61</color>
+    <color name="oxford_blue">#263238</color>
+    <color name="mid_grey">#6C6E6F</color>
+    <color name="white">#FFFFFF</color>
+
+</resources>

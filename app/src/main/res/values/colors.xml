@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
-    <color name="colorIconEnabled">#4A4A4A</color>
-    <color name="colorIconDisabled">#D8D8D8</color>
-    <color name="colorCardBlue">#00B2FF</color>
-    <color name="colorCardHero">#FAB700</color>
+    <color name="colorPrimary">@color/tropical_rain_forest</color>
+    <color name="colorPrimaryDark">@color/mountain_meadow</color>
+    <color name="colorPrimaryLight">@color/medium_aquamarine</color>
+    <color name="colorSecondary">@color/sunglow</color>
+    <color name="colorAccentDark">@color/dark_goldenrod</color>
+    <color name="colorAccentLight">@color/laser_lemon</color>
+    <color name="colorBackground">@color/oxford_blue</color>
+    <color name="colorIconEnabled">@color/mountain_meadow</color>
+    <color name="colorIconDisabled">@color/mid_grey</color>
+    <color name="colorSimpleCard">@color/white</color>
+    <color name="colorHeroCard">@color/sunglow</color>
 </resources>
