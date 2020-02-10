@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.dowgalolya.gwenthelper.R
+import com.dowgalolya.gwenthelper.adapters.itemdecoration.CardRowItemDecoration
 import com.dowgalolya.gwenthelper.dialogs.AddCardDialog
 import com.dowgalolya.gwenthelper.dialogs.EditCardDialog
 import com.dowgalolya.gwenthelper.entities.Card
@@ -20,9 +23,9 @@ import com.dowgalolya.gwenthelper.viewmodels.GameViewModel
 import com.dowgalolya.gwenthelper.viewmodels.GameViewModel.Companion.CARD
 import com.dowgalolya.gwenthelper.viewmodels.GameViewModel.Companion.CARD_ROW
 import com.dowgalolya.gwenthelper.viewmodels.GameViewModel.CustomViewAction
-import com.dowgalolya.gwenthelper.widgets.CardsRowView
+import com.dowgalolya.gwenthelper.widgets.CardsStatsView
 import kotlinx.android.synthetic.main.game_fragment.*
-import kotlinx.android.synthetic.main.view_cards_row.view.*
+import kotlinx.android.synthetic.main.view_cards_stats.view.*
 import kotlinx.android.synthetic.main.view_user.view.*
 
 class GameFragment : BaseFragment(), View.OnClickListener {
@@ -31,11 +34,19 @@ class GameFragment : BaseFragment(), View.OnClickListener {
         ViewModelProviders.of(this).get(GameViewModel::class.java)
     }
 
-    private val rowViews: Map<CardsRowType, CardsRowView> by lazy {
+    private val rowStats: Map<CardsRowType, CardsStatsView> by lazy {
         mapOf(
-            CardsRowType.CLOSE_COMBAT to widget_close_combat,
-            CardsRowType.LONG_RANGE to widget_long_range,
-            CardsRowType.SIEGE to widget_siege
+            CardsRowType.CLOSE_COMBAT to widget_stats_close_combat,
+            CardsRowType.LONG_RANGE to widget_stats_long_range,
+            CardsRowType.SIEGE to widget_stats_siege
+        )
+    }
+
+    private val rowCards: Map<CardsRowType, RecyclerView> by lazy {
+        mapOf(
+            CardsRowType.CLOSE_COMBAT to rv_close_combat,
+            CardsRowType.LONG_RANGE to rv_long_range,
+            CardsRowType.SIEGE to rv_siege
         )
     }
 
@@ -47,8 +58,18 @@ class GameFragment : BaseFragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        rowViews.forEach { (type, view) ->
-            view.setCardRowAdapter(viewModel.rowAdapters.getValue(type))
+        rowCards.forEach { (type, view) ->
+
+            view.apply {
+                            layoutManager = LinearLayoutManager(
+                this.context,
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+            this.adapter = viewModel.rowAdapters.getValue(type)
+            addItemDecoration(CardRowItemDecoration(context))
+        }
+
         }
 
         widget_weather.listener = viewModel
@@ -56,27 +77,24 @@ class GameFragment : BaseFragment(), View.OnClickListener {
         widget_user1.txt_user_name.text = GameFragmentArgs.fromBundle(arguments!!).user1
         widget_user2.txt_user_name.text = GameFragmentArgs.fromBundle(arguments!!).user2
 
-        widget_close_combat.setOnButtonClickListener(this)
-        widget_long_range.setOnButtonClickListener(this)
-        widget_siege.setOnButtonClickListener(this)
         widget_user1.setOnClickListener(this)
         widget_user2.setOnClickListener(this)
         btn_pass.setOnClickListener(this)
 
-        widget_close_combat.cb_horn.setOnCheckedChangeListener { _, isChecked ->
+        widget_stats_close_combat.cb_horn.setOnCheckedChangeListener { _, isChecked ->
             viewModel.onHornChecked(CardsRowType.CLOSE_COMBAT, isChecked)
         }
 
-        widget_long_range.cb_horn.setOnCheckedChangeListener { _, isChecked ->
+        widget_stats_long_range.cb_horn.setOnCheckedChangeListener { _, isChecked ->
             viewModel.onHornChecked(CardsRowType.LONG_RANGE, isChecked)
         }
 
-        widget_siege.cb_horn.setOnCheckedChangeListener { _, isChecked ->
+        widget_stats_siege.cb_horn.setOnCheckedChangeListener { _, isChecked ->
             viewModel.onHornChecked(CardsRowType.SIEGE, isChecked)
         }
 
-        viewModel.selectedPlayerData.observe(this, Observer { playerData: PlayerData ->
-            rowViews.forEach { (type, view) ->
+        viewModel.selectedPlayerData.observe(viewLifecycleOwner, Observer { playerData: PlayerData ->
+            rowStats.forEach { (type, view) ->
                 view.setCardCounterValue(playerData.cardsRows.getValue(type).totalPoints)
                 view.setHornValue(playerData.cardsRows.getValue(type).horn)
             }
@@ -134,9 +152,6 @@ class GameFragment : BaseFragment(), View.OnClickListener {
 
     override fun onClick(view: View) {
        when (view) {
-           widget_close_combat.btn_add_card -> viewModel.onPlusClicked(CardsRowType.CLOSE_COMBAT)
-           widget_long_range.btn_add_card ->  viewModel.onPlusClicked(CardsRowType.LONG_RANGE)
-           widget_siege.btn_add_card -> viewModel.onPlusClicked(CardsRowType.SIEGE)
            widget_user1 -> viewModel.onUserClicked(Player.FIRST)
            widget_user2 -> viewModel.onUserClicked(Player.SECOND)
            btn_pass -> viewModel.onPassClicked()

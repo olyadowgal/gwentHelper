@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
@@ -14,24 +15,36 @@
                 android:layout_height="32dp"
                 android:layout_margin="4dp"
                 android:button="@drawable/ic_frost"
-                android:buttonTint="@color/selector_weather" />
+                android:buttonTint="@color/selector_weather"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/cb_fog"
+                app:layout_constraintTop_toTopOf="parent" />
 
         <CheckBox
                 android:id="@+id/cb_fog"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:layout_margin="4dp"
                 android:button="@drawable/ic_fog"
-                android:buttonTint="@color/selector_weather" />
+                android:buttonTint="@color/selector_weather"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/cb_rain"
+                app:layout_constraintStart_toEndOf="@id/cb_frost"
+                app:layout_constraintTop_toTopOf="parent" />
 
         <CheckBox
                 android:id="@+id/cb_rain"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:layout_margin="4dp"
                 android:button="@drawable/ic_rain"
-                android:buttonTint="@color/selector_weather" />
+                android:buttonTint="@color/selector_weather"
+                app:layout_constraintStart_toEndOf="@id/cb_fog"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </merge>

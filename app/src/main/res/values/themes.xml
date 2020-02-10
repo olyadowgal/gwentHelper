@@ -2,12 +2,27 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorOnPrimary">@color/oxford_blue</item>
         <item name="colorAccent">@color/dark_goldenrod</item>
         <item name="colorSecondary">@color/sunglow</item>
         <item name="colorOnSecondary">@color/oxford_blue</item>
+        <item name="android:colorBackground">@color/white</item>
+
+        <item name="materialButtonStyle">@style/Button</item>
+
+    </style>
+
+    <style name="DarkAppTheme" parent="ThemeOverlay.MaterialComponents.Dark">
+
+        <item name="android:colorBackground">@color/oxford_blue</item>
+
+        <item name="materialButtonStyle">@style/Button</item>
+        <item name="editTextStyle">@style/DarkThemeField</item>
+        <item name="android:textViewStyle">@style/DarkThemeText</item>
+
     </style>
 
 </resources>
