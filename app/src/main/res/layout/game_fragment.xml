@@ -3,9 +3,9 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:theme="@style/DarkAppTheme"
-        android:background="@color/oxford_blue"
         android:layout_height="match_parent"
+        android:background="@color/oxford_blue"
+        android:theme="@style/DarkAppTheme"
         tools:context=".activities.MainActivity">
 
     <androidx.cardview.widget.CardView
@@ -14,8 +14,9 @@
             android:layout_height="match_parent"
             android:elevation="6dp"
             android:theme="@style/AppTheme"
-            app:cardCornerRadius="6dp"
+            app:cardCornerRadius="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/row_stats"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -68,9 +69,11 @@
 
     <LinearLayout
             android:id="@+id/row_stats"
-            android:layout_width="60dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/card_user_info"
             app:layout_constraintTop_toTopOf="parent">

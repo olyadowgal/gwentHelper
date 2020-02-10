@@ -19,4 +19,5 @@
     <string name="user2">User 2</string>
     <string name="user1_name_hint">Enter user 1 name</string>
     <string name="user2_name_hint">Enter user 2 name</string>
+    <string name="pass_msg">All data cleared!</string>
 </resources>

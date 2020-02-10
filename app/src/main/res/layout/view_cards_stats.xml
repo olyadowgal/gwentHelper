@@ -6,17 +6,18 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:theme="@style/DarkAppTheme">
 
         <TextView
                 android:id="@+id/txt_cards_counter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:theme="@style/DarkThemeText.Primary"
                 android:gravity="center"
                 android:minEms="1"
                 android:text="@string/zero"
-                app:layout_constraintBottom_toBottomOf="@+id/cb_horn"
+                app:layout_constraintBottom_toTopOf="@+id/cb_horn"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

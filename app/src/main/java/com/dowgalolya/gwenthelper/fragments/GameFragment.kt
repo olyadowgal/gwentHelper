@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -28,7 +29,7 @@ import kotlinx.android.synthetic.main.game_fragment.*
 import kotlinx.android.synthetic.main.view_cards_stats.view.*
 import kotlinx.android.synthetic.main.view_user.view.*
 
-class GameFragment : BaseFragment(), View.OnClickListener {
+class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListener {
 
     override val viewModel: GameViewModel by lazy {
         ViewModelProviders.of(this).get(GameViewModel::class.java)
@@ -79,7 +80,7 @@ class GameFragment : BaseFragment(), View.OnClickListener {
 
         widget_user1.setOnClickListener(this)
         widget_user2.setOnClickListener(this)
-        btn_pass.setOnClickListener(this)
+        btn_pass.setOnLongClickListener(this)
 
         widget_stats_close_combat.cb_horn.setOnCheckedChangeListener { _, isChecked ->
             viewModel.onHornChecked(CardsRowType.CLOSE_COMBAT, isChecked)
@@ -154,7 +155,13 @@ class GameFragment : BaseFragment(), View.OnClickListener {
        when (view) {
            widget_user1 -> viewModel.onUserClicked(Player.FIRST)
            widget_user2 -> viewModel.onUserClicked(Player.SECOND)
-           btn_pass -> viewModel.onPassClicked()
        }
+    }
+
+    override fun onLongClick(v: View?): Boolean {
+        viewModel.onPassClicked()
+        val toast = Toast.makeText(context, getString(R.string.pass_msg), Toast.LENGTH_SHORT)
+        toast.show()
+        return true
     }
 }
