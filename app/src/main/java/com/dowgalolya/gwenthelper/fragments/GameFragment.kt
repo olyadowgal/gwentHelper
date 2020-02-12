@@ -62,14 +62,14 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
         rowCards.forEach { (type, view) ->
 
             view.apply {
-                            layoutManager = LinearLayoutManager(
-                this.context,
-                LinearLayoutManager.HORIZONTAL,
-                false
-            )
-            this.adapter = viewModel.rowAdapters.getValue(type)
-            addItemDecoration(CardRowItemDecoration(context))
-        }
+                layoutManager = LinearLayoutManager(
+                    this.context,
+                    LinearLayoutManager.HORIZONTAL,
+                    false
+                )
+                this.adapter = viewModel.rowAdapters.getValue(type)
+                addItemDecoration(CardRowItemDecoration(context))
+            }
 
         }
 
@@ -94,16 +94,36 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
             viewModel.onHornChecked(CardsRowType.SIEGE, isChecked)
         }
 
-        viewModel.selectedPlayerData.observe(viewLifecycleOwner, Observer { playerData: PlayerData ->
-            rowStats.forEach { (type, view) ->
-                view.setCardCounterValue(playerData.cardsRows.getValue(type).totalPoints)
-                view.setHornValue(playerData.cardsRows.getValue(type).horn)
-            }
-            when (viewModel.selectedPlayer.value) {
-                Player.FIRST -> widget_user1.txt_user_points.text = playerData.totalPoints.toString()
-                Player.SECOND -> widget_user2.txt_user_points.text = playerData.totalPoints.toString()
-            }
-        })
+        viewModel.selectedPlayerData.observe(
+            viewLifecycleOwner,
+            Observer { playerData: PlayerData ->
+                rowStats.forEach { (type, view) ->
+                    view.setCardCounterValue(playerData.cardsRows.getValue(type).totalPoints)
+                    view.setHornValue(playerData.cardsRows.getValue(type).horn)
+                }
+
+                when (viewModel.selectedPlayer.value) {
+                    Player.FIRST -> {
+                        widget_user1.txt_user_points.text = playerData.totalPoints.toString()
+                        context?.getColor(R.color.colorPrimary)?.let {
+                            widget_user1.img_avatar_ring.setColorFilter(it)
+                        }
+                        context?.getColor(R.color.white)?.let {
+                            widget_user2.img_avatar_ring.setColorFilter(it)
+                        }
+
+                    }
+                    Player.SECOND -> {
+                        widget_user2.txt_user_points.text = playerData.totalPoints.toString()
+                        context?.getColor(R.color.colorPrimary)?.let {
+                            widget_user2.img_avatar_ring.setColorFilter(it)
+                        }
+                        context?.getColor(R.color.white)?.let {
+                            widget_user1.img_avatar_ring.setColorFilter(it)
+                        }
+                    }
+                }
+            })
     }
 
     override fun handleViewAction(action: ViewAction) {
@@ -152,10 +172,10 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
     }
 
     override fun onClick(view: View) {
-       when (view) {
-           widget_user1 -> viewModel.onUserClicked(Player.FIRST)
-           widget_user2 -> viewModel.onUserClicked(Player.SECOND)
-       }
+        when (view) {
+            widget_user1 -> viewModel.onUserClicked(Player.FIRST)
+            widget_user2 -> viewModel.onUserClicked(Player.SECOND)
+        }
     }
 
     override fun onLongClick(v: View?): Boolean {

@@ -15,11 +15,20 @@
                 android:id="@+id/img_user_avatar"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_margin="8dp"
-                android:src="@drawable/ic_placeholder_24dp"
+                android:src="@drawable/ic_female_avatar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+                android:id="@+id/img_avatar_ring"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:elevation="20dp"
+                android:tint="@color/colorPrimary"
+                android:src="@drawable/ic_ring"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
                 android:id="@+id/txt_user_name"
