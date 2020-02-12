@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -77,6 +78,9 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
 
         widget_user1.txt_user_name.text = GameFragmentArgs.fromBundle(arguments!!).user1
         widget_user2.txt_user_name.text = GameFragmentArgs.fromBundle(arguments!!).user2
+
+        widget_user1.img_user_avatar.setImageResource(R.drawable.ic_male_avatar)
+        widget_user2.img_user_avatar.setImageResource(R.drawable.ic_female_avatar)
 
         widget_user1.setOnClickListener(this)
         widget_user2.setOnClickListener(this)

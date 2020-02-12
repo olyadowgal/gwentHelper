@@ -15,7 +15,10 @@
                 android:id="@+id/img_user_avatar"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
+                android:elevation="6dp"
+                android:layout_margin="8dp"
                 android:src="@drawable/ic_female_avatar"
+                android:background="@drawable/bg_circle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -24,6 +27,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:elevation="20dp"
+                android:layout_margin="8dp"
                 android:tint="@color/colorPrimary"
                 android:src="@drawable/ic_ring"
                 app:layout_constraintEnd_toEndOf="parent"
