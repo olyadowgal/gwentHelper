@@ -25,6 +25,12 @@ class WeatherView @JvmOverloads constructor(
 
     }
 
+    fun setWeather(isFrost: Boolean, isFog : Boolean, isRain : Boolean) {
+        cb_frost.isChecked = isFrost
+        cb_fog.isChecked = isFog
+        cb_rain.isChecked = isRain
+    }
+
     interface OnWeatherChangeListener {
 
         fun onWeatherChange(cardsRowType: CardsRowType, weather : Boolean)

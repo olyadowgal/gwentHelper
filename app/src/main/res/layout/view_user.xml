@@ -18,7 +18,7 @@
                 android:elevation="6dp"
                 android:layout_margin="8dp"
                 android:src="@drawable/ic_female_avatar"
-                android:background="@drawable/bg_circle"
+                android:background="@drawable/shape_circle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

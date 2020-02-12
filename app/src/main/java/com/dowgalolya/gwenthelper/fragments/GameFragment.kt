@@ -106,6 +106,12 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
                     view.setHornValue(playerData.cardsRows.getValue(type).horn)
                 }
 
+                widget_weather.setWeather(
+                    playerData.cardsRows.getValue(CardsRowType.CLOSE_COMBAT).badWeather,
+                    playerData.cardsRows.getValue(CardsRowType.LONG_RANGE).badWeather,
+                    playerData.cardsRows.getValue(CardsRowType.SIEGE).badWeather
+                )
+
                 when (viewModel.selectedPlayer.value) {
                     Player.FIRST -> {
                         widget_user1.txt_user_points.text = playerData.totalPoints.toString()
