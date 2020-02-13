@@ -1,10 +1,14 @@
 package com.dowgalolya.gwenthelper.fragments
 
 import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import com.dowgalolya.gwenthelper.R
 import com.dowgalolya.gwenthelper.livedata.ViewAction
 import com.dowgalolya.gwenthelper.viewmodels.BaseViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 abstract class BaseFragment : Fragment() {
 
