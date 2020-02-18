@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import com.dowgalolya.gwenthelper.R
 import com.dowgalolya.gwenthelper.viewmodels.MainViewModel
 import kotlinx.android.synthetic.main.main_fragment.*
@@ -30,8 +28,8 @@ class MainFragment : BaseFragment(), View.OnClickListener {
 
     override fun onClick(view: View) {
         viewModel.onButtonClicked(
-            txt_user1_name.text?.toString(),
-            txt_user2_name.text?.toString()
+            f_user1_name.text?.toString(),
+            f_user2_name.text?.toString()
         )
     }
 }
