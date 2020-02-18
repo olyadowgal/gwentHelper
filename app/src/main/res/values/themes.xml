@@ -13,6 +13,8 @@
 
         <item name="materialButtonStyle">@style/Button</item>
 
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
     </style>
 
     <style name="DarkAppTheme" parent="ThemeOverlay.MaterialComponents.Dark">
@@ -22,7 +24,5 @@
         <item name="materialButtonStyle">@style/Button</item>
         <item name="editTextStyle">@style/DarkThemeField</item>
         <item name="android:textViewStyle">@style/DarkThemeText</item>
-
     </style>
-
 </resources>

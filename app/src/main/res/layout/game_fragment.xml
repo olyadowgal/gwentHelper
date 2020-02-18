@@ -23,15 +23,17 @@
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
+
             <ImageView
                     android:id="@+id/btn_exit_game"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_margin="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/exit"
                     android:src="@drawable/ic_back"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    />
+                    app:layout_constraintTop_toTopOf="parent" />
 
             <com.dowgalolya.gwenthelper.widgets.UserView
                     android:id="@+id/widget_user1"
@@ -46,8 +48,8 @@
                     android:id="@+id/widget_weather"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingStart="15dp"
-                    android:paddingEnd="15dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
                     app:layout_constraintBottom_toTopOf="@id/widget_user2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -55,13 +57,14 @@
 
             <ImageView
                     android:id="@+id/btn_reset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="8dp"
                     android:src="@drawable/ic_reset"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_margin="8dp"
+                    android:contentDescription="@string/reset"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"/>
-
+                    app:layout_constraintStart_toStartOf="parent" />
 
             <com.dowgalolya.gwenthelper.widgets.UserView
                     android:id="@+id/widget_user2"
@@ -71,10 +74,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/widget_weather" />
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.cardview.widget.CardView>
 
     <LinearLayout
@@ -109,7 +109,6 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_weight="1" />
-
     </LinearLayout>
 
     <View
@@ -136,7 +135,8 @@
                 android:id="@+id/rv_close_combat"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_margin="8dp"
+                android:padding="8dp"
+                android:clipToPadding="false"
                 android:layout_weight="1"
                 android:orientation="horizontal" />
 
@@ -144,7 +144,8 @@
                 android:id="@+id/rv_long_range"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_margin="8dp"
+                android:padding="8dp"
+                android:clipToPadding="false"
                 android:layout_weight="1"
                 android:orientation="horizontal" />
 
@@ -152,11 +153,9 @@
                 android:id="@+id/rv_siege"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_margin="8dp"
+                android:padding="8dp"
+                android:clipToPadding="false"
                 android:layout_weight="1"
                 android:orientation="horizontal" />
-
     </LinearLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

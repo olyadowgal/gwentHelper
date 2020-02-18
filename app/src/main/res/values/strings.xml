@@ -22,4 +22,6 @@
     <string name="pass_msg">All data cleared!</string>
     <string name="click_reset_msg">HOLD a reset button to clear data</string>
     <string name="gwent_helper">Gwent Helper</string>
+    <string name="exit">Exit</string>
+    <string name="reset">Reset</string>
 </resources>

@@ -6,9 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -34,7 +33,7 @@ import kotlinx.android.synthetic.main.view_user.view.*
 class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListener {
 
     override val viewModel: GameViewModel by lazy {
-        ViewModelProviders.of(this).get(GameViewModel::class.java)
+        ViewModelProvider(this).get(GameViewModel::class.java)
     }
 
     private val rowStats: Map<CardsRowType, CardsStatsView> by lazy {
@@ -148,76 +147,71 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
                     widget_user1.loserPointsColor()
                     widget_user2.winnerPointsColor()
                 }
-            else -> {
-                widget_user1.loserPointsColor()
-                widget_user2.loserPointsColor()
+                else -> {
+                    widget_user1.loserPointsColor()
+                    widget_user2.loserPointsColor()
+                }
             }
-        }
-    })
-}
+        })
+    }
 
-override fun handleViewAction(action: ViewAction) {
-    when (action) {
-        is ViewAction.Custom -> when (action.action) {
-            CustomViewAction.SHOW_ADD_CARD_DIALOG -> {
-                AddCardDialog(
-                    context!!,
-                    viewModel,
-                    action.args[CARD_ROW] as CardsRowType
-                ).show()
-            }
-            CustomViewAction.SHOW_EDIT_CARD_DIALOG -> {
-                EditCardDialog(
-                    context!!,
-                    viewModel,
-                    action.args[CARD_ROW] as CardsRow,
-                    action.args[CARD] as Card
-                ).show()
+    override fun handleViewAction(action: ViewAction) {
+        when (action) {
+            is ViewAction.Custom -> when (action.action) {
+                CustomViewAction.SHOW_ADD_CARD_DIALOG -> {
+                    AddCardDialog(
+                        context!!,
+                        viewModel,
+                        action.args[CARD_ROW] as CardsRowType
+                    ).show()
+                }
+                CustomViewAction.SHOW_EDIT_CARD_DIALOG -> {
+                    EditCardDialog(
+                        context!!,
+                        viewModel,
+                        action.args[CARD_ROW] as CardsRow,
+                        action.args[CARD] as Card
+                    ).show()
 
-            }
-            CustomViewAction.SHOW_CONFIG_CARD_DIALOG -> {
-                val cardsRow = action.args[CARD_ROW] as CardsRow
-                val card = action.args[CARD] as Card
-                AlertDialog.Builder(context!!)
-                    .setTitle("What to do with card?")
-                    .setNegativeButton("Edit") { _, _ ->
-                        viewModel.onEditClicked(
-                            cardsRow,
-                            card
-                        )
-                    }
-                    .setPositiveButton("Delete") { _, _ ->
-                        viewModel.onDeleteClicked(
-                            cardsRow,
-                            card
-                        )
-                    }
-                    .setNeutralButton("Cancel", null)
-                    .show()
+                }
+                CustomViewAction.SHOW_CONFIG_CARD_DIALOG -> {
+                    val cardsRow = action.args[CARD_ROW] as CardsRow
+                    val card = action.args[CARD] as Card
+                    AlertDialog.Builder(context!!)
+                        .setTitle("What to do with card?")
+                        .setNegativeButton("Edit") { _, _ ->
+                            viewModel.onEditClicked(cardsRow, card)
+                        }
+                        .setPositiveButton("Delete") { _, _ ->
+                            viewModel.onDeleteClicked(cardsRow, card)
+                        }
+                        .setNeutralButton("Cancel", null)
+                        .show()
+                }
+                else -> super.handleViewAction(action)
             }
             else -> super.handleViewAction(action)
         }
-        else -> super.handleViewAction(action)
     }
-}
 
-override fun onClick(view: View) {
-    when (view) {
-        widget_user1 -> viewModel.onUserClicked(Player.FIRST)
-        widget_user2 -> viewModel.onUserClicked(Player.SECOND)
-        btn_reset -> {
-            val toast =
-                Toast.makeText(context, getString(R.string.click_reset_msg), Toast.LENGTH_LONG)
-            toast.show()
+    override fun onClick(view: View) {
+        when (view.id) {
+            R.id.widget_user1 -> viewModel.onUserClicked(Player.FIRST)
+            R.id.widget_user2 -> viewModel.onUserClicked(Player.SECOND)
+            R.id.btn_reset -> {
+                Toast.makeText(
+                    context,
+                    getString(R.string.click_reset_msg),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+            R.id.btn_exit_game -> findNavController().popBackStack()
         }
-        btn_exit_game -> findNavController().popBackStack()
     }
-}
 
-override fun onLongClick(v: View?): Boolean {
-    viewModel.onPassClicked()
-    val toast = Toast.makeText(context, getString(R.string.pass_msg), Toast.LENGTH_SHORT)
-    toast.show()
-    return true
-}
+    override fun onLongClick(v: View?): Boolean {
+        viewModel.onPassClicked()
+        Toast.makeText(context, getString(R.string.pass_msg), Toast.LENGTH_SHORT).show()
+        return true
+    }
 }

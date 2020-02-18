@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.NavDirections
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.dowgalolya.gwenthelper.R
 import com.dowgalolya.gwenthelper.livedata.ViewAction
@@ -25,6 +27,7 @@ abstract class BaseFragment : Fragment() {
     protected open fun handleViewAction(action: ViewAction) {
         when (action) {
             is ViewAction.Navigate -> navigate(action)
+            is ViewAction.NavigateWithDirection -> navigateWithDirection(action.direction)
             is ViewAction.Finish -> finish(action)
             else -> throw RuntimeException("Unable to handle this action: $action")
         }
@@ -39,10 +42,12 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
+    private fun navigateWithDirection(direction: NavDirections) {
+        view!!.findNavController().navigate(direction)
+    }
+
     private fun finish(action: ViewAction.Finish) {
         action.resultCode?.let { activity?.setResult(it) }
         activity?.finish()
     }
-
-
 }
