@@ -2,6 +2,8 @@ package com.dowgalolya.gwenthelper.livedata
 
 import android.content.Context
 import android.content.Intent
+import androidx.navigation.NavDestination
+import androidx.navigation.NavDirections
 import com.dowgalolya.gwenthelper.activities.MainActivity
 import com.dowgalolya.gwenthelper.extensions.toBundle
 
@@ -49,6 +51,8 @@ sealed class ViewAction {
             return result
         }
     }
+
+    data class NavigateWithDirection(val direction: NavDirections): ViewAction()
 
     class Finish @JvmOverloads constructor(val resultCode: Int? = null) : ViewAction()
     class Custom(val action: String) : ViewAction()

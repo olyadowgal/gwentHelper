@@ -4,80 +4,158 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/oxford_blue"
+        android:theme="@style/DarkAppTheme"
         tools:context=".activities.MainActivity">
 
-    <com.dowgalolya.gwenthelper.widgets.UserView
-            android:id="@+id/widget_user1"
+    <androidx.cardview.widget.CardView
+            android:id="@+id/card_user_info"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/widget_weather"
-            app:layout_constraintEnd_toStartOf="@id/divider_vertical"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    <com.dowgalolya.gwenthelper.widgets.WeatherView
-            android:id="@+id/widget_weather"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/btn_pass"
-            app:layout_constraintEnd_toStartOf="@id/divider_vertical"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/widget_user1" />
-
-    <Button
-            android:id="@+id/btn_pass"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/pass"
-            app:layout_constraintBottom_toTopOf="@id/widget_user2"
-            app:layout_constraintEnd_toStartOf="@id/divider_vertical"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/widget_weather" />
-
-    <com.dowgalolya.gwenthelper.widgets.UserView
-            android:id="@+id/widget_user2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:elevation="6dp"
+            android:theme="@style/AppTheme"
+            app:cardCornerRadius="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/divider_vertical"
+            app:layout_constraintEnd_toStartOf="@id/row_stats"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_pass" />
+            app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+            <ImageView
+                    android:id="@+id/btn_exit_game"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/exit"
+                    android:src="@drawable/ic_back"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            <com.dowgalolya.gwenthelper.widgets.UserView
+                    android:id="@+id/widget_user1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toTopOf="@+id/widget_weather"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            <com.dowgalolya.gwenthelper.widgets.WeatherView
+                    android:id="@+id/widget_weather"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    app:layout_constraintBottom_toTopOf="@id/widget_user2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/widget_user1" />
+
+            <ImageView
+                    android:id="@+id/btn_reset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_reset"
+                    android:contentDescription="@string/reset"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            <com.dowgalolya.gwenthelper.widgets.UserView
+                    android:id="@+id/widget_user2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/widget_weather" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+            android:id="@+id/row_stats"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/card_user_info"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+        <com.dowgalolya.gwenthelper.widgets.CardsStatsView
+                android:id="@+id/widget_stats_close_combat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1" />
+
+        <com.dowgalolya.gwenthelper.widgets.CardsStatsView
+                android:id="@+id/widget_stats_long_range"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1" />
+
+        <com.dowgalolya.gwenthelper.widgets.CardsStatsView
+                android:id="@+id/widget_stats_siege"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1" />
+    </LinearLayout>
 
     <View
             android:id="@+id/divider_vertical"
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@android:color/darker_gray"
+            android:background="@android:color/white"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/widget_weather"
+            app:layout_constraintStart_toEndOf="@id/row_stats"
             app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
+            android:id="@+id/cards_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/divider_vertical"
+            app:layout_constraintStart_toEndOf="@id/divider_vertical"
             app:layout_constraintTop_toTopOf="parent">
 
-        <com.dowgalolya.gwenthelper.widgets.CardsRowView
-                android:id="@+id/widget_close_combat"
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_close_combat"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1" />
+                android:padding="8dp"
+                android:clipToPadding="false"
+                android:layout_weight="1"
+                android:orientation="horizontal" />
 
-        <com.dowgalolya.gwenthelper.widgets.CardsRowView
-                android:id="@+id/widget_long_range"
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_long_range"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1" />
+                android:padding="8dp"
+                android:clipToPadding="false"
+                android:layout_weight="1"
+                android:orientation="horizontal" />
 
-        <com.dowgalolya.gwenthelper.widgets.CardsRowView
-                android:id="@+id/widget_siege"
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_siege"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1" />
+                android:padding="8dp"
+                android:clipToPadding="false"
+                android:layout_weight="1"
+                android:orientation="horizontal" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

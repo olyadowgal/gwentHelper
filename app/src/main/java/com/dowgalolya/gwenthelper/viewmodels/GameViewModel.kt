@@ -22,7 +22,7 @@ import com.dowgalolya.gwenthelper.widgets.WeatherView
 class GameViewModel(application: Application) : BaseViewModel(application),
     AddCardDialog.OnCardAddListener,
     WeatherView.OnWeatherChangeListener,
-    CardRowAdapter.OnCardLongClickCallback,
+    CardRowAdapter.Callback,
     EditCardDialog.OnCardEditListener {
 
     companion object {
@@ -115,10 +115,17 @@ class GameViewModel(application: Application) : BaseViewModel(application),
         _gameData.notifyDataChanged()
     }
 
-    override fun onItemLongClicked(row: CardsRow, card: Card) {
+    override fun onLongClick(row: CardsRow, card: Card) {
         _viewAction.value = ViewAction.Custom(CustomViewAction.SHOW_CONFIG_CARD_DIALOG)
             .putArg(CARD_ROW, row)
             .putArg(CARD, card)
+    }
+
+    @MainThread
+    override fun onClick(row: CardsRowType) {
+        _viewAction.value =
+            ViewAction.Custom(CustomViewAction.SHOW_ADD_CARD_DIALOG).putArg(CARD_ROW, row)
+
     }
 
     @MainThread

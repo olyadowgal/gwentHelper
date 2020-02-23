@@ -9,18 +9,30 @@ import com.dowgalolya.gwenthelper.R
 import com.dowgalolya.gwenthelper.entities.Ability
 import com.dowgalolya.gwenthelper.entities.Card
 import com.dowgalolya.gwenthelper.entities.CardsRow
+import com.dowgalolya.gwenthelper.enums.CardsRowType
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.blue_card_item.view.*
+import kotlinx.android.synthetic.main.item_card.view.*
 
-class CardRowAdapter(cardsRow: CardsRow, private val callback: OnCardLongClickCallback) :
-    RecyclerView.Adapter<CardRowAdapter.CardViewHolder>() {
+class CardRowAdapter(
+    cardsRow: CardsRow,
+    private val callback: Callback
+) : RecyclerView.Adapter<CardRowAdapter.BaseViewHolder>() {
 
     init {
         setHasStableIds(true)
     }
 
-    interface OnCardLongClickCallback {
-        fun onItemLongClicked(row : CardsRow, card : Card)
+    interface Callback {
+
+        fun onLongClick(row: CardsRow, card: Card)
+        fun onClick(row : CardsRowType)
+
+    }
+
+    object ViewType {
+
+        const val ADD_BUTTON = R.layout.item_plus_button
+        const val CARD = R.layout.item_card
     }
 
     var row: CardsRow = cardsRow
@@ -29,31 +41,52 @@ class CardRowAdapter(cardsRow: CardsRow, private val callback: OnCardLongClickCa
             notifyDataSetChanged()
         }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
-        return CardViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.blue_card_item,
-                parent,
-                false
-            )
-        )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
+        return when (viewType) {
+            ViewType.CARD -> CardItemViewHolder(view)
+            ViewType.ADD_BUTTON -> AddCardItemViewHolder(view)
+            else -> throw IllegalArgumentException()
+        }
     }
 
-    override fun getItemCount(): Int {
-        return row.cards.size
+    override fun getItemCount(): Int = row.cards.size + 1
+
+    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+        when (holder) {
+            is CardItemViewHolder -> holder.onBind(row.cards[position])
+        }
     }
 
-    override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
-        holder.onBind(row.cards[position])
+    override fun getItemViewType(position: Int): Int = when (position) {
+        row.cards.size -> ViewType.ADD_BUTTON
+        else -> ViewType.CARD
     }
 
-    override fun getItemId(position: Int): Long {
-        return row.cards[position].hashCode().toLong()
-    }
+    override fun getItemId(position: Int): Long = row.cards.getOrNull(position).hashCode().toLong()
 
-    inner class CardViewHolder(
+    //region ViewHolders
+
+    abstract inner class BaseViewHolder(
         override val containerView: View
-    ) : RecyclerView.ViewHolder(containerView), LayoutContainer, View.OnLongClickListener {
+    ) : RecyclerView.ViewHolder(containerView), LayoutContainer
+
+    inner class AddCardItemViewHolder(
+        override val containerView: View
+    ) : BaseViewHolder(containerView), View.OnClickListener {
+
+        init {
+            containerView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            callback.onClick(row.type)
+        }
+    }
+
+    inner class CardItemViewHolder(
+        override val containerView: View
+    ) : BaseViewHolder(containerView), View.OnLongClickListener {
 
         private val context get() = containerView.context
 
@@ -67,14 +100,14 @@ class CardRowAdapter(cardsRow: CardsRow, private val callback: OnCardLongClickCa
                 containerView.card_view.setCardBackgroundColor(
                     ContextCompat.getColor(
                         context,
-                        R.color.colorCardHero
+                        R.color.colorHeroCard
                     )
                 )
             } else {
                 containerView.card_view.setCardBackgroundColor(
                     ContextCompat.getColor(
                         context,
-                        R.color.colorCardBlue
+                        R.color.colorSimpleCard
                     )
                 )
             }
@@ -89,8 +122,10 @@ class CardRowAdapter(cardsRow: CardsRow, private val callback: OnCardLongClickCa
         }
 
         override fun onLongClick(v: View?): Boolean {
-            callback.onItemLongClicked(row, row.cards[adapterPosition])
+            callback.onLongClick(row, row.cards[adapterPosition])
             return true
         }
     }
+
+    //endregion
 }

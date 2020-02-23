@@ -9,23 +9,37 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/selector_user">
+            android:theme="@style/AppTheme">
 
         <ImageView
                 android:id="@+id/img_user_avatar"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
+                android:elevation="6dp"
                 android:layout_margin="8dp"
-                android:src="@drawable/ic_placeholder_24dp"
+                android:src="@drawable/ic_female_avatar"
+                android:background="@drawable/shape_circle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+                android:id="@+id/img_avatar_ring"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:elevation="20dp"
+                android:layout_margin="8dp"
+                android:tint="@color/colorPrimary"
+                android:src="@drawable/ic_ring"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
                 android:id="@+id/txt_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
+                android:theme="@style/Text.Secondary"
                 app:layout_constraintBottom_toTopOf="@id/txt_user_points"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -37,6 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
+                android:theme="@style/Text.Primary"
                 android:text="0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

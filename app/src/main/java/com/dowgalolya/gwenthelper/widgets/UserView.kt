@@ -17,4 +17,12 @@ class UserView @JvmOverloads constructor(
         View.inflate(context, R.layout.view_user, this)
     }
 
+    fun winnerPointsColor() {
+        txt_user_points.setTextColor(resources.getColor(R.color.colorSecondary, null))
+    }
+
+    fun loserPointsColor() {
+        txt_user_points.setTextColor(resources.getColor(R.color.oxford_blue, null))
+    }
+
 }

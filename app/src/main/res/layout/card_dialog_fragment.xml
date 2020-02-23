@@ -48,50 +48,71 @@
             app:layout_constraintTop_toBottomOf="@id/txt_card_points" />
 
     <GridLayout
+            android:id="@+id/grid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:columnCount="2"
             android:paddingStart="16dp"
+            android:paddingTop="8dp"
             android:paddingEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txt_card_abilities">
 
-        <CheckBox
+        <Switch
                 android:id="@+id/sw_hero"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
+                android:layout_marginStart="8dp"
                 android:text="@string/ability_hero" />
 
-        <CheckBox
+        <Switch
                 android:id="@+id/sw_decoy"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
+                android:layout_marginStart="8dp"
                 android:text="@string/ability_decoy" />
 
-        <CheckBox
-                android:id="@+id/sw_horn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:text="@string/ability_horn" />
-
-        <CheckBox
-                android:id="@+id/sw_tight_bond"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:text="@string/ability_tight_bond" />
-
-        <CheckBox
-                android:id="@+id/sw_moral_boost"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:text="@string/ability_morale_boost" />
     </GridLayout>
 
+    <RadioGroup
+            android:id="@+id/radio_card_abilities"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/grid">
 
+        <RadioButton
+                android:id="@+id/ability_horn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:duplicateParentState="true"
+                android:text="@string/ability_horn" />
+
+        <RadioButton
+                android:id="@+id/ability_tight_bond"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:duplicateParentState="true"
+                android:text="@string/ability_tight_bond" />
+
+        <RadioButton
+                android:id="@+id/ability_moral_boost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:duplicateParentState="true"
+                android:text="@string/ability_morale_boost" />
+
+    </RadioGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>

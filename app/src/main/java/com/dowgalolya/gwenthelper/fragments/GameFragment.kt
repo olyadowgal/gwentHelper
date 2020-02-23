@@ -4,10 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.dowgalolya.gwenthelper.R
+import com.dowgalolya.gwenthelper.adapters.itemdecoration.CardRowItemDecoration
 import com.dowgalolya.gwenthelper.dialogs.AddCardDialog
 import com.dowgalolya.gwenthelper.dialogs.EditCardDialog
 import com.dowgalolya.gwenthelper.entities.Card
@@ -20,24 +25,33 @@ import com.dowgalolya.gwenthelper.viewmodels.GameViewModel
 import com.dowgalolya.gwenthelper.viewmodels.GameViewModel.Companion.CARD
 import com.dowgalolya.gwenthelper.viewmodels.GameViewModel.Companion.CARD_ROW
 import com.dowgalolya.gwenthelper.viewmodels.GameViewModel.CustomViewAction
-import com.dowgalolya.gwenthelper.widgets.CardsRowView
+import com.dowgalolya.gwenthelper.widgets.CardsStatsView
 import kotlinx.android.synthetic.main.game_fragment.*
-import kotlinx.android.synthetic.main.view_cards_row.view.*
+import kotlinx.android.synthetic.main.view_cards_stats.view.*
 import kotlinx.android.synthetic.main.view_user.view.*
 
-class GameFragment : BaseFragment(), View.OnClickListener {
+class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListener {
 
     override val viewModel: GameViewModel by lazy {
-        ViewModelProviders.of(this).get(GameViewModel::class.java)
+        ViewModelProvider(this).get(GameViewModel::class.java)
     }
 
-    private val rowViews: Map<CardsRowType, CardsRowView> by lazy {
+    private val rowStats: Map<CardsRowType, CardsStatsView> by lazy {
         mapOf(
-            CardsRowType.CLOSE_COMBAT to widget_close_combat,
-            CardsRowType.LONG_RANGE to widget_long_range,
-            CardsRowType.SIEGE to widget_siege
+            CardsRowType.CLOSE_COMBAT to widget_stats_close_combat,
+            CardsRowType.LONG_RANGE to widget_stats_long_range,
+            CardsRowType.SIEGE to widget_stats_siege
         )
     }
+
+    private val rowCards: Map<CardsRowType, RecyclerView> by lazy {
+        mapOf(
+            CardsRowType.CLOSE_COMBAT to rv_close_combat,
+            CardsRowType.LONG_RANGE to rv_long_range,
+            CardsRowType.SIEGE to rv_siege
+        )
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,8 +61,18 @@ class GameFragment : BaseFragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        rowViews.forEach { (type, view) ->
-            view.setCardRowAdapter(viewModel.rowAdapters.getValue(type))
+        rowCards.forEach { (type, view) ->
+
+            view.apply {
+                layoutManager = LinearLayoutManager(
+                    this.context,
+                    LinearLayoutManager.HORIZONTAL,
+                    false
+                )
+                this.adapter = viewModel.rowAdapters.getValue(type)
+                addItemDecoration(CardRowItemDecoration(context))
+            }
+
         }
 
         widget_weather.listener = viewModel
@@ -56,34 +80,80 @@ class GameFragment : BaseFragment(), View.OnClickListener {
         widget_user1.txt_user_name.text = GameFragmentArgs.fromBundle(arguments!!).user1
         widget_user2.txt_user_name.text = GameFragmentArgs.fromBundle(arguments!!).user2
 
-        widget_close_combat.setOnButtonClickListener(this)
-        widget_long_range.setOnButtonClickListener(this)
-        widget_siege.setOnButtonClickListener(this)
+        widget_user1.img_user_avatar.setImageResource(R.drawable.ic_male_avatar)
+        widget_user2.img_user_avatar.setImageResource(R.drawable.ic_female_avatar)
+
         widget_user1.setOnClickListener(this)
         widget_user2.setOnClickListener(this)
-        btn_pass.setOnClickListener(this)
+        btn_reset.setOnLongClickListener(this)
+        btn_reset.setOnClickListener(this)
+        btn_exit_game.setOnClickListener(this)
 
-        widget_close_combat.cb_horn.setOnCheckedChangeListener { _, isChecked ->
+        widget_stats_close_combat.cb_horn.setOnCheckedChangeListener { _, isChecked ->
             viewModel.onHornChecked(CardsRowType.CLOSE_COMBAT, isChecked)
         }
 
-        widget_long_range.cb_horn.setOnCheckedChangeListener { _, isChecked ->
+        widget_stats_long_range.cb_horn.setOnCheckedChangeListener { _, isChecked ->
             viewModel.onHornChecked(CardsRowType.LONG_RANGE, isChecked)
         }
 
-        widget_siege.cb_horn.setOnCheckedChangeListener { _, isChecked ->
+        widget_stats_siege.cb_horn.setOnCheckedChangeListener { _, isChecked ->
             viewModel.onHornChecked(CardsRowType.SIEGE, isChecked)
         }
 
-        viewModel.selectedPlayerData.observe(this, Observer { playerData: PlayerData ->
-            rowViews.forEach { (type, view) ->
-                view.setCardCounterValue(playerData.cardsRows.getValue(type).totalPoints)
-                view.setHornValue(playerData.cardsRows.getValue(type).horn)
+        viewModel.selectedPlayerData.observe(
+            viewLifecycleOwner,
+            Observer { playerData: PlayerData ->
+                rowStats.forEach { (type, view) ->
+                    view.setCardCounterValue(playerData.cardsRows.getValue(type).totalPoints)
+                    view.setHornValue(playerData.cardsRows.getValue(type).horn)
+                }
+
+                widget_weather.setWeather(
+                    playerData.cardsRows.getValue(CardsRowType.CLOSE_COMBAT).badWeather,
+                    playerData.cardsRows.getValue(CardsRowType.LONG_RANGE).badWeather,
+                    playerData.cardsRows.getValue(CardsRowType.SIEGE).badWeather
+                )
+
+                when (viewModel.selectedPlayer.value) {
+                    Player.FIRST -> {
+                        context?.getColor(R.color.colorPrimary)?.let {
+                            widget_user1.img_avatar_ring.setColorFilter(it)
+                        }
+                        context?.getColor(R.color.white)?.let {
+                            widget_user2.img_avatar_ring.setColorFilter(it)
+                        }
+
+                    }
+                    Player.SECOND -> {
+                        context?.getColor(R.color.colorPrimary)?.let {
+                            widget_user2.img_avatar_ring.setColorFilter(it)
+                        }
+                        context?.getColor(R.color.white)?.let {
+                            widget_user1.img_avatar_ring.setColorFilter(it)
+                        }
+                    }
+                }
+            })
+        viewModel.gameData.observe(viewLifecycleOwner, Observer {
+
+            widget_user1.txt_user_points.text = it.firstPlayerData.totalPoints.toString()
+            widget_user2.txt_user_points.text = it.secondPlayerData.totalPoints.toString()
+            when {
+                it.firstPlayerData.totalPoints > it.secondPlayerData.totalPoints -> {
+                    widget_user1.winnerPointsColor()
+                    widget_user2.loserPointsColor()
+                }
+                it.secondPlayerData.totalPoints > it.firstPlayerData.totalPoints -> {
+                    widget_user1.loserPointsColor()
+                    widget_user2.winnerPointsColor()
+                }
+                else -> {
+                    widget_user1.loserPointsColor()
+                    widget_user2.loserPointsColor()
+                }
             }
-            when (viewModel.selectedPlayer.value) {
-                Player.FIRST -> widget_user1.txt_user_points.text = playerData.totalPoints.toString()
-                Player.SECOND -> widget_user2.txt_user_points.text = playerData.totalPoints.toString()
-            }
+
         })
     }
 
@@ -112,16 +182,10 @@ class GameFragment : BaseFragment(), View.OnClickListener {
                     AlertDialog.Builder(context!!)
                         .setTitle("What to do with card?")
                         .setNegativeButton("Edit") { _, _ ->
-                            viewModel.onEditClicked(
-                                cardsRow,
-                                card
-                            )
+                            viewModel.onEditClicked(cardsRow, card)
                         }
                         .setPositiveButton("Delete") { _, _ ->
-                            viewModel.onDeleteClicked(
-                                cardsRow,
-                                card
-                            )
+                            viewModel.onDeleteClicked(cardsRow, card)
                         }
                         .setNeutralButton("Cancel", null)
                         .show()
@@ -133,13 +197,23 @@ class GameFragment : BaseFragment(), View.OnClickListener {
     }
 
     override fun onClick(view: View) {
-       when (view) {
-           widget_close_combat.btn_add_card -> viewModel.onPlusClicked(CardsRowType.CLOSE_COMBAT)
-           widget_long_range.btn_add_card ->  viewModel.onPlusClicked(CardsRowType.LONG_RANGE)
-           widget_siege.btn_add_card -> viewModel.onPlusClicked(CardsRowType.SIEGE)
-           widget_user1 -> viewModel.onUserClicked(Player.FIRST)
-           widget_user2 -> viewModel.onUserClicked(Player.SECOND)
-           btn_pass -> viewModel.onPassClicked()
-       }
+        when (view.id) {
+            R.id.widget_user1 -> viewModel.onUserClicked(Player.FIRST)
+            R.id.widget_user2 -> viewModel.onUserClicked(Player.SECOND)
+            R.id.btn_reset -> {
+                Toast.makeText(
+                    context,
+                    getString(R.string.click_reset_msg),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+            R.id.btn_exit_game -> findNavController().popBackStack()
+        }
+    }
+
+    override fun onLongClick(v: View?): Boolean {
+        viewModel.onPassClicked()
+        Toast.makeText(context, getString(R.string.pass_msg), Toast.LENGTH_SHORT).show()
+        return true
     }
 }
