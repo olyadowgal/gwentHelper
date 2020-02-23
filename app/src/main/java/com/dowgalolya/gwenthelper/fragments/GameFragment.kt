@@ -117,7 +117,6 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
 
                 when (viewModel.selectedPlayer.value) {
                     Player.FIRST -> {
-                        widget_user1.txt_user_points.text = playerData.totalPoints.toString()
                         context?.getColor(R.color.colorPrimary)?.let {
                             widget_user1.img_avatar_ring.setColorFilter(it)
                         }
@@ -127,7 +126,6 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
 
                     }
                     Player.SECOND -> {
-                        widget_user2.txt_user_points.text = playerData.totalPoints.toString()
                         context?.getColor(R.color.colorPrimary)?.let {
                             widget_user2.img_avatar_ring.setColorFilter(it)
                         }
@@ -138,6 +136,9 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
                 }
             })
         viewModel.gameData.observe(viewLifecycleOwner, Observer {
+
+            widget_user1.txt_user_points.text = it.firstPlayerData.totalPoints.toString()
+            widget_user2.txt_user_points.text = it.secondPlayerData.totalPoints.toString()
             when {
                 it.firstPlayerData.totalPoints > it.secondPlayerData.totalPoints -> {
                     widget_user1.winnerPointsColor()
@@ -152,6 +153,7 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
                     widget_user2.loserPointsColor()
                 }
             }
+
         })
     }
 
