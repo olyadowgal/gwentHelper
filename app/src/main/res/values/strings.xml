@@ -24,4 +24,5 @@
     <string name="gwent_helper">Gwent Helper</string>
     <string name="exit">Exit</string>
     <string name="reset">Reset</string>
+    <string name="vs">VS</string>
 </resources>
