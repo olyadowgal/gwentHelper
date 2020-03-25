@@ -23,8 +23,8 @@
 
     <ImageView
             android:id="@+id/img_user1_avatar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:src="@drawable/ic_photo"
             app:layout_constraintBottom_toTopOf="@id/f_user1_name"
             app:layout_constraintDimensionRatio="1:1"
@@ -36,18 +36,19 @@
             android:id="@+id/txt_vs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:layout_marginTop="16dp"
             android:text="@string/vs"
             android:theme="@style/Text.Title"
+            app:layout_constraintBottom_toTopOf="@id/btn_play"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_screen_title"
-            app:layout_constraintBottom_toTopOf="@id/btn_play"/>
+            app:layout_constraintTop_toBottomOf="@id/txt_screen_title" />
 
     <ImageView
             android:id="@+id/img_user2_avatar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:src="@drawable/ic_photo"
             app:layout_constraintBottom_toTopOf="@id/f_user2_name"
             app:layout_constraintDimensionRatio="1:1"
