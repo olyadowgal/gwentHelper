@@ -1,12 +1,25 @@
 package com.dowgalolya.gwenthelper.viewmodels
 
 import android.app.Application
+import android.net.Uri
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.dowgalolya.gwenthelper.fragments.MainFragmentDirections
+import com.dowgalolya.gwenthelper.livedata.SingleLiveEvent
 import com.dowgalolya.gwenthelper.livedata.ViewAction
 
 
 class MainViewModel(application: Application) : BaseViewModel(application) {
+
+
+    private val _clickedUser = SingleLiveEvent<Int>()
+    val clickedUser: LiveData<Int> = _clickedUser
+
+    private val _firstUserPhotoUri = MutableLiveData<Uri>()
+    val firstUserPhotoUri : LiveData<Uri> = _firstUserPhotoUri
+
+    private val _secondUserPhotoUri = MutableLiveData<Uri>()
+    val secondUserPhotoUri : LiveData<Uri> = _secondUserPhotoUri
 
 
     fun onButtonClicked(user1Name: String?, user2Name: String?) {
@@ -17,10 +30,24 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         if (!user2Name.isNullOrBlank()) {
             direction.user2 = user2Name
         }
+        if (_firstUserPhotoUri.value != null) {
+            direction.user1Photo = _firstUserPhotoUri.value.toString()
+        }
+        if (_secondUserPhotoUri.value != null) {
+            direction.user2Photo = _secondUserPhotoUri.value.toString()
+        }
         _viewAction.value = ViewAction.NavigateWithDirection(direction)
     }
 
     fun onPhotoClicked(userId: Int) {
+        _clickedUser.value = userId
+    }
 
+    fun firstUserPhotoUpdate(uri : Uri) {
+        _firstUserPhotoUri.value = uri
+    }
+
+    fun secondUserPhotoUpdate(uri: Uri) {
+        _secondUserPhotoUri.value = uri
     }
 }

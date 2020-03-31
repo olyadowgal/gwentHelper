@@ -1,5 +1,6 @@
 package com.dowgalolya.gwenthelper.fragments
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.dowgalolya.gwenthelper.R
 import com.dowgalolya.gwenthelper.adapters.itemdecoration.CardRowItemDecoration
 import com.dowgalolya.gwenthelper.dialogs.AddCardDialog
@@ -27,6 +30,7 @@ import com.dowgalolya.gwenthelper.viewmodels.GameViewModel.Companion.CARD_ROW
 import com.dowgalolya.gwenthelper.viewmodels.GameViewModel.CustomViewAction
 import com.dowgalolya.gwenthelper.widgets.CardsStatsView
 import kotlinx.android.synthetic.main.game_fragment.*
+import kotlinx.android.synthetic.main.main_fragment.view.*
 import kotlinx.android.synthetic.main.view_cards_stats.view.*
 import kotlinx.android.synthetic.main.view_user.view.*
 
@@ -80,8 +84,17 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
         widget_user1.txt_user_name.text = GameFragmentArgs.fromBundle(arguments!!).user1
         widget_user2.txt_user_name.text = GameFragmentArgs.fromBundle(arguments!!).user2
 
-        widget_user1.img_user_avatar.setImageResource(R.drawable.ic_male_avatar)
-        widget_user2.img_user_avatar.setImageResource(R.drawable.ic_female_avatar)
+        Glide.with(this)
+            .load(GameFragmentArgs.fromBundle(arguments!!).user1Photo)
+            .placeholder(R.drawable.ic_male_avatar)
+            .transform(CircleCrop())
+            .into(widget_user1.img_user_avatar)
+
+        Glide.with(this)
+            .load(GameFragmentArgs.fromBundle(arguments!!).user2Photo)
+            .placeholder(R.drawable.ic_female_avatar)
+            .transform(CircleCrop())
+            .into(widget_user2.img_user_avatar)
 
         widget_user1.setOnClickListener(this)
         widget_user2.setOnClickListener(this)
