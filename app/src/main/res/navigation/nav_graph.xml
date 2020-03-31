@@ -29,6 +29,14 @@
                 android:name="user2"
                 app:argType="string"
                 android:defaultValue="User 2"/>
+        <argument
+                android:name="user1Photo"
+                app:argType="string"
+                android:defaultValue=" "/>
+        <argument
+                android:name="user2Photo"
+                app:argType="string"
+                android:defaultValue=" "/>
     </fragment>
 
 </navigation>

@@ -14,12 +14,47 @@
             android:id="@+id/txt_screen_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="@string/gwent_helper"
             android:theme="@style/Text.Title"
-            app:layout_constraintBottom_toTopOf="@id/f_user1_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+            android:id="@+id/img_user1_avatar"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/ic_photo"
+            app:layout_constraintBottom_toTopOf="@id/f_user1_name"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@id/img_user2_avatar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_screen_title" />
+
+    <TextView
+            android:id="@+id/txt_vs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="16dp"
+            android:text="@string/vs"
+            android:theme="@style/Text.Title"
+            app:layout_constraintBottom_toTopOf="@id/btn_play"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_screen_title" />
+
+    <ImageView
+            android:id="@+id/img_user2_avatar"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/ic_photo"
+            app:layout_constraintBottom_toTopOf="@id/f_user2_name"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/img_user1_avatar"
+            app:layout_constraintTop_toBottomOf="@id/txt_screen_title" />
 
     <EditText
             android:id="@+id/f_user1_name"
@@ -27,13 +62,13 @@
             android:layout_height="wrap_content"
             android:hint="@string/user1_name_hint"
             android:imeOptions="flagNoExtractUi"
-            android:lines="1"
+            android:inputType="text"
             android:maxLength="15"
-            app:layout_constraintBottom_toTopOf="@+id/f_user2_name"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:maxLines="1"
+            app:layout_constraintBottom_toTopOf="@+id/btn_play"
+            app:layout_constraintEnd_toStartOf="@id/f_user2_name"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_screen_title"
-            app:layout_constraintVertical_chainStyle="packed" />
+            app:layout_constraintTop_toBottomOf="@id/img_user1_avatar" />
 
     <EditText
             android:id="@+id/f_user2_name"
@@ -41,13 +76,13 @@
             android:layout_height="wrap_content"
             android:hint="@string/user2_name_hint"
             android:imeOptions="flagNoExtractUi"
-            android:lines="1"
+            android:inputType="text"
             android:maxLength="15"
+            android:maxLines="1"
             app:layout_constraintBottom_toTopOf="@+id/btn_play"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/f_user1_name"
-            app:layout_constraintVertical_chainStyle="packed" />
+            app:layout_constraintStart_toEndOf="@id/f_user1_name"
+            app:layout_constraintTop_toBottomOf="@+id/img_user2_avatar" />
 
     <Button
             android:id="@+id/btn_play"
