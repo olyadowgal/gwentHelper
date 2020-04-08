@@ -1,7 +1,9 @@
 package com.dowgalolya.gwenthelper.viewmodels
 
 import android.app.Application
+import android.net.Uri
 import androidx.annotation.MainThread
+import androidx.constraintlayout.widget.Placeholder
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -105,6 +107,11 @@ class GameViewModel(application: Application) : BaseViewModel(application),
     fun onUserClicked(player : Player) {
         _selectedPlayer.value = player
         _gameData.notifyDataChanged()
+    }
+
+    fun init(player1Name: String, player2Name: String) {
+        _gameData.value?.firstPlayerData?.name = player1Name
+        _gameData.value?.secondPlayerData?.name  = player2Name
     }
 
     override fun onWeatherChange(cardsRowType: CardsRowType, weather: Boolean) {

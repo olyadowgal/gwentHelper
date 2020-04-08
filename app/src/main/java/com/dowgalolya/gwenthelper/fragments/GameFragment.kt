@@ -80,9 +80,7 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
         }
 
         widget_weather.listener = viewModel
-
-        widget_user1.txt_user_name.text = GameFragmentArgs.fromBundle(arguments!!).user1
-        widget_user2.txt_user_name.text = GameFragmentArgs.fromBundle(arguments!!).user2
+        viewModel.init( GameFragmentArgs.fromBundle(arguments!!).user1, GameFragmentArgs.fromBundle(arguments!!).user2)
 
         Glide.with(this)
             .load(GameFragmentArgs.fromBundle(arguments!!).user1Photo)
@@ -148,7 +146,10 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
                     }
                 }
             })
+
         viewModel.gameData.observe(viewLifecycleOwner, Observer {
+            widget_user1.txt_user_name.text = it.firstPlayerData.name
+            widget_user2.txt_user_name.text = it.secondPlayerData.name
 
             widget_user1.txt_user_points.text = it.firstPlayerData.totalPoints.toString()
             widget_user2.txt_user_points.text = it.secondPlayerData.totalPoints.toString()
