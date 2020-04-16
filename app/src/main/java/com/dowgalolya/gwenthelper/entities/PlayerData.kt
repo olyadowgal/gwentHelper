@@ -8,7 +8,6 @@ class PlayerData {
 
     var name: String = ""
 
-    var isWinner: Boolean = false
 
     @IntRange(from = 0, to = 2)
     var lives: Int = 2
@@ -26,5 +25,5 @@ class PlayerData {
         else -> true
     }
 
-    override fun hashCode(): Int = Objects.hash(name, isWinner, lives, cardsRows)
+    override fun hashCode(): Int = Objects.hash(name, lives, cardsRows)
 }

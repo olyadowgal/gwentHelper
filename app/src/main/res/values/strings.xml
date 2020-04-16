@@ -26,4 +26,7 @@
     <string name="reset">Reset</string>
     <string name="vs">VS</string>
     <string name="camera_error">Something went wrong!</string>
+    <string name="end_of_game_title">End of game</string>
+    <string name="end_of_game_message">The winner is </string>
+    <string name="end_of_game_tie_message">It\'s a draw!</string>
 </resources>
