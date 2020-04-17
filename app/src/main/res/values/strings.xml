@@ -31,4 +31,12 @@
     <string name="end_of_game_tie_message">It\'s a draw!</string>
     <string name="end_of_game_positive_btn">End game</string>
     <string name="end_of_game_negative_btn">End game without saving</string>
+    <string name="config_card_dialog_title">What to do with card?</string>
+    <string name="config_card_dialog_negative">Edit</string>
+    <string name="config_card_dialog_positive">Delete</string>
+    <string name="config_card_dialog_neutral">Cancel</string>
+    <string name="end_round_title">Alert</string>
+    <string name="end_round_message">This action will end round for both players. You ready to end round?</string>
+    <string name="end_round_negative">No</string>
+    <string name="end_round_positive">Yes</string>
 </resources>

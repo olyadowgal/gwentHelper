@@ -181,13 +181,14 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
 
         viewModel.gameOver.observe(viewLifecycleOwner, Observer {
             val message = when (it) {
-                Winner.FIRST -> getString(R.string.end_of_game_message)+ " " + widget_user1.txt_user_name.text.toString()
-                Winner.SECOND -> getString(R.string.end_of_game_message)+ " " + widget_user2.txt_user_name.text.toString()
+                Winner.FIRST -> getString(R.string.end_of_game_message) + " " + widget_user1.txt_user_name.text.toString()
+                Winner.SECOND -> getString(R.string.end_of_game_message) + " " + widget_user2.txt_user_name.text.toString()
                 Winner.TIE -> getString(R.string.end_of_game_tie_message)
             }
             AlertDialog.Builder(context!!)
                 .setTitle(getString(R.string.end_of_game_title))
                 .setMessage(message)
+                .setCancelable(false)
 //                .setNegativeButton(R.string.end_of_game_negative_btn) { _, _ ->
 //                    findNavController().popBackStack()
 //                }
@@ -222,14 +223,14 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
                     val cardsRow = action.args[CARD_ROW] as CardsRow
                     val card = action.args[CARD] as Card
                     AlertDialog.Builder(context!!)
-                        .setTitle("What to do with card?")
-                        .setNegativeButton("Edit") { _, _ ->
+                        .setTitle(getString(R.string.config_card_dialog_title))
+                        .setNegativeButton(getString(R.string.config_card_dialog_negative)) { _, _ ->
                             viewModel.onEditClicked(cardsRow, card)
                         }
-                        .setPositiveButton("Delete") { _, _ ->
+                        .setPositiveButton(getString(R.string.config_card_dialog_positive)) { _, _ ->
                             viewModel.onDeleteClicked(cardsRow, card)
                         }
-                        .setNeutralButton("Cancel", null)
+                        .setNeutralButton(getString(R.string.config_card_dialog_neutral), null)
                         .show()
                 }
                 else -> super.handleViewAction(action)
@@ -254,8 +255,14 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
     }
 
     override fun onLongClick(v: View?): Boolean {
-        viewModel.onPassClicked()
-        //Toast.makeText(context, getString(R.string.pass_msg), Toast.LENGTH_SHORT).show()
+        AlertDialog.Builder(context!!)
+            .setTitle(getString(R.string.end_round_title))
+            .setMessage(getString(R.string.end_round_message))
+            .setNegativeButton(getString(R.string.end_round_negative), null)
+            .setPositiveButton(getString(R.string.end_round_positive)) { _, _ ->
+                viewModel.onPassClicked()
+            }
+            .show()
         return true
     }
 }
