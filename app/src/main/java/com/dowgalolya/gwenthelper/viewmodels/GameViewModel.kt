@@ -90,12 +90,6 @@ class GameViewModel(application: Application) : BaseViewModel(application),
         _gameData.notifyDataChanged()
     }
 
-//    @MainThread
-//    fun onPlusClicked(row: CardsRowType) {
-//        _viewAction.value =
-//            ViewAction.Custom(CustomViewAction.SHOW_ADD_CARD_DIALOG).putArg(CARD_ROW, row)
-//    }
-
     @MainThread
     fun onHornChecked(cardsRowType: CardsRowType, isChecked: Boolean) {
         _selectedPlayerData.value!!.let { playerData ->

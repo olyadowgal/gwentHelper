@@ -188,7 +188,11 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
             AlertDialog.Builder(context!!)
                 .setTitle(getString(R.string.end_of_game_title))
                 .setMessage(message)
-                .setPositiveButton("End Game") { _, _ ->
+//                .setNegativeButton(R.string.end_of_game_negative_btn) { _, _ ->
+//                    findNavController().popBackStack()
+//                }
+                .setPositiveButton(getString(R.string.end_of_game_positive_btn)) { _, _ ->
+                    // TODO: Save game stats here
                     findNavController().popBackStack()
                 }
                 .show()
