@@ -180,20 +180,18 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
         })
 
         viewModel.gameOver.observe(viewLifecycleOwner, Observer {
-            var message = getString(R.string.end_of_game_message)
-
-            when (it) {
-                Winner.FIRST -> message.plus(viewModel.gameData.value?.firstPlayerData?.name)
-                Winner.SECOND -> message.plus(viewModel.gameData.value?.firstPlayerData?.name)
-                Winner.TIE -> message = getString(R.string.end_of_game_tie_message)
+            val message = when (it) {
+                Winner.FIRST -> getString(R.string.end_of_game_message)+ " " + widget_user1.txt_user_name.text.toString()
+                Winner.SECOND -> getString(R.string.end_of_game_message)+ " " + widget_user2.txt_user_name.text.toString()
+                Winner.TIE -> getString(R.string.end_of_game_tie_message)
             }
             AlertDialog.Builder(context!!)
                 .setTitle(getString(R.string.end_of_game_title))
                 .setMessage(message)
-                .setPositiveButton("Ok", null)
+                .setPositiveButton("End Game") { _, _ ->
+                    findNavController().popBackStack()
+                }
                 .show()
-
-            viewModel.clearGameData()
         })
     }
 
@@ -253,7 +251,7 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
 
     override fun onLongClick(v: View?): Boolean {
         viewModel.onPassClicked()
-        Toast.makeText(context, getString(R.string.pass_msg), Toast.LENGTH_SHORT).show()
+        //Toast.makeText(context, getString(R.string.pass_msg), Toast.LENGTH_SHORT).show()
         return true
     }
 }

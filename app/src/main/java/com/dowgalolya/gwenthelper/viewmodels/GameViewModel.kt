@@ -73,7 +73,7 @@ class GameViewModel(application: Application) : BaseViewModel(application),
 
     private val _gameOver = SingleLiveEvent<Winner>()
 
-    val gameOver : LiveData<Winner> = _gameOver
+    val gameOver: LiveData<Winner> = _gameOver
 
     val rowAdapters: Map<CardsRowType, CardRowAdapter> = _selectedPlayerData.value!!.cardsRows
         .map { it.key to CardRowAdapter(it.value, this) }
@@ -107,16 +107,20 @@ class GameViewModel(application: Application) : BaseViewModel(application),
 
     fun onPassClicked() {
         when (_gameData.value?.winner) {
-            Winner.FIRST -> _gameData.value!!.secondPlayerData.lives -= 1
-            Winner.SECOND -> _gameData.value!!.firstPlayerData.lives -= 1
+            Winner.FIRST -> _gameData.value!!.secondPlayerData.minusLive()
+            Winner.SECOND -> _gameData.value!!.firstPlayerData.minusLive()
             Winner.TIE -> {
-                _gameData.value!!.secondPlayerData.lives -= 1
-                _gameData.value!!.firstPlayerData.lives -= 1
-
+                _gameData.value!!.secondPlayerData.minusLive()
+                _gameData.value!!.firstPlayerData.minusLive()
             }
         }
-        if (_gameData.value!!.firstPlayerData.lives == 0 || _gameData.value!!.secondPlayerData.lives == 0 ) {
-            _gameOver.value = _gameData.value!!.winner
+        if (_gameData.value!!.firstPlayerData.lives == 0 || _gameData.value!!.secondPlayerData.lives == 0) {
+            if (_gameData.value!!.firstPlayerData.lives == 0 && _gameData.value!!.secondPlayerData.lives == 0) {
+                _gameOver.value = Winner.TIE
+            } else {
+                if (gameData.value!!.firstPlayerData.lives == 0) _gameOver.value = Winner.SECOND
+                if (gameData.value!!.secondPlayerData.lives == 0) _gameOver.value = Winner.FIRST
+            }
             _gameData.notifyDataChanged()
         } else {
             _gameData.value?.firstPlayerData?.cardsRows?.forEach { _, value ->
@@ -127,15 +131,6 @@ class GameViewModel(application: Application) : BaseViewModel(application),
             }
             _gameData.notifyDataChanged()
         }
-
-    }
-
-    fun clearGameData() {
-        _gameData.value =  GameData(
-            firstPlayerData = PlayerData(),
-            secondPlayerData = PlayerData()
-        )
-        _gameData.notifyDataChanged()
     }
 
     fun onUserClicked(player: Player) {

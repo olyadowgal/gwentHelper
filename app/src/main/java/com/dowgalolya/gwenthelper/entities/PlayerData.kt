@@ -17,6 +17,11 @@ class PlayerData {
 
     val totalPoints get() = cardsRows.values.sumBy { it.totalPoints }
 
+    fun minusLive() {
+        lives -= 1
+        if (lives < 0) lives = 0
+    }
+
     override fun equals(other: Any?): Boolean = when {
         this === other -> true
         other !is PlayerData -> false
