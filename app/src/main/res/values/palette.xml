@@ -11,6 +11,7 @@
     <color name="laser_lemon">#FFFD61</color>
     <color name="oxford_blue">#263238</color>
     <color name="mid_grey">#6C6E6F</color>
+    <color name="mid_gray_40_percent">#C4C5C5</color>
     <color name="white">#FFFFFF</color>
 
 </resources>

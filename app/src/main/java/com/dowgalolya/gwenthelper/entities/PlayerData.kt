@@ -6,6 +6,9 @@ import java.util.*
 
 class PlayerData {
 
+    var name: String = ""
+
+
     @IntRange(from = 0, to = 2)
     var lives: Int = 2
 
@@ -13,6 +16,11 @@ class PlayerData {
         CardsRowType.values().associateBy({ it }, { CardsRow(it) })
 
     val totalPoints get() = cardsRows.values.sumBy { it.totalPoints }
+
+    fun minusLive() {
+        lives -= 1
+        if (lives < 0) lives = 0
+    }
 
     override fun equals(other: Any?): Boolean = when {
         this === other -> true
@@ -22,5 +30,5 @@ class PlayerData {
         else -> true
     }
 
-    override fun hashCode(): Int = Objects.hash(lives, cardsRows)
+    override fun hashCode(): Int = Objects.hash(name, lives, cardsRows)
 }
