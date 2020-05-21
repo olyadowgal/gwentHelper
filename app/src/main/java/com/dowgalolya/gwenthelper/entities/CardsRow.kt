@@ -16,6 +16,8 @@ data class CardsRow(
     private val hornsCount get() = (if (horn) 1 else 0) + cards.count { it.abilities.contains(Ability.HORN) }
 
     fun pointsOf(card: Card): Int {
+        if (!cards.contains(card)) throw IllegalArgumentException("This card is not belong to this row: $card")
+
         if (card.abilities.contains(Ability.DECOY)) return 0
 
         //HERO
