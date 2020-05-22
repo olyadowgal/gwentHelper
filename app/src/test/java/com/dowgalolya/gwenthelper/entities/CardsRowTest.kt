@@ -51,7 +51,7 @@ class CardsRowTest {
     //region Regular Card Tests
 
     @Test
-    fun `Given row has one regular card without abilities with 5 points, when pointsOf was called for this card, then should return 5`() {
+    fun `Given row that contains one regular card, when pointsOf was called for this card, then should return origin points count of that card`() {
         //Given
         val card1 = Card(
             points = 5,
@@ -75,7 +75,7 @@ class CardsRowTest {
     }
 
     @Test
-    fun `Given row with two cards - regular card and morale boost card , when pointsOf was called for regular card, then should return points + 1`() {
+    fun `Given row that contains two cards - regular card and morale boost card , when pointsOf was called for regular card, then should return points + 1`() {
         //Given
         val card1 = Card(
             points = 5,
@@ -106,7 +106,7 @@ class CardsRowTest {
     }
 
     @Test
-    fun `Given row with a horn has one regular card without abilities, when pointsOf was called for this card, then should multiply by 2`() {
+    fun `Given row with a horn that contains one regular card without abilities, when pointsOf was called for this card, then should return points multiplied by 2`() {
         //Given
         val card1 = Card(
             points = 5,
@@ -130,10 +130,10 @@ class CardsRowTest {
     }
 
     @Test
-    fun `Given row without horn has two cards ( with horn , without abilities), when pointsOf was called for card without abilities, then should multiply by 2`() {
+    fun `Given row that contains two cards (with horn , without abilities), when pointsOf was called for card without abilities, then should return points multiplied by 2`() {
         //Given
         val card1 = Card(
-            points = 5,
+            points = 2,
             abilities = listOf(
                 Ability.HORN
             )
@@ -163,7 +163,7 @@ class CardsRowTest {
     }
 
     @Test
-    fun `Given row with bad weather and one card without abilities, when pointsOf was called for this card, then should return 1`() {
+    fun `Given row with bad weather that contains one regular card, when pointsOf was called for this card, then should return 1`() {
         //Given
         val card1 = Card(
             points = 5,
@@ -187,7 +187,7 @@ class CardsRowTest {
     }
 
     @Test
-    fun `Given row with bad weather, horn and regular card, when pointsOf was called for this card, then should return 2`() {
+    fun `Given row with bad weather and horn that contains one regular card, when pointsOf was called for this card, then should return 2`() {
         //Given
         val card1 = Card(
             points = 5,
@@ -215,7 +215,7 @@ class CardsRowTest {
     //region Hero Card Tests
 
     @Test
-    fun `Given row with bad weather and card with hero ability, when pointsOf was called for this card, then points should remain still`() {
+    fun `Given row with bad weather that contains a card with HERO ability, when pointsOf was called for this card, then should return its points unchanged`() {
         //Given
         val card1 = Card(
             points = 10,
@@ -241,7 +241,7 @@ class CardsRowTest {
     }
 
     @Test
-    fun `Given row with horn and card with hero ability, when pointsOf was called for this card, then points should remain still`() {
+    fun `Given row with horn that contains a card with HERO ability, when pointsOf was called for this card, then should return its points unchanged`() {
         //Given
         val card1 = Card(
             points = 10,
@@ -267,7 +267,7 @@ class CardsRowTest {
     }
 
     @Test
-    fun `Given row with two cards - card with hero ability and card with horn, when pointsOf was called for card with hero ability, then points should remain still`() {
+    fun `Given row that contains two cards - card with HERO ability and card with horn, when pointsOf was called for card with HERO ability, then should return its points unchanged`() {
         //Given
         val card1 = Card(
             points = 10,
@@ -305,7 +305,7 @@ class CardsRowTest {
     //region Tight Bond Tests
 
     @Test
-    fun `Given row has one card with tight bond ability with 5 points, when pointsOf was called for this card, then should return 5`() {
+    fun `Given row that contains one card with TIGHT_BOND ability, when pointsOf was called for this card, then should return its points unchanged`() {
         //Given
         val card1 = Card(
             points = 5,
@@ -331,7 +331,7 @@ class CardsRowTest {
     }
 
     @Test
-    fun `Given row has two cards with tight bond but different points, when pointsOf was called for any of this card, then should return points without change`() {
+    fun `Given row that contains two cards with TIGHT_BOND but different amount of points, when pointsOf was called for any of this card, then should return its points unchanged`() {
         //Given
         val card1 = Card(
             points = 5,
@@ -358,14 +358,16 @@ class CardsRowTest {
         )
 
         //When
-        val result = row.pointsOf(card1)
+        val result1 = row.pointsOf(card1)
+        val result2 = row.pointsOf(card2)
 
         //Then
-        assertEquals(5, result)
+        assertEquals(5, result1)
+        assertEquals(6, result2)
     }
 
     @Test
-    fun `Given row has two cards with tight bond with equals points, when pointsOf was called for any of this card, then should return points in square`() {
+    fun `Given row that contains two cards with TIGHT_BOND with equals points, when pointsOf was called for any of this card, then should return its points in square`() {
         //Given
         val card1 = Card(
             points = 2,
@@ -392,14 +394,17 @@ class CardsRowTest {
         )
 
         //When
-        val result = row.pointsOf(card1)
+        val result1 = row.pointsOf(card1)
+        val result2 = row.pointsOf(card2)
 
         //Then
-        assertEquals(4, result)
+        assertEquals(4, result1)
+        assertEquals(4, result2)
+
     }
 
     @Test
-    fun `Given row has three cards with tight bond with equals points, when pointsOf was called for any of this card, then should return points in cube`() {
+    fun `Given row that contains three cards with TIGHT_BOND with equals points, when pointsOf was called for any of this card, then should return its points in cube`() {
         //Given
         val card1 = Card(
             points = 2,
@@ -434,14 +439,18 @@ class CardsRowTest {
         )
 
         //When
-        val result = row.pointsOf(card1)
+        val result1 = row.pointsOf(card1)
+        val result2 = row.pointsOf(card2)
+        val result3 = row.pointsOf(card3)
 
         //Then
-        assertEquals(8, result)
+        assertEquals(8, result1)
+        assertEquals(8,result2)
+        assertEquals(8, result3)
     }
 
     @Test
-    fun `Given row with bad weather has three cards with tight bond with equals points, when pointsOf was called for any of this card, then should return 1`() {
+    fun `Given row with bad weather that contains three cards with TIGHT_BOND with equals points, when pointsOf was called for any of this card, then should return 1`() {
         //Given
         val card1 = Card(
             points = 2,
@@ -476,14 +485,18 @@ class CardsRowTest {
         )
 
         //When
-        val result = row.pointsOf(card1)
+        val result1 = row.pointsOf(card1)
+        val result2 = row.pointsOf(card2)
+        val result3 = row.pointsOf(card3)
 
         //Then
-        assertEquals(1, result)
+        assertEquals(1, result1)
+        assertEquals(1, result2)
+        assertEquals(1, result3)
     }
 
     @Test
-    fun `Given row with bad weather has four cards - three tight bond with equals points and one horn, when pointsOf was called for tight bond card, then should return points in cube multiplied by two`() {
+    fun `Given row with bad weather that contains four cards - three TIGHT_BOND with equals points and one HORN, when pointsOf was called for any of TIGHT_BOND card, then should return its points in cube multiplied by two`() {
         //Given
         val card1 = Card(
             points = 2,
@@ -526,14 +539,18 @@ class CardsRowTest {
         )
 
         //When
-        val result = row.pointsOf(card1)
+        val result1 = row.pointsOf(card1)
+        val result2 = row.pointsOf(card2)
+        val result3 = row.pointsOf(card3)
 
         //Then
-        assertEquals(16, result)
+        assertEquals(16, result1)
+        assertEquals(16, result2)
+        assertEquals(16, result3)
     }
 
     @Test
-    fun `Given row has four cards - three with tight bond and equal points and one morale boost, when pointsOf was called for any tight bond card, then should return points in cube + 1`() {
+    fun `Given row that contains four cards - three with TIGHT_BOND and equal points and one MORALE_BOOST, when pointsOf was called for any TIGHT_BOND card, then should return its points in cube + 1`() {
         //Given
         val card1 = Card(
             points = 2,
@@ -576,14 +593,18 @@ class CardsRowTest {
         )
 
         //When
-        val result = row.pointsOf(card1)
+        val result1 = row.pointsOf(card1)
+        val result2 = row.pointsOf(card2)
+        val result3 = row.pointsOf(card3)
 
         //Then
-        assertEquals(9, result)
+        assertEquals(9, result1)
+        assertEquals(9, result2)
+        assertEquals(9, result3)
     }
 
     @Test
-    fun `Given row with horn has three cards with tight bond with equals points, when pointsOf was called for any of this card, then should return points in cube multiplied by 2`() {
+    fun `Given row with HORN that contains three cards with TIGHT_BOND with equals points, when pointsOf was called for any of this card, then should return its points in cube multiplied by 2`() {
         //Given
         val card1 = Card(
             points = 2,
@@ -618,10 +639,14 @@ class CardsRowTest {
         )
 
         //When
-        val result = row.pointsOf(card1)
+        val result1 = row.pointsOf(card1)
+        val result2 = row.pointsOf(card2)
+        val result3 = row.pointsOf(card3)
 
         //Then
-        assertEquals(16, result)
+        assertEquals(16, result1)
+        assertEquals(16, result2)
+        assertEquals(16, result3)
     }
 
     //endregion
@@ -629,7 +654,7 @@ class CardsRowTest {
     //region Decoy Card Tests
 
     @Test
-    fun `Given row has one decoy card with 5 points, when pointsOf was called for this card, then should return 0`() {
+    fun `Given row that contains one DECOY card with non-zero points, when pointsOf was called for this card, then should return 0`() {
         //Given
         val card1 = Card(
             points = 5,
@@ -655,10 +680,10 @@ class CardsRowTest {
     }
 
     @Test
-    fun `Given row with horn has one decoy card, when pointsOf was called for this card, then should return 0`() {
+    fun `Given row with HORN that contains one DECOY card, when pointsOf was called for this card, then should return 0`() {
         //Given
         val card1 = Card(
-            points = 5,
+            points = 0,
             abilities = listOf(
                 Ability.DECOY
             )
@@ -681,10 +706,10 @@ class CardsRowTest {
     }
 
     @Test
-    fun `Given row with bad weather has one decoy card, when pointsOf was called for this card, then should return 0`() {
+    fun `Given row with bad weather that contains one DECOY card, when pointsOf was called for this card, then should return 0`() {
         //Given
         val card1 = Card(
-            points = 5,
+            points = 0,
             abilities = listOf(
                 Ability.DECOY
             )
@@ -707,10 +732,10 @@ class CardsRowTest {
     }
 
     @Test
-    fun `Given row with horn has horn card and decoy card, when pointsOf was called for decoy card, then should return 0`() {
+    fun `Given row that contains HORN card and DECOY card, when pointsOf was called for decoy card, then should return 0`() {
         //Given
         val card1 = Card(
-            points = 5,
+            points = 0,
             abilities = listOf(
                 Ability.DECOY
             )
@@ -726,7 +751,8 @@ class CardsRowTest {
         val row = CardsRow(
             type = CardsRowType.SIEGE,
             cards = listOf(
-                card1
+                card1,
+                card2
             ),
             horn = false,
             badWeather = false
@@ -740,10 +766,10 @@ class CardsRowTest {
     }
 
     @Test
-    fun `Given row with horn has morale boost card and decoy card, when pointsOf was called for decoy card, then should return 0`() {
+    fun `Given row with horn that contains MORALE_BOOST card and DECOY card, when pointsOf was called for decoy card, then should return 0`() {
         //Given
         val card1 = Card(
-            points = 5,
+            points = 0,
             abilities = listOf(
                 Ability.DECOY
             )
@@ -759,7 +785,8 @@ class CardsRowTest {
         val row = CardsRow(
             type = CardsRowType.SIEGE,
             cards = listOf(
-                card1
+                card1,
+                card2
             ),
             horn = false,
             badWeather = false
@@ -771,8 +798,8 @@ class CardsRowTest {
         //Then
         assertEquals(0, result)
     }
-
     //endregion
 
     //endregion
+
 }
