@@ -802,4 +802,119 @@ class CardsRowTest {
 
     //endregion
 
+    //region totalPoints tests
+
+    @Test
+    fun `Given row without cards, when totalPoints called for this CardRow, then should return 0`() {
+        //Given
+
+        val row = CardsRow(
+            type = CardsRowType.SIEGE,
+            cards = emptyList(),
+            horn = false,
+            badWeather = false
+        )
+
+        //When
+        val result = row.totalPoints
+
+        //Then
+        assertEquals(0, result)
+    }
+
+    @Test
+    fun `Given row that contains three cards with regular abilities, when totalPoints called for this CardRow, then should return sum of all points of cards `() {
+        //Given
+        val card1 = Card(
+            points = 2,
+            abilities = emptyList()
+        )
+
+        val card2 = Card(
+            points = 5,
+            abilities = emptyList()
+        )
+
+        val card3 = Card(
+            points = 3,
+            abilities = emptyList()
+        )
+
+        val row = CardsRow(
+            type = CardsRowType.SIEGE,
+            cards = listOf(
+                card1,
+                card2,
+                card3
+            ),
+            horn = false,
+            badWeather = false
+        )
+
+        //When
+        val result = row.totalPoints
+
+        //Then
+        assertEquals(10, result)
+    }
+
+    @Test
+    fun `Given row with badWeather and horn that contains 5 cards - one MORALE_BOOST card, one HERO card, two TIGHT_BOND cards and one DECOY card, when totalPoints called for this CardRow, then should return sum of all points of cards with all effects `() {
+        //Given
+        val card1 = Card(
+            points = 2,
+            abilities = listOf(
+                Ability.MORALE_BOOST
+            )
+        )
+
+        val card2 = Card(
+            points = 5,
+            abilities = listOf(
+                Ability.HERO
+            )
+        )
+
+        val card3 = Card(
+            points = 3,
+            abilities = listOf(
+                Ability.TIGHT_BOND
+            )
+        )
+
+        val card4 = Card(
+            points = 3,
+            abilities = listOf(
+                Ability.TIGHT_BOND
+            )
+        )
+
+        val card5 = Card(
+            points = 0,
+            abilities = listOf(
+                Ability.DECOY
+            )
+        )
+        val row = CardsRow(
+            type = CardsRowType.SIEGE,
+            cards = listOf(
+                card1,
+                card2,
+                card3,
+                card4,
+                card5
+            ),
+            horn = true,
+            badWeather = true
+        )
+
+        //When
+        val result = row.totalPoints
+
+        //Then
+        assertEquals(13, result)
+    }
+
+    //endregion
+
 }
