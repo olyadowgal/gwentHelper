@@ -1,5 +1,6 @@
 package com.dowgalolya.gwenthelper.entities
 
+import com.dowgalolya.gwenthelper.enums.Ability
 import com.dowgalolya.gwenthelper.enums.CardsRowType
 import org.junit.Assert.assertEquals
 import org.junit.Assert.fail

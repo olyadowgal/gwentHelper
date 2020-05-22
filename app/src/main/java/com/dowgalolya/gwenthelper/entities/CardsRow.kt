@@ -1,5 +1,6 @@
 package com.dowgalolya.gwenthelper.entities
 
+import com.dowgalolya.gwenthelper.enums.Ability
 import com.dowgalolya.gwenthelper.enums.CardsRowType
 import kotlin.math.min
 import kotlin.math.pow
@@ -13,7 +14,8 @@ data class CardsRow(
 
     val totalPoints get() = cards.sumBy { pointsOf(it) }
 
-    private val hornsCount get() = (if (horn) 1 else 0) + cards.count { it.abilities.contains(Ability.HORN) }
+    private val hornsCount get() = (if (horn) 1 else 0) + cards.count { it.abilities.contains(
+        Ability.HORN) }
 
     fun pointsOf(card: Card): Int {
         if (!cards.contains(card)) throw IllegalArgumentException("This card is not belong to this row: $card")
@@ -33,7 +35,8 @@ data class CardsRow(
         //TIGHT_BOND
         if (card.abilities.contains(Ability.TIGHT_BOND)) {
             points = points.toDouble()
-                .pow(cards.count { it.points == card.points && it.abilities.contains(Ability.TIGHT_BOND) })
+                .pow(cards.count { it.points == card.points && it.abilities.contains(
+                    Ability.TIGHT_BOND) })
                 .toInt()
         }
 

@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.dowgalolya.gwenthelper.R
-import com.dowgalolya.gwenthelper.entities.Ability
+import com.dowgalolya.gwenthelper.enums.Ability
 import com.dowgalolya.gwenthelper.entities.Card
 import com.dowgalolya.gwenthelper.entities.CardsRow
 import com.dowgalolya.gwenthelper.enums.CardsRowType

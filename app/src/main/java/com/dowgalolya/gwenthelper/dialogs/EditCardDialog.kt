@@ -3,10 +3,9 @@ package com.dowgalolya.gwenthelper.dialogs
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
-import com.dowgalolya.gwenthelper.entities.Ability
+import com.dowgalolya.gwenthelper.enums.Ability
 import com.dowgalolya.gwenthelper.entities.Card
 import com.dowgalolya.gwenthelper.entities.CardsRow
-import com.dowgalolya.gwenthelper.enums.CardsRowType
 import kotlinx.android.synthetic.main.card_dialog_fragment.*
 
 class EditCardDialog(
