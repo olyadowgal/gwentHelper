@@ -27,7 +27,6 @@ class PlayerDataTest {
     @Test
     fun `Given playerData with CardRows contains regular card, when totalPoints called for this playerData, then return total points for all three CardRows`() {
         //Given
-
         val card1 = Card(
             points = 5,
             abilities = emptyList()
