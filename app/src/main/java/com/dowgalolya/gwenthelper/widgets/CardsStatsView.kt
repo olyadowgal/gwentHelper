@@ -7,7 +7,7 @@ import android.widget.FrameLayout
 import com.dowgalolya.gwenthelper.R
 import kotlinx.android.synthetic.main.view_cards_stats.view.*
 
-class CardsStatsView @JvmOverloads constructor(
+class  CardsStatsView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0

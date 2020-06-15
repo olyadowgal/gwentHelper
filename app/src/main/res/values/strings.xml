@@ -39,4 +39,10 @@
     <string name="end_round_message">This action will end round for both players. You ready to end round?</string>
     <string name="end_round_negative">No</string>
     <string name="end_round_positive">Yes</string>
+    <string name="frost_true">You activate frost.</string>
+    <string name="frost_false">You disable frost.</string>
+    <string name="fog_true">You activate fog.</string>
+    <string name="fog_false">You disable fog.</string>
+    <string name="rain_true">You activate rain.</string>
+    <string name="rain_false">You disable rain.</string>
 </resources>
