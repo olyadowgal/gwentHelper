@@ -1,4 +1,4 @@
-package com.dowgalolya.gwenthelper.entities
+package com.dowgalolya.gwenthelper.enums
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes

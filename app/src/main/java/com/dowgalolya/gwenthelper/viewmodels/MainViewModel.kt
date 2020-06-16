@@ -12,8 +12,8 @@ import com.dowgalolya.gwenthelper.livedata.ViewAction
 class MainViewModel(application: Application) : BaseViewModel(application) {
 
 
-    private val _clickedUser = SingleLiveEvent<Int>()
-    val clickedUser: LiveData<Int> = _clickedUser
+    private val _selectedUser = SingleLiveEvent<Int>()
+    val selectedUser: LiveData<Int> = _selectedUser
 
     private val _firstUserPhotoUri = MutableLiveData<Uri>()
     val firstUserPhotoUri : LiveData<Uri> = _firstUserPhotoUri
@@ -40,7 +40,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
     }
 
     fun onPhotoClicked(userId: Int) {
-        _clickedUser.value = userId
+        _selectedUser.value = userId
     }
 
     fun firstUserPhotoUpdate(uri : Uri) {

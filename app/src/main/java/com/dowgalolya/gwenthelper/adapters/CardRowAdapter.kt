@@ -6,33 +6,37 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.dowgalolya.gwenthelper.R
-import com.dowgalolya.gwenthelper.entities.Ability
+import com.dowgalolya.gwenthelper.enums.Ability
 import com.dowgalolya.gwenthelper.entities.Card
 import com.dowgalolya.gwenthelper.entities.CardsRow
 import com.dowgalolya.gwenthelper.enums.CardsRowType
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_card.view.*
 
-class CardRowAdapter(
+class CardRowAdapter private constructor(
     cardsRow: CardsRow,
     private val callback: Callback
 ) : RecyclerView.Adapter<CardRowAdapter.BaseViewHolder>() {
 
-    init {
-        setHasStableIds(true)
+    class Factory() {
+
+        fun create(cardsRow: CardsRow, callback: Callback) = CardRowAdapter(cardsRow, callback)
     }
 
     interface Callback {
 
         fun onLongClick(row: CardsRow, card: Card)
-        fun onClick(row : CardsRowType)
-
+        fun onClick(row: CardsRowType)
     }
 
     object ViewType {
 
         const val ADD_BUTTON = R.layout.item_plus_button
         const val CARD = R.layout.item_card
+    }
+
+    init {
+        setHasStableIds(true)
     }
 
     var row: CardsRow = cardsRow

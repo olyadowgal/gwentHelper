@@ -6,7 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import com.dowgalolya.gwenthelper.R
-import com.dowgalolya.gwenthelper.entities.Ability
+import com.dowgalolya.gwenthelper.enums.Ability
 import com.dowgalolya.gwenthelper.entities.Card
 import kotlinx.android.synthetic.main.card_dialog_fragment.*
 import java.util.*

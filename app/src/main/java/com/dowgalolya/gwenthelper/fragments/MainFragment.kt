@@ -2,12 +2,10 @@ package com.dowgalolya.gwenthelper.fragments
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -39,7 +37,7 @@ class MainFragment() : BaseFragment(), View.OnClickListener {
         img_user1_avatar.setOnClickListener(this)
         img_user2_avatar.setOnClickListener(this)
 
-        viewModel.clickedUser.observe(viewLifecycleOwner, Observer {
+        viewModel.selectedUser.observe(viewLifecycleOwner, Observer {
             context?.let {
                 CropImage.activity()
                     .setGuidelines(CropImageView.Guidelines.ON)
@@ -95,7 +93,7 @@ class MainFragment() : BaseFragment(), View.OnClickListener {
 
             if (resultCode == RESULT_OK) {
 
-                when (viewModel.clickedUser.value) {
+                when (viewModel.selectedUser.value) {
                     R.id.img_user1_avatar -> {
                         viewModel.firstUserPhotoUpdate(result.uri)
                     }

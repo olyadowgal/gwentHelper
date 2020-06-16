@@ -25,7 +25,10 @@ import com.dowgalolya.gwenthelper.livedata.SingleLiveEvent
 import com.dowgalolya.gwenthelper.livedata.ViewAction
 import com.dowgalolya.gwenthelper.widgets.WeatherView
 
-class GameViewModel(application: Application) : BaseViewModel(application),
+class GameViewModel(
+    application: Application,
+    cardRowAdapterFactory: CardRowAdapter.Factory = CardRowAdapter.Factory()
+) : BaseViewModel(application),
     AddCardDialog.OnCardAddListener,
     WeatherView.OnWeatherChangeListener,
     CardRowAdapter.Callback,
@@ -72,11 +75,10 @@ class GameViewModel(application: Application) : BaseViewModel(application),
     val selectedPlayerData: LiveData<PlayerData> = _selectedPlayerData
 
     private val _gameOver = SingleLiveEvent<Winner>()
-
     val gameOver: LiveData<Winner> = _gameOver
 
     val rowAdapters: Map<CardsRowType, CardRowAdapter> = _selectedPlayerData.value!!.cardsRows
-        .map { it.key to CardRowAdapter(it.value, this) }
+        .map { it.key to cardRowAdapterFactory.create(it.value, this) }
         .toMap()
 
 

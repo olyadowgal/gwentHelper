@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,6 +27,7 @@ import com.dowgalolya.gwenthelper.viewmodels.GameViewModel
 import com.dowgalolya.gwenthelper.viewmodels.GameViewModel.Companion.CARD
 import com.dowgalolya.gwenthelper.viewmodels.GameViewModel.Companion.CARD_ROW
 import com.dowgalolya.gwenthelper.viewmodels.GameViewModel.CustomViewAction
+import com.dowgalolya.gwenthelper.viewmodels.GameViewModelFactory
 import com.dowgalolya.gwenthelper.widgets.CardsStatsView
 import kotlinx.android.synthetic.main.game_fragment.*
 import kotlinx.android.synthetic.main.view_cards_stats.view.*
@@ -36,7 +36,7 @@ import kotlinx.android.synthetic.main.view_user.view.*
 class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListener {
 
     override val viewModel: GameViewModel by lazy {
-        ViewModelProvider(this).get(GameViewModel::class.java)
+        activity?.application?.let { GameViewModelFactory(it).create(GameViewModel::class.java) }!!
     }
 
     private val rowStats: Map<CardsRowType, CardsStatsView> by lazy {
