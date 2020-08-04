@@ -112,6 +112,7 @@ class GameViewModel(
         }
         if (_gameData.value!!.firstPlayerData.lives == 0 || _gameData.value!!.secondPlayerData.lives == 0) {
             if (_gameData.value!!.firstPlayerData.lives == 0 && _gameData.value!!.secondPlayerData.lives == 0) {
+
                 _gameOver.value = Winner.TIE
             } else {
                 if (gameData.value!!.firstPlayerData.lives == 0) _gameOver.value = Winner.SECOND
