@@ -42,12 +42,12 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_marginBottom="8dp"
-                    android:tint="@color/oxford_blue"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     tools:ignore="ContentDescription"
-                    tools:src="@drawable/ic_morale_boost" />
+                    tools:src="@drawable/ic_morale_boost"
+                    app:tint="@color/oxford_blue" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
