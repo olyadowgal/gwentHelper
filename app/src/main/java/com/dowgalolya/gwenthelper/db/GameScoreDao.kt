@@ -13,6 +13,9 @@ interface GameScoreDao {
     @Query("SELECT * FROM game_score WHERE date = :gameDate")
     suspend fun getGameScoreById(gameDate: String): GameScore
 
+    @Query("DELETE FROM game_score")
+    suspend fun deleteAll()
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(score: GameScore)
 }

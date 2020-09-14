@@ -86,6 +86,9 @@ dependencies {
     kapt "androidx.room:room-compiler:$roomVersion"
     implementation "androidx.room:room-ktx:$roomVersion"
 
+    //Stetho
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'
+
 }
 apply plugin: "androidx.navigation.safeargs"
 apply plugin: 'com.google.gms.google-services'

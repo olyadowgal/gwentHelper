@@ -13,4 +13,8 @@ class GwentRepository(private val gameScoreDao: GameScoreDao) {
         gameScoreDao.getAllGameScores()
     }
 
+    suspend fun deleteAllGames() {
+        gameScoreDao.deleteAll()
+    }
+
 }
