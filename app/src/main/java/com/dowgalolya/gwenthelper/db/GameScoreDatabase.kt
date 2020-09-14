@@ -14,5 +14,5 @@ import androidx.room.RoomDatabase
 
 abstract class GameScoreDatabase : RoomDatabase() {
 
-        abstract fun gameScoreDao() : GameScoreDao
-    }
+    abstract fun gameScoreDao(): GameScoreDao
+}

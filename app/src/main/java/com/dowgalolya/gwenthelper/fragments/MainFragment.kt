@@ -6,24 +6,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.dowgalolya.gwenthelper.R
+import com.dowgalolya.gwenthelper.di.SingletonHolder
 import com.dowgalolya.gwenthelper.viewmodels.MainViewModel
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.main_fragment.*
 
 
-class MainFragment() : BaseFragment(), View.OnClickListener {
+class MainFragment : BaseFragment(), View.OnClickListener {
 
-
-    override val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this).get(MainViewModel::class.java)
+    override val viewModel: MainViewModel by viewModels {
+        SingletonHolder.viewModelFactory
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

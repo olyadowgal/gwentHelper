@@ -1,16 +1,13 @@
 package com.dowgalolya.gwenthelper.viewmodels
 
 import android.app.Application
-import android.net.Uri
-import android.os.Build
 import androidx.annotation.MainThread
-import androidx.constraintlayout.widget.Placeholder
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.dowgalolya.gwenthelper.adapters.CardRowAdapter
+import com.dowgalolya.gwenthelper.db.GameScore
 import com.dowgalolya.gwenthelper.dialogs.AddCardDialog
 import com.dowgalolya.gwenthelper.dialogs.EditCardDialog
 import com.dowgalolya.gwenthelper.entities.Card
@@ -23,10 +20,15 @@ import com.dowgalolya.gwenthelper.enums.Winner
 import com.dowgalolya.gwenthelper.extensions.notifyDataChanged
 import com.dowgalolya.gwenthelper.livedata.SingleLiveEvent
 import com.dowgalolya.gwenthelper.livedata.ViewAction
+import com.dowgalolya.gwenthelper.repositories.GwentRepository
 import com.dowgalolya.gwenthelper.widgets.WeatherView
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.util.*
 
 class GameViewModel(
     application: Application,
+    private val gwentRepository: GwentRepository,
     cardRowAdapterFactory: CardRowAdapter.Factory = CardRowAdapter.Factory()
 ) : BaseViewModel(application),
     AddCardDialog.OnCardAddListener,
@@ -174,6 +176,20 @@ class GameViewModel(
             cards -= card
         }
         _gameData.notifyDataChanged()
+    }
+
+    @MainThread
+    fun onGameEnds() {
+        val gameScore = _gameData.value?.let {
+            GameScore(
+                date = Calendar.getInstance().time.toString(),
+                firstPlayer = it.firstPlayerData.name,
+            secondPlayer = it.secondPlayerData.name,
+            winner = _gameOver.value!!.name)
+        }
+        GlobalScope.launch {
+            gameScore?.let { gwentRepository.addGame(it) }
+        }
     }
 
     override fun onCardEdit(row: CardsRow, card: Card) {

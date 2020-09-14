@@ -3,14 +3,23 @@ package com.dowgalolya.gwenthelper.viewmodels
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.dowgalolya.gwenthelper.repositories.GwentRepository
 import java.lang.IllegalArgumentException
 
-class GameViewModelFactory(val application: Application) : ViewModelProvider.Factory {
+class GameViewModelFactory(
+    val application: Application,
+    private val gwentRepository: GwentRepository
+) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return when {
-            modelClass.isAssignableFrom(GameViewModel::class.java) -> GameViewModel(application) as T
+        return when (modelClass) {
+            GameViewModel::class.java -> {
+                GameViewModel(application, gwentRepository) as T
+            }
+            MainViewModel::class.java -> {
+                MainViewModel(application) as T
+            }
             else -> throw IllegalArgumentException()
         }
     }
