@@ -9,8 +9,8 @@ class GwentRepository(private val gameScoreDao: GameScoreDao) {
         gameScoreDao.insert(game)
     }
 
-    suspend fun getAllGames() {
-        gameScoreDao.getAllGameScores()
+    suspend fun getAllGames() : List<GameScore>  {
+       return gameScoreDao.getAllGameScores()
     }
 
     suspend fun deleteAllGames() {

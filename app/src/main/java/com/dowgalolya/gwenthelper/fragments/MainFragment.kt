@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.dowgalolya.gwenthelper.R
@@ -34,6 +33,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         btn_play.setOnClickListener(this)
+        btn_scores.setOnClickListener(this)
         img_user1_avatar.setOnClickListener(this)
         img_user2_avatar.setOnClickListener(this)
 
@@ -70,11 +70,12 @@ class MainFragment : BaseFragment(), View.OnClickListener {
     override fun onClick(view: View) {
         when (view.id) {
             R.id.btn_play -> {
-                viewModel.onButtonClicked(
+                viewModel.onPlayClicked(
                     f_user1_name.text?.toString(),
                     f_user2_name.text?.toString()
                 )
             }
+            R.id.btn_scores -> {viewModel.onScoresClicked()}
             R.id.img_user1_avatar -> {
                 viewModel.onPhotoClicked(R.id.img_user1_avatar)
             }

@@ -5,7 +5,7 @@ import android.content.Context
 import androidx.room.Room
 import com.dowgalolya.gwenthelper.db.GameScoreDatabase
 import com.dowgalolya.gwenthelper.repositories.GwentRepository
-import com.dowgalolya.gwenthelper.viewmodels.GameViewModelFactory
+import com.dowgalolya.gwenthelper.viewmodels.ViewModelFactory
 
 object SingletonHolder {
 
@@ -27,7 +27,7 @@ object SingletonHolder {
     }
 
     val viewModelFactory by lazy {
-        GameViewModelFactory(application, gwentRepository)
+        ViewModelFactory(application, gwentRepository)
     }
 
     fun init(application: Application) {

@@ -22,7 +22,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
     val secondUserPhotoUri : LiveData<Uri> = _secondUserPhotoUri
 
 
-    fun onButtonClicked(user1Name: String?, user2Name: String?) {
+    fun onPlayClicked(user1Name: String?, user2Name: String?) {
         val direction = MainFragmentDirections.actionMainFragmentToGameFragment()
         if (!user1Name.isNullOrBlank()) {
             direction.user1 = user1Name
@@ -37,6 +37,9 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
             direction.user2Photo = _secondUserPhotoUri.value.toString()
         }
         _viewAction.value = ViewAction.NavigateWithDirection(direction)
+    }
+    fun onScoresClicked() {
+        _viewAction.value = ViewAction.NavigateWithDirection(MainFragmentDirections.actionMainFragmentToStatsFragment())
     }
 
     fun onPhotoClicked(userId: Int) {

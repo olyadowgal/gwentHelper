@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.dowgalolya.gwenthelper.repositories.GwentRepository
 import java.lang.IllegalArgumentException
 
-class GameViewModelFactory(
+class ViewModelFactory(
     val application: Application,
     private val gwentRepository: GwentRepository
 ) : ViewModelProvider.Factory {
@@ -19,6 +19,9 @@ class GameViewModelFactory(
             }
             MainViewModel::class.java -> {
                 MainViewModel(application) as T
+            }
+            StatsViewModel::class.java -> {
+                StatsViewModel(application, gwentRepository) as T
             }
             else -> throw IllegalArgumentException()
         }

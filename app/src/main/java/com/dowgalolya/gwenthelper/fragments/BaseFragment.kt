@@ -34,7 +34,7 @@ abstract class BaseFragment : Fragment() {
     }
 
     private fun navigate(action: ViewAction.Navigate) {
-        val intent = action.buildIntent(context!!)
+        val intent = action.buildIntent(requireContext())
         if (action.requestCode == null) {
             startActivity(intent)
         } else {
@@ -43,7 +43,7 @@ abstract class BaseFragment : Fragment() {
     }
 
     private fun navigateWithDirection(direction: NavDirections) {
-        view!!.findNavController().navigate(direction)
+        requireView().findNavController().navigate(direction)
     }
 
     private fun finish(action: ViewAction.Finish) {
