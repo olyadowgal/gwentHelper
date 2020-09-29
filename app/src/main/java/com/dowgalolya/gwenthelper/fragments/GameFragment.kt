@@ -192,6 +192,9 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
                     viewModel.onGameEnds()
                     findNavController().popBackStack()
                 }
+                .setNegativeButton(getString(R.string.end_of_game_negative_btn)) { _, _ ->
+                    findNavController().popBackStack()
+                }
                 .show()
         })
     }

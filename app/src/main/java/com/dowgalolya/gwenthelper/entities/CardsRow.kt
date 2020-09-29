@@ -9,13 +9,17 @@ data class CardsRow(
     val type: CardsRowType,
     var cards: List<Card> = emptyList(),
     var horn: Boolean = false,
-    var badWeather : Boolean = false
+    var badWeather: Boolean = false
 ) {
 
     val totalPoints get() = cards.sumBy { pointsOf(it) }
 
-    private val hornsCount get() = (if (horn) 1 else 0) + cards.count { it.abilities.contains(
-        Ability.HORN) }
+    private val hornsCount
+        get() = (if (horn) 1 else 0) + cards.count {
+            it.abilities.contains(
+                Ability.HORN
+            )
+        }
 
     fun pointsOf(card: Card): Int {
         if (!cards.contains(card)) throw IllegalArgumentException("This card is not belong to this row: $card")
@@ -34,10 +38,13 @@ data class CardsRow(
 
         //TIGHT_BOND
         if (card.abilities.contains(Ability.TIGHT_BOND)) {
-            points = points.toDouble()
-                .pow(cards.count { it.points == card.points && it.abilities.contains(
-                    Ability.TIGHT_BOND) })
-                .toInt()
+            points *= 2F.pow(cards.count {
+                it.points == card.points && it.abilities.contains(
+                    Ability.TIGHT_BOND
+                )
+            } - 1).toInt()
+
+
         }
 
 
