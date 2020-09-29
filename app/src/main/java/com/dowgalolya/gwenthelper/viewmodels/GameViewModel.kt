@@ -24,6 +24,7 @@ import com.dowgalolya.gwenthelper.repositories.GwentRepository
 import com.dowgalolya.gwenthelper.widgets.WeatherView
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 import java.util.*
 
 class GameViewModel(
@@ -180,9 +181,12 @@ class GameViewModel(
 
     @MainThread
     fun onGameEnds() {
+        val formatter = SimpleDateFormat(
+            "hh:mm dd MMM yyyy", Locale.getDefault()
+        )
         val gameScore = _gameData.value?.let {
             GameScore(
-                date = Calendar.getInstance().time.toString(),
+                date = formatter.format(Calendar.getInstance().time),
                 firstPlayer = it.firstPlayerData.name,
             secondPlayer = it.secondPlayerData.name,
             winner = _gameOver.value!!.name)
