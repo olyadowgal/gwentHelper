@@ -8,18 +8,18 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dowgalolya.gwenthelper.R
 import com.dowgalolya.gwenthelper.di.SingletonHolder
-import com.dowgalolya.gwenthelper.viewmodels.StatsViewModel
-import kotlinx.android.synthetic.main.stats_fragment.*
+import com.dowgalolya.gwenthelper.viewmodels.ScoreViewModel
+import kotlinx.android.synthetic.main.score_fragment.*
 
-class StatsFragment : BaseFragment() {
+class ScoreFragment : BaseFragment() {
 
-    override val viewModel: StatsViewModel by viewModels { SingletonHolder.viewModelFactory }
+    override val viewModel: ScoreViewModel by viewModels { SingletonHolder.viewModelFactory }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = inflater.inflate(R.layout.stats_fragment, container, false)
+    ): View = inflater.inflate(R.layout.score_fragment, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

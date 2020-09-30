@@ -3,24 +3,20 @@ package com.dowgalolya.gwenthelper.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.dowgalolya.gwenthelper.R
 import com.dowgalolya.gwenthelper.db.GameScore
 import com.dowgalolya.gwenthelper.enums.Winner
-import kotlinx.android.synthetic.main.item_stats.view.*
-import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
-import java.util.*
+import kotlinx.android.synthetic.main.item_score.view.*
 import kotlin.collections.ArrayList
 
-class StatsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ScoreAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val _stats: MutableList<GameScore> = ArrayList()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-        FeedItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_stats, parent, false))
+        FeedItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_score, parent, false))
 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

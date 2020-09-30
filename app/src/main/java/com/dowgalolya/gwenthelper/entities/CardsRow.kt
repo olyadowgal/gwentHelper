@@ -44,7 +44,6 @@ data class CardsRow(
                 )
             } - 1).toInt()
 
-
         }
 
 

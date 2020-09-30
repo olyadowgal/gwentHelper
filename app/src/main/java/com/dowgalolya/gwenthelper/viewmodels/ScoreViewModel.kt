@@ -1,19 +1,18 @@
 package com.dowgalolya.gwenthelper.viewmodels
 
 import android.app.Application
-import com.dowgalolya.gwenthelper.adapters.StatsAdapter
+import com.dowgalolya.gwenthelper.adapters.ScoreAdapter
 import com.dowgalolya.gwenthelper.db.GameScore
 import com.dowgalolya.gwenthelper.repositories.GwentRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import okhttp3.Dispatcher
 
-class StatsViewModel(application: Application, private val gwentRepository: GwentRepository) :
+class ScoreViewModel(application: Application, private val gwentRepository: GwentRepository) :
     BaseViewModel(application) {
 
-    val statsAdapter: StatsAdapter = StatsAdapter()
+    val statsAdapter: ScoreAdapter = ScoreAdapter()
 
 
     fun loadDatabaseScores() {

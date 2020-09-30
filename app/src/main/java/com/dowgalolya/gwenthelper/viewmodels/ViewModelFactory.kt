@@ -20,8 +20,8 @@ class ViewModelFactory(
             MainViewModel::class.java -> {
                 MainViewModel(application) as T
             }
-            StatsViewModel::class.java -> {
-                StatsViewModel(application, gwentRepository) as T
+            ScoreViewModel::class.java -> {
+                ScoreViewModel(application, gwentRepository) as T
             }
             else -> throw IllegalArgumentException()
         }

@@ -43,8 +43,8 @@
     </fragment>
     <fragment
             android:id="@+id/statsFragment"
-            android:name="com.dowgalolya.gwenthelper.fragments.StatsFragment"
+            android:name="com.dowgalolya.gwenthelper.fragments.ScoreFragment"
             android:label="StatsFragment"
-            tools:layout="@layout/stats_fragment" />
+            tools:layout="@layout/score_fragment" />
 
 </navigation>
