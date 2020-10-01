@@ -8,31 +8,53 @@ import com.dowgalolya.gwenthelper.R
 import com.dowgalolya.gwenthelper.db.GameScore
 import com.dowgalolya.gwenthelper.enums.Winner
 import kotlinx.android.synthetic.main.item_score.view.*
+import java.lang.IllegalArgumentException
 import kotlin.collections.ArrayList
 
 class ScoreAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val _stats: MutableList<GameScore> = ArrayList()
 
+    init {
+        setHasStableIds(true)
+    }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-        FeedItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_score, parent, false))
+    object ViewType {
+        const val PLACEHOLDER = R.layout.item_placehoder
+        const val FEED = R.layout.item_score
+    }
 
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (holder) {
-            is FeedItemViewHolder -> {holder.onBind(_stats[position])}
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
+        return when (viewType) {
+            ViewType.PLACEHOLDER -> PlaceholderViewHolder(view)
+            ViewType.FEED -> FeedItemViewHolder(view)
+            else -> throw IllegalArgumentException()
         }
     }
 
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder) {
+            is FeedItemViewHolder -> {
+                holder.onBind(_stats[position])
+            }
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if (_stats.isEmpty()) ViewType.PLACEHOLDER
+        else ViewType.FEED
+    }
+
     override fun getItemCount(): Int {
-       return _stats.size
+        return if (_stats.isNullOrEmpty()) 1 else _stats.size
     }
 
     fun add(score: GameScore) {
         _stats.add(score)
         notifyItemInserted(_stats.size)
     }
+
     fun clearAll() {
         _stats.clear()
     }
@@ -57,8 +79,10 @@ class ScoreAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     containerView.img_winner_user_2.setColorFilter(R.color.colorSimpleCard)
                 }
             }
-        }
 
+        }
     }
+
+    inner class PlaceholderViewHolder(containerView: View) : RecyclerView.ViewHolder(containerView)
 
 }
