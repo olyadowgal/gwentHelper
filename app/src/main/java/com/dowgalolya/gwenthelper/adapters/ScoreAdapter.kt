@@ -47,10 +47,10 @@ class ScoreAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             containerView.txt_user_2.text = item.secondPlayer
             when (item.winner) {
                 Winner.FIRST.name -> {
-                    containerView.img_winner_user_1.setColorFilter(R.color.colorSimpleCard)
+                    containerView.img_winner_user_2.setColorFilter(R.color.colorSimpleCard)
                 }
                 Winner.SECOND.name -> {
-                    containerView.img_winner_user_2.setColorFilter(R.color.colorSimpleCard)
+                    containerView.img_winner_user_1.setColorFilter(R.color.colorSimpleCard)
                 }
                 Winner.TIE.name -> {
                     containerView.img_winner_user_1.setColorFilter(R.color.colorSimpleCard)

@@ -100,6 +100,7 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
         btn_reset.setOnLongClickListener(this)
         btn_reset.setOnClickListener(this)
         btn_exit_game.setOnClickListener(this)
+        btn_exit_game.setOnLongClickListener(this)
 
         widget_stats_close_combat.cb_horn.setOnCheckedChangeListener { _, isChecked ->
             viewModel.onHornChecked(CardsRowType.CLOSE_COMBAT, isChecked)
@@ -249,19 +250,40 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
                     Toast.LENGTH_LONG
                 ).show()
             }
-            R.id.btn_exit_game -> findNavController().popBackStack()
+            R.id.btn_exit_game -> {
+                Toast.makeText(
+                    context,
+                    getString(R.string.end_game_msg),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         }
     }
 
-    override fun onLongClick(v: View?): Boolean {
-        AlertDialog.Builder(requireContext())
-            .setTitle(getString(R.string.end_round_title))
-            .setMessage(getString(R.string.end_round_message))
-            .setNegativeButton(getString(R.string.end_round_negative), null)
-            .setPositiveButton(getString(R.string.end_round_positive)) { _, _ ->
-                viewModel.onPassClicked()
+    override fun onLongClick(view: View): Boolean {
+        when (view.id) {
+            R.id.btn_reset -> {
+                AlertDialog.Builder(requireContext())
+                    .setTitle(getString(R.string.end_round_title))
+                    .setMessage(getString(R.string.end_round_message))
+                    .setNegativeButton(getString(R.string.end_round_negative), null)
+                    .setPositiveButton(getString(R.string.end_round_positive)) { _, _ ->
+                        viewModel.onPassClicked()
+                    }
+                    .show()
             }
-            .show()
+            R.id.btn_exit_game -> {
+                AlertDialog.Builder(requireContext())
+                    .setTitle(getString(R.string.exit_game_title))
+                    .setMessage(getString(R.string.exit_game_message))
+                    .setNegativeButton(getString(R.string.end_round_negative), null)
+                    .setPositiveButton(getString(R.string.end_round_positive)) { _, _ ->
+                        findNavController().popBackStack()
+                    }
+                    .show()
+            }
+        }
+
         return true
     }
 }
