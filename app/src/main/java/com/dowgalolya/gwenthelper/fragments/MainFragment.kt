@@ -6,24 +6,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.dowgalolya.gwenthelper.R
+import com.dowgalolya.gwenthelper.di.SingletonHolder
 import com.dowgalolya.gwenthelper.viewmodels.MainViewModel
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.main_fragment.*
 
 
-class MainFragment() : BaseFragment(), View.OnClickListener {
+class MainFragment : BaseFragment(), View.OnClickListener {
 
-
-    override val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this).get(MainViewModel::class.java)
+    override val viewModel: MainViewModel by viewModels {
+        SingletonHolder.viewModelFactory
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +33,7 @@ class MainFragment() : BaseFragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         btn_play.setOnClickListener(this)
+        img_scores.setOnClickListener(this)
         img_user1_avatar.setOnClickListener(this)
         img_user2_avatar.setOnClickListener(this)
 
@@ -70,11 +70,12 @@ class MainFragment() : BaseFragment(), View.OnClickListener {
     override fun onClick(view: View) {
         when (view.id) {
             R.id.btn_play -> {
-                viewModel.onButtonClicked(
+                viewModel.onPlayClicked(
                     f_user1_name.text?.toString(),
                     f_user2_name.text?.toString()
                 )
             }
+            R.id.img_scores -> {viewModel.onScoresClicked()}
             R.id.img_user1_avatar -> {
                 viewModel.onPhotoClicked(R.id.img_user1_avatar)
             }

@@ -118,10 +118,10 @@ class CardRowAdapter private constructor(
             val abilityIconRes =
                 item.abilities.filterNot { it == Ability.HERO }.firstOrNull()?.iconRes
             if (abilityIconRes == null) {
-                containerView.iv_card_type.visibility = View.INVISIBLE
+                containerView.img_card_type.visibility = View.INVISIBLE
             } else {
-                containerView.iv_card_type.visibility = View.VISIBLE
-                containerView.iv_card_type.setImageResource(abilityIconRes)
+                containerView.img_card_type.visibility = View.VISIBLE
+                containerView.img_card_type.setImageResource(abilityIconRes)
             }
         }
 

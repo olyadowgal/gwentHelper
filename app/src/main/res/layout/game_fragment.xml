@@ -31,7 +31,7 @@
                     android:padding="8dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/exit"
-                    android:src="@drawable/ic_back"
+                    android:src="@drawable/ic_quit"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 

@@ -29,7 +29,7 @@ class MainViewModelTest() {
     @Test
     fun `When onButtonClicked was called with empty user1Name and empty user2Name, then should navigate with actionMainFragmentToGameFragment direction with null user1Name and user2Name`() {
         //When
-        vm.onButtonClicked("", "")
+        vm.onPlayClicked("", "")
 
         //Then
         assertEquals(
@@ -42,7 +42,7 @@ class MainViewModelTest() {
     fun `When onButtonClicked was called with not null user1Name, then should navigate with actionMainFragmentToGameFragment direction with not null user1Name`() {
 
         //When
-        vm.onButtonClicked("ibobo", "")
+        vm.onPlayClicked("ibobo", "")
 
         //Then¬
         assertEquals(
@@ -55,7 +55,7 @@ class MainViewModelTest() {
     fun `When onButtonClicked was called with not null user2Name, then should navigate with actionMainFragmentToGameFragment direction with not null user2Name`() {
 
         //When
-        vm.onButtonClicked("", "ibobo")
+        vm.onPlayClicked("", "ibobo")
 
         //Then
         assertEquals(
@@ -69,7 +69,7 @@ class MainViewModelTest() {
         //Given
         vm.firstUserPhotoUpdate(uri)
         //When
-        vm.onButtonClicked("", "")
+        vm.onPlayClicked("", "")
 
         //Then
         assertEquals(
@@ -83,7 +83,7 @@ class MainViewModelTest() {
         //Given
         vm.secondUserPhotoUpdate(uri)
         //When
-        vm.onButtonClicked("", "")
+        vm.onPlayClicked("", "")
 
         //Then
         assertEquals(
@@ -97,7 +97,7 @@ class MainViewModelTest() {
     fun `When firstUserPhotoUpdate was called with not null userUri, then should navigate with actionMainFragmentToGameFragment direction with not null userUri`() {
 
         //When
-        vm.onButtonClicked("", "ibobo")
+        vm.onPlayClicked("", "ibobo")
 
         //Then
         assertEquals(

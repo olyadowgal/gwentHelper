@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/nav_graph"
-            app:startDestination="@id/mainFragment">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/nav_graph"
+        app:startDestination="@id/mainFragment">
 
     <fragment
             android:id="@+id/mainFragment"
@@ -13,7 +13,10 @@
 
         <action
                 android:id="@+id/action_mainFragment_to_gameFragment"
-                app:destination="@id/gameFragment"/>
+                app:destination="@id/gameFragment" />
+        <action
+                android:id="@+id/action_mainFragment_to_statsFragment"
+                app:destination="@id/statsFragment" />
     </fragment>
 
     <fragment
@@ -23,20 +26,25 @@
             tools:layout="@layout/game_fragment">
         <argument
                 android:name="user1"
-                app:argType="string"
-                android:defaultValue="User 1"/>
+                android:defaultValue="User 1"
+                app:argType="string" />
         <argument
                 android:name="user2"
-                app:argType="string"
-                android:defaultValue="User 2"/>
+                android:defaultValue="User 2"
+                app:argType="string" />
         <argument
                 android:name="user1Photo"
-                app:argType="string"
-                android:defaultValue=" "/>
+                android:defaultValue=" "
+                app:argType="string" />
         <argument
                 android:name="user2Photo"
-                app:argType="string"
-                android:defaultValue=" "/>
+                android:defaultValue=" "
+                app:argType="string" />
     </fragment>
+    <fragment
+            android:id="@+id/statsFragment"
+            android:name="com.dowgalolya.gwenthelper.fragments.ScoreFragment"
+            android:label="StatsFragment"
+            tools:layout="@layout/score_fragment" />
 
 </navigation>

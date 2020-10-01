@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.dowgalolya.gwenthelper.R
 import com.dowgalolya.gwenthelper.adapters.itemdecoration.CardRowItemDecoration
+import com.dowgalolya.gwenthelper.di.SingletonHolder
 import com.dowgalolya.gwenthelper.dialogs.AddCardDialog
 import com.dowgalolya.gwenthelper.dialogs.EditCardDialog
 import com.dowgalolya.gwenthelper.entities.Card
@@ -27,7 +29,6 @@ import com.dowgalolya.gwenthelper.viewmodels.GameViewModel
 import com.dowgalolya.gwenthelper.viewmodels.GameViewModel.Companion.CARD
 import com.dowgalolya.gwenthelper.viewmodels.GameViewModel.Companion.CARD_ROW
 import com.dowgalolya.gwenthelper.viewmodels.GameViewModel.CustomViewAction
-import com.dowgalolya.gwenthelper.viewmodels.GameViewModelFactory
 import com.dowgalolya.gwenthelper.widgets.CardsStatsView
 import kotlinx.android.synthetic.main.game_fragment.*
 import kotlinx.android.synthetic.main.view_cards_stats.view.*
@@ -35,9 +36,7 @@ import kotlinx.android.synthetic.main.view_user.view.*
 
 class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListener {
 
-    override val viewModel: GameViewModel by lazy {
-        activity?.application?.let { GameViewModelFactory(it).create(GameViewModel::class.java) }!!
-    }
+    override val viewModel: GameViewModel by viewModels { SingletonHolder.viewModelFactory }
 
     private val rowStats: Map<CardsRowType, CardsStatsView> by lazy {
         mapOf(
@@ -80,18 +79,18 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
 
         widget_weather.listener = viewModel
         viewModel.init(
-            GameFragmentArgs.fromBundle(arguments!!).user1,
-            GameFragmentArgs.fromBundle(arguments!!).user2
+            GameFragmentArgs.fromBundle(requireArguments()).user1,
+            GameFragmentArgs.fromBundle(requireArguments()).user2
         )
 
         Glide.with(this)
-            .load(GameFragmentArgs.fromBundle(arguments!!).user1Photo)
+            .load(GameFragmentArgs.fromBundle(requireArguments()).user1Photo)
             .placeholder(R.drawable.ic_male_avatar)
             .transform(CircleCrop())
             .into(widget_user1.img_user_avatar)
 
         Glide.with(this)
-            .load(GameFragmentArgs.fromBundle(arguments!!).user2Photo)
+            .load(GameFragmentArgs.fromBundle(requireArguments()).user2Photo)
             .placeholder(R.drawable.ic_female_avatar)
             .transform(CircleCrop())
             .into(widget_user2.img_user_avatar)
@@ -101,6 +100,7 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
         btn_reset.setOnLongClickListener(this)
         btn_reset.setOnClickListener(this)
         btn_exit_game.setOnClickListener(this)
+        btn_exit_game.setOnLongClickListener(this)
 
         widget_stats_close_combat.cb_horn.setOnCheckedChangeListener { _, isChecked ->
             viewModel.onHornChecked(CardsRowType.CLOSE_COMBAT, isChecked)
@@ -185,15 +185,15 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
                 Winner.SECOND -> getString(R.string.end_of_game_message) + " " + widget_user2.txt_user_name.text.toString()
                 Winner.TIE -> getString(R.string.end_of_game_tie_message)
             }
-            AlertDialog.Builder(context!!)
+            AlertDialog.Builder(requireContext())
                 .setTitle(getString(R.string.end_of_game_title))
                 .setMessage(message)
                 .setCancelable(false)
-//                .setNegativeButton(R.string.end_of_game_negative_btn) { _, _ ->
-//                    findNavController().popBackStack()
-//                }
                 .setPositiveButton(getString(R.string.end_of_game_positive_btn)) { _, _ ->
-                    // TODO: Save game stats here
+                    viewModel.onGameEnds()
+                    findNavController().popBackStack()
+                }
+                .setNegativeButton(getString(R.string.end_of_game_negative_btn)) { _, _ ->
                     findNavController().popBackStack()
                 }
                 .show()
@@ -205,14 +205,14 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
             is ViewAction.Custom -> when (action.action) {
                 CustomViewAction.SHOW_ADD_CARD_DIALOG -> {
                     AddCardDialog(
-                        context!!,
+                        requireContext(),
                         viewModel,
                         action.args[CARD_ROW] as CardsRowType
                     ).show()
                 }
                 CustomViewAction.SHOW_EDIT_CARD_DIALOG -> {
                     EditCardDialog(
-                        context!!,
+                        requireContext(),
                         viewModel,
                         action.args[CARD_ROW] as CardsRow,
                         action.args[CARD] as Card
@@ -222,7 +222,7 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
                 CustomViewAction.SHOW_CONFIG_CARD_DIALOG -> {
                     val cardsRow = action.args[CARD_ROW] as CardsRow
                     val card = action.args[CARD] as Card
-                    AlertDialog.Builder(context!!)
+                    AlertDialog.Builder(requireContext())
                         .setTitle(getString(R.string.config_card_dialog_title))
                         .setNegativeButton(getString(R.string.config_card_dialog_negative)) { _, _ ->
                             viewModel.onEditClicked(cardsRow, card)
@@ -250,19 +250,40 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
                     Toast.LENGTH_LONG
                 ).show()
             }
-            R.id.btn_exit_game -> findNavController().popBackStack()
+            R.id.btn_exit_game -> {
+                Toast.makeText(
+                    context,
+                    getString(R.string.end_game_msg),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         }
     }
 
-    override fun onLongClick(v: View?): Boolean {
-        AlertDialog.Builder(context!!)
-            .setTitle(getString(R.string.end_round_title))
-            .setMessage(getString(R.string.end_round_message))
-            .setNegativeButton(getString(R.string.end_round_negative), null)
-            .setPositiveButton(getString(R.string.end_round_positive)) { _, _ ->
-                viewModel.onPassClicked()
+    override fun onLongClick(view: View): Boolean {
+        when (view.id) {
+            R.id.btn_reset -> {
+                AlertDialog.Builder(requireContext())
+                    .setTitle(getString(R.string.end_round_title))
+                    .setMessage(getString(R.string.end_round_message))
+                    .setNegativeButton(getString(R.string.end_round_negative), null)
+                    .setPositiveButton(getString(R.string.end_round_positive)) { _, _ ->
+                        viewModel.onPassClicked()
+                    }
+                    .show()
             }
-            .show()
+            R.id.btn_exit_game -> {
+                AlertDialog.Builder(requireContext())
+                    .setTitle(getString(R.string.exit_game_title))
+                    .setMessage(getString(R.string.exit_game_message))
+                    .setNegativeButton(getString(R.string.end_round_negative), null)
+                    .setPositiveButton(getString(R.string.end_round_positive)) { _, _ ->
+                        findNavController().popBackStack()
+                    }
+                    .show()
+            }
+        }
+
         return true
     }
 }

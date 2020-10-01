@@ -21,6 +21,8 @@
     <string name="user2_name_hint">Enter user 2 name</string>
     <string name="pass_msg">All data cleared!</string>
     <string name="click_reset_msg">HOLD to end round</string>
+    <string name="end_game_msg">HOLD to end game</string>
+    <string name="click_reset_db">HOLD to clear game scores list</string>
     <string name="gwent_helper">Gwent Helper</string>
     <string name="exit">Exit</string>
     <string name="reset">Reset</string>
@@ -37,12 +39,21 @@
     <string name="config_card_dialog_neutral">Cancel</string>
     <string name="end_round_title">Alert</string>
     <string name="end_round_message">This action will end round for both players. You ready to end round?</string>
+    <string name="exit_game_title">Alert</string>
+    <string name="exit_game_message">This action will end game. Are you sure?</string>
     <string name="end_round_negative">No</string>
     <string name="end_round_positive">Yes</string>
+    <string name="clear_db_title">Alert</string>
+    <string name="clear_db_message">This action will clear list of all game scores. Are you sure to do this?</string>
+    <string name="clear_db_negative">No</string>
+    <string name="clear_db_positive">Yes</string>
     <string name="frost_true">You activate frost</string>
     <string name="frost_false">You disable frost</string>
     <string name="fog_true">You activate fog</string>
     <string name="fog_false">You disable fog</string>
     <string name="rain_true">You activate rain</string>
     <string name="rain_false">You disable rain</string>
+    <string name="scores">Scores</string>
+    <string name="play">Play</string>
+    <string name="scores_placehoder">You don\'t save any game yet.</string>
 </resources>
