@@ -20,8 +20,9 @@
     </style>
 
     <style name="Text.Title">
+        <item name="android:fontFamily">@font/creed</item>
         <item name="android:textColor">@color/colorPrimaryLight</item>
-        <item name="android:textSize">36sp</item>
+        <item name="android:textSize">48sp</item>
     </style>
 
     <style name="Text.Placeholder">

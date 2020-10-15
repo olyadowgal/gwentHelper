@@ -17,8 +17,6 @@
     <string name="card_abilities">Card abilities</string>
     <string name="user1">User 1</string>
     <string name="user2">User 2</string>
-    <string name="user1_name_hint">Enter user 1 name</string>
-    <string name="user2_name_hint">Enter user 2 name</string>
     <string name="pass_msg">All data cleared!</string>
     <string name="click_reset_msg">HOLD to end round</string>
     <string name="end_game_msg">HOLD to end game</string>
@@ -53,7 +51,7 @@
     <string name="fog_false">You disable fog</string>
     <string name="rain_true">You activate rain</string>
     <string name="rain_false">You disable rain</string>
-    <string name="scores">Scores</string>
-    <string name="play">Play</string>
     <string name="scores_placehoder">You don\'t save any game yet.</string>
+    <string name="play">Play</string>
+    <string name="scores">Scores</string>
 </resources>
