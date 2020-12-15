@@ -54,4 +54,5 @@
     <string name="scores_placehoder">You don\'t save any game yet.</string>
     <string name="play">Play</string>
     <string name="scores">Scores</string>
+    <string name="edit_card">Edit Card</string>
 </resources>

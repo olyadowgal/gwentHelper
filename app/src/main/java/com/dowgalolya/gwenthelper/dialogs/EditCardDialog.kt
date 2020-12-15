@@ -3,6 +3,7 @@ package com.dowgalolya.gwenthelper.dialogs
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
+import com.dowgalolya.gwenthelper.R
 import com.dowgalolya.gwenthelper.enums.Ability
 import com.dowgalolya.gwenthelper.entities.Card
 import com.dowgalolya.gwenthelper.entities.CardsRow
@@ -21,8 +22,8 @@ class EditCardDialog(
     }
 
     init {
-        setButton(DialogInterface.BUTTON_POSITIVE, "EDIT CARD", this)
-        setButton(DialogInterface.BUTTON_NEGATIVE, "CANCEL", this)
+        setButton(DialogInterface.BUTTON_POSITIVE, getContext().getString(R.string.edit_card), this)
+        setButton(DialogInterface.BUTTON_NEGATIVE, getContext().getString(R.string.cancel), this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
