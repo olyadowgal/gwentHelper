@@ -3,6 +3,7 @@ package com.dowgalolya.gwenthelper.dialogs
 import android.content.Context
 import android.content.DialogInterface
 import android.util.Log
+import com.dowgalolya.gwenthelper.R
 import com.dowgalolya.gwenthelper.entities.Card
 import com.dowgalolya.gwenthelper.enums.CardsRowType
 import kotlinx.android.synthetic.main.card_dialog_fragment.*
@@ -23,8 +24,8 @@ class AddCardDialog(
     }
 
     init {
-        setButton(DialogInterface.BUTTON_POSITIVE, "ADD CARD", this)
-        setButton(DialogInterface.BUTTON_NEGATIVE, "CANCEL", this)
+        setButton(DialogInterface.BUTTON_POSITIVE, getContext().getString(R.string.add_card), this)
+        setButton(DialogInterface.BUTTON_NEGATIVE, getContext().getString(R.string.cancel), this)
     }
 
 
