@@ -38,10 +38,11 @@ class TriangularButton(context: Context?, attrs: AttributeSet?, defStyle: Int) :
         }
 
         // Ignores touches on transparent background.
-        return if (color == Color.TRANSPARENT) true else false
+        return color == Color.TRANSPARENT
     }
 
     init {
+        @Suppress("DEPRECATION")
         isDrawingCacheEnabled = true
     }
 }
