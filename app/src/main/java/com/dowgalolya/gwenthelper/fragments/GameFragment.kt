@@ -28,8 +28,12 @@ import com.dowgalolya.gwenthelper.livedata.ViewAction
 import com.dowgalolya.gwenthelper.viewmodels.GameViewModel
 import com.dowgalolya.gwenthelper.viewmodels.GameViewModel.Companion.CARD
 import com.dowgalolya.gwenthelper.viewmodels.GameViewModel.Companion.CARD_ROW
+import com.dowgalolya.gwenthelper.viewmodels.GameViewModel.Companion.REVIEW_INFO
+import com.dowgalolya.gwenthelper.viewmodels.GameViewModel.Companion.REVIEW_MANAGER
 import com.dowgalolya.gwenthelper.viewmodels.GameViewModel.CustomViewAction
 import com.dowgalolya.gwenthelper.widgets.CardsStatsView
+import com.google.android.play.core.review.ReviewInfo
+import com.google.android.play.core.review.ReviewManager
 import kotlinx.android.synthetic.main.game_fragment.*
 import kotlinx.android.synthetic.main.view_cards_stats.view.*
 import kotlinx.android.synthetic.main.view_user.view.*
@@ -191,10 +195,9 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
                 .setCancelable(false)
                 .setPositiveButton(getString(R.string.end_of_game_positive_btn)) { _, _ ->
                     viewModel.onGameEnds()
-                    findNavController().popBackStack()
                 }
                 .setNegativeButton(getString(R.string.end_of_game_negative_btn)) { _, _ ->
-                    findNavController().popBackStack()
+                    viewModel.onGameEndsWithoutSaving()
                 }
                 .show()
         })
@@ -232,6 +235,17 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
                         }
                         .setNeutralButton(getString(R.string.config_card_dialog_neutral), null)
                         .show()
+                }
+                CustomViewAction.FINISH_GAME -> {
+                    findNavController().popBackStack()
+                }
+                CustomViewAction.LAUNCH_REVIEW_AND_FINISH_GAME -> {
+                    val manager = action.args[REVIEW_MANAGER] as ReviewManager
+                    val reviewInfo = action.args[REVIEW_INFO] as ReviewInfo
+                    activity?.let { manager.launchReviewFlow(it, reviewInfo) }
+                        ?.addOnCompleteListener { _ ->
+                            findNavController().popBackStack()
+                    }
                 }
                 else -> super.handleViewAction(action)
             }
