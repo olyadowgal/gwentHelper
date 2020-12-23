@@ -22,6 +22,7 @@ import com.dowgalolya.gwenthelper.livedata.SingleLiveEvent
 import com.dowgalolya.gwenthelper.livedata.ViewAction
 import com.dowgalolya.gwenthelper.repositories.GwentRepository
 import com.dowgalolya.gwenthelper.widgets.WeatherView
+import com.google.android.play.core.review.ReviewManagerFactory
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -40,12 +41,16 @@ class GameViewModel(
     companion object {
         const val CARD_ROW = "CARD_ROW"
         const val CARD = "CARD"
+        const val REVIEW_INFO = "REVIEW_INFO"
+        const val REVIEW_MANAGER = "REVIEW_MANAGER"
     }
 
     object CustomViewAction {
         const val SHOW_ADD_CARD_DIALOG = "SHOW_ADD_CARD_DIALOG"
         const val SHOW_CONFIG_CARD_DIALOG = "SHOW_CONFIG_CARD_DIALOG"
         const val SHOW_EDIT_CARD_DIALOG = "SHOW_EDIT_CARD_DIALOG"
+        const val FINISH_GAME = "FINISH_GAME"
+        const val LAUNCH_REVIEW_AND_FINISH_GAME = "LAUNCH_REVIEW_AND_FINISH_GAME"
     }
 
     private val _gameData = MutableLiveData<GameData>().apply {
@@ -181,6 +186,7 @@ class GameViewModel(
 
     @MainThread
     fun onGameEnds() {
+
         val formatter = SimpleDateFormat(
             "hh:mm dd MMM yyyy", Locale.getDefault()
         )
@@ -188,12 +194,14 @@ class GameViewModel(
             GameScore(
                 date = formatter.format(Calendar.getInstance().time),
                 firstPlayer = it.firstPlayerData.name,
-            secondPlayer = it.secondPlayerData.name,
-            winner = _gameOver.value!!.name)
+                secondPlayer = it.secondPlayerData.name,
+                winner = _gameOver.value!!.name
+            )
         }
         GlobalScope.launch {
             gameScore?.let { gwentRepository.addGame(it) }
         }
+        startReviewRequest()
     }
 
     override fun onCardEdit(row: CardsRow, card: Card) {
@@ -201,6 +209,27 @@ class GameViewModel(
             cards = cards.filterNot { it.cardId == card.cardId } + card
         }
         _gameData.notifyDataChanged()
+    }
+
+    @MainThread
+    fun onGameEndsWithoutSaving() {
+        startReviewRequest()
+    }
+
+    private fun startReviewRequest() {
+        val manager = ReviewManagerFactory.create(getApplication<Application>().applicationContext)
+        val request = manager.requestReviewFlow()
+        request.addOnCompleteListener { r ->
+            if (r.isSuccessful) {
+                val reviewInfo = r.result
+                _viewAction.value =
+                    ViewAction.Custom(CustomViewAction.LAUNCH_REVIEW_AND_FINISH_GAME)
+                        .putArg(REVIEW_MANAGER, manager)
+                        .putArg(REVIEW_INFO, reviewInfo)
+            } else {
+                _viewAction.value = ViewAction.Custom(CustomViewAction.FINISH_GAME)
+            }
+        }
     }
 
 }
