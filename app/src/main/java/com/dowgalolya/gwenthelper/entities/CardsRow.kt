@@ -38,11 +38,11 @@ data class CardsRow(
 
         //TIGHT_BOND
         if (card.abilities.contains(Ability.TIGHT_BOND)) {
-            points *= 2F.pow(cards.count {
+            points *= cards.count {
                 it.points == card.points && it.abilities.contains(
                     Ability.TIGHT_BOND
                 )
-            } - 1).toInt()
+            }
 
         }
 
