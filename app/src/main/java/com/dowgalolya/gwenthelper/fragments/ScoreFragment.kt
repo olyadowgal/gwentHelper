@@ -1,5 +1,6 @@
 package com.dowgalolya.gwenthelper.fragments
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dowgalolya.gwenthelper.R
 import com.dowgalolya.gwenthelper.di.SingletonHolder
+import com.dowgalolya.gwenthelper.dialogs.AddCardDialog
+import com.dowgalolya.gwenthelper.dialogs.EditCardDialog
+import com.dowgalolya.gwenthelper.entities.Card
+import com.dowgalolya.gwenthelper.entities.CardsRow
+import com.dowgalolya.gwenthelper.enums.CardsRowType
+import com.dowgalolya.gwenthelper.livedata.ViewAction
+import com.dowgalolya.gwenthelper.viewmodels.GameViewModel
 import com.dowgalolya.gwenthelper.viewmodels.ScoreViewModel
+import com.google.android.play.core.review.ReviewInfo
+import com.google.android.play.core.review.ReviewManager
 import kotlinx.android.synthetic.main.score_fragment.*
 
 class ScoreFragment : BaseFragment(), View.OnLongClickListener, View.OnClickListener {
@@ -32,6 +42,20 @@ class ScoreFragment : BaseFragment(), View.OnLongClickListener, View.OnClickList
         img_reset_db.setOnClickListener(this)
         img_reset_db.setOnLongClickListener(this)
         viewModel.loadDatabaseScores()
+    }
+
+    override fun handleViewAction(action: ViewAction) {
+        when (action) {
+            is ViewAction.Custom -> when (action.action) {
+                ScoreViewModel.CustomViewAction.SHOW_RESET_SCORES_BUTTON -> {
+                    img_reset_db.visibility = View.VISIBLE
+                }
+                ScoreViewModel.CustomViewAction.HIDE_RESET_SCORES_BUTTON -> {
+                    img_reset_db.visibility = View.INVISIBLE
+                }
+            }
+            else -> super.handleViewAction(action)
+        }
     }
 
     override fun onLongClick(view: View): Boolean {
