@@ -22,16 +22,19 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:clipChildren="false"
+                android:clipToPadding="false">
 
-            <ImageView
+            <TextView
                     android:id="@+id/btn_exit_game"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:drawableStartCompat="@drawable/ic_exit"
                     android:padding="8dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/exit"
-                    android:src="@drawable/ic_quit"
+                    android:drawablePadding="4dp"
+                    android:theme="@style/Text.Description"
+                    android:text="@string/exit"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,7 +45,7 @@
                     app:layout_constraintBottom_toTopOf="@+id/widget_weather"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/btn_exit_game" />
 
             <com.dowgalolya.gwenthelper.widgets.WeatherView
                     android:id="@+id/widget_weather"
@@ -50,27 +53,29 @@
                     android:layout_height="wrap_content"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
-                    app:layout_constraintBottom_toTopOf="@id/widget_user2"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/widget_user1" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
+            <TextView
                     android:id="@+id/btn_reset"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:padding="8dp"
-                    android:src="@drawable/ic_reset"
-                    android:contentDescription="@string/reset"
+                    android:text="@string/pass"
+                    android:theme="@style/Text.Description"
+                    android:drawablePadding="4dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:drawableStartCompat="@drawable/ic_reset" />
 
             <com.dowgalolya.gwenthelper.widgets.UserView
                     android:id="@+id/widget_user2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/btn_reset"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/widget_weather" />
@@ -135,27 +140,27 @@
                 android:id="@+id/rv_close_combat"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:padding="8dp"
-                android:clipToPadding="false"
                 android:layout_weight="1"
-                android:orientation="horizontal" />
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                android:padding="8dp" />
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_long_range"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:padding="8dp"
-                android:clipToPadding="false"
                 android:layout_weight="1"
-                android:orientation="horizontal" />
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                android:padding="8dp" />
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_siege"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:padding="8dp"
-                android:clipToPadding="false"
                 android:layout_weight="1"
-                android:orientation="horizontal" />
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                android:padding="8dp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
