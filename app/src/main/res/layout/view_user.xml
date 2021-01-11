@@ -2,85 +2,81 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ImageView
+            android:id="@+id/img_user_avatar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/shape_circle"
+            android:clipToPadding="false"
+            android:elevation="6dp"
+            android:src="@drawable/ic_female_avatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+    <ImageView
+            android:id="@+id/img_avatar_ring"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="8dp"
+            android:elevation="20dp"
+            android:src="@drawable/ic_ring"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/colorPrimary"
+            tools:ignore="ContentDescription" />
+
+    <ImageView
+            android:id="@+id/img_user_coin1"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_margin="4dp"
+            android:src="@drawable/selector_jewel"
+            app:layout_constraintEnd_toStartOf="@id/img_user_coin2"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/img_avatar_ring"
+            tools:ignore="ContentDescription" />
+
+    <ImageView
+            android:id="@+id/img_user_coin2"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_margin="4dp"
+            android:src="@drawable/selector_jewel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@id/img_user_coin1"
+            app:layout_constraintTop_toBottomOf="@id/img_user_avatar"
+            tools:ignore="ContentDescription" />
+
+    <TextView
+            android:id="@+id/txt_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:theme="@style/AppTheme">
+            android:layout_margin="4dp"
+            android:theme="@style/Text.Secondary"
+            app:layout_constraintBottom_toTopOf="@id/txt_user_points"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/img_user_coin1"
+            tools:text="@string/user1" />
 
-        <ImageView
-                android:id="@+id/img_user_avatar"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_margin="8dp"
-                android:background="@drawable/shape_circle"
-                android:elevation="6dp"
-                android:clipToPadding="false"
-                android:src="@drawable/ic_female_avatar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-                android:id="@+id/img_avatar_ring"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_margin="8dp"
-                android:elevation="20dp"
-                android:src="@drawable/ic_ring"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/colorPrimary" />
-
-        <ImageView
-                android:id="@+id/iv_user_coin1"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_margin="4dp"
-                android:src="@drawable/ic_jewel"
-                app:layout_constraintEnd_toStartOf="@id/iv_user_coin2"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/img_avatar_ring" />
-
-        <ImageView
-                android:id="@+id/iv_user_coin2"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_margin="4dp"
-                android:src="@drawable/ic_jewel"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toEndOf="@id/iv_user_coin1"
-                app:layout_constraintTop_toBottomOf="@id/img_user_avatar" />
-
-        <TextView
-                android:id="@+id/txt_user_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:theme="@style/Text.Secondary"
-                app:layout_constraintBottom_toTopOf="@id/txt_user_points"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_user_coin1"
-                tools:text="@string/user1" />
-
-        <TextView
-                android:id="@+id/txt_user_points"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:text="0"
-                android:theme="@style/Text.Primary"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+    <TextView
+            android:id="@+id/txt_user_points"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:theme="@style/Text.Primary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="0" />
 </merge>

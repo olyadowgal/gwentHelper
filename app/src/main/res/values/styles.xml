@@ -19,6 +19,11 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="Text.Description">
+        <item name="android:textColor">@color/mid_grey</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
     <style name="Text.Title">
         <item name="android:fontFamily">@font/creed</item>
         <item name="android:textColor">@color/colorPrimaryLight</item>
