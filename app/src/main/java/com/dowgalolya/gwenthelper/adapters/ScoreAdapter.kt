@@ -60,13 +60,19 @@ class ScoreAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     inner class FeedItemViewHolder(
-        val containerView: View
+        private val containerView: View
     ) : RecyclerView.ViewHolder(containerView) {
 
         fun onBind(item: GameScore) {
             containerView.txt_game_date.text = item.date
             containerView.txt_user_1.text = item.firstPlayer
             containerView.txt_user_2.text = item.secondPlayer
+            containerView.txt_round_1_player_1.text = item.firstRoundFirstPlayerPoints.toString()
+            containerView.txt_round_1_player_2.text = item.firstRoundSecondPlayerPoints.toString()
+            containerView.txt_round_2_player_1.text = item.secondRoundFirstPlayerPoints.toString()
+            containerView.txt_round_2_player_2.text = item.secondRoundSecondPlayerPoints.toString()
+            containerView.txt_round_3_player_1.text = item.thirdRoundFirstPlayerPoints.toString()
+            containerView.txt_round_3_player_2.text = item.thirdRoundSecondPlayerPoints.toString()
             when (item.winner) {
                 Winner.FIRST.name -> {
                     containerView.img_winner_user_2.setColorFilter(R.color.colorSimpleCard)

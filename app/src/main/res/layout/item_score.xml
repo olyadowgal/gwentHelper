@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/colorBackground">
 
@@ -24,27 +24,29 @@
                     android:id="@+id/txt_game_date"
                     style="@style/Text.Primary"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:textAlignment="center"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/txt_placeholder"
                     tools:text="Date" />
 
             <ImageView
                     android:id="@+id/img_winner_user_1"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
                     android:src="@drawable/ic_crown"
-                    android:tint="@color/colorAccentDark"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/txt_user_1"
                     app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/txt_game_date" />
+                    app:layout_constraintTop_toBottomOf="@id/txt_game_date"
+                    app:tint="@color/colorAccentDark" />
 
             <TextView
                     android:id="@+id/txt_user_1"
@@ -77,11 +79,11 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
                     android:src="@drawable/ic_crown"
-                    android:tint="@color/colorAccentDark"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/txt_user_2"
                     app:layout_constraintStart_toEndOf="@id/txt_placeholder"
-                    app:layout_constraintTop_toBottomOf="@id/txt_game_date" />
+                    app:layout_constraintTop_toBottomOf="@id/txt_game_date"
+                    app:tint="@color/colorAccentDark" />
 
             <TextView
                     android:id="@+id/txt_user_2"
@@ -94,6 +96,141 @@
                     app:layout_constraintStart_toEndOf="@id/img_winner_user_2"
                     app:layout_constraintTop_toBottomOf="@id/txt_game_date"
                     tools:text="Name" />
+
+            <TextView
+                    android:id="@+id/txt_round_1_title"
+                    style="@style/Text.Primary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:text="@string/round_1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_placeholder" />
+
+            <TextView
+                    android:id="@+id/txt_round_1_player_1"
+                    style="@style/Text.Primary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintEnd_toStartOf="@id/txt_round_1_divider"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txt_round_1_title"
+                    tools:text="0" />
+
+            <TextView
+                    android:id="@+id/txt_round_1_divider"
+                    style="@style/Text.Primary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:text="@string/vs"
+                    app:layout_constraintEnd_toStartOf="@id/txt_round_1_player_2"
+                    app:layout_constraintStart_toEndOf="@id/txt_round_1_player_1"
+                    app:layout_constraintTop_toBottomOf="@id/txt_round_1_title" />
+
+            <TextView
+                    android:id="@+id/txt_round_1_player_2"
+                    style="@style/Text.Primary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/txt_round_1_divider"
+                    app:layout_constraintTop_toBottomOf="@id/txt_round_1_title"
+                    tools:text="0" />
+
+            <TextView
+                    android:id="@+id/txt_round_2_title"
+                    style="@style/Text.Primary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:text="@string/round_2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_round_1_divider" />
+
+            <TextView
+                    android:id="@+id/txt_round_2_player_1"
+                    style="@style/Text.Primary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintEnd_toStartOf="@id/txt_round_2_divider"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txt_round_2_title"
+                    tools:text="0" />
+
+            <TextView
+                    android:id="@+id/txt_round_2_divider"
+                    style="@style/Text.Primary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:text="@string/vs"
+                    app:layout_constraintEnd_toStartOf="@id/txt_round_2_player_2"
+                    app:layout_constraintStart_toEndOf="@id/txt_round_2_player_1"
+                    app:layout_constraintTop_toBottomOf="@id/txt_round_2_title" />
+
+            <TextView
+                    android:id="@+id/txt_round_2_player_2"
+                    style="@style/Text.Primary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/txt_round_2_divider"
+                    app:layout_constraintTop_toBottomOf="@id/txt_round_2_title"
+                    tools:text="0" />
+            <TextView
+                    android:id="@+id/txt_round_3_title"
+                    style="@style/Text.Primary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:text="@string/round_3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_round_2_divider" />
+
+            <TextView
+                    android:id="@+id/txt_round_3_player_1"
+                    style="@style/Text.Primary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintEnd_toStartOf="@id/txt_round_3_divider"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txt_round_3_title"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:text="0" />
+
+            <TextView
+                    android:id="@+id/txt_round_3_divider"
+                    style="@style/Text.Primary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:text="@string/vs"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/txt_round_3_player_2"
+                    app:layout_constraintStart_toEndOf="@id/txt_round_3_player_1"
+                    app:layout_constraintTop_toBottomOf="@id/txt_round_3_title" />
+
+            <TextView
+                    android:id="@+id/txt_round_3_player_2"
+                    style="@style/Text.Primary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/txt_round_3_divider"
+                    app:layout_constraintTop_toBottomOf="@id/txt_round_3_title"
+                    tools:text="0" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
