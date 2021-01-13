@@ -36,7 +36,7 @@ class ScoreFragment : BaseFragment(), View.OnLongClickListener, View.OnClickList
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        list_stats.layoutManager = LinearLayoutManager(context)
+        list_stats.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         list_stats.adapter = viewModel.statsAdapter
         img_back.setOnClickListener(this)
         img_reset_db.setOnClickListener(this)
