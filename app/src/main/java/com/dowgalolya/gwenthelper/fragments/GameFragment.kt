@@ -282,7 +282,7 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
                     .setMessage(getString(R.string.end_round_message))
                     .setNegativeButton(getString(R.string.end_round_negative), null)
                     .setPositiveButton(getString(R.string.end_round_positive)) { _, _ ->
-                        viewModel.onPassClicked()
+                        viewModel.onRoundEnds()
                     }
                     .show()
             }

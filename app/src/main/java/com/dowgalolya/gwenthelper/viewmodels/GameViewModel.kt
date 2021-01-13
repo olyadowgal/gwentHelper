@@ -1,6 +1,7 @@
 package com.dowgalolya.gwenthelper.viewmodels
 
 import android.app.Application
+import androidx.annotation.IntRange
 import androidx.annotation.MainThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
@@ -10,10 +11,7 @@ import com.dowgalolya.gwenthelper.adapters.CardRowAdapter
 import com.dowgalolya.gwenthelper.db.GameScore
 import com.dowgalolya.gwenthelper.dialogs.AddCardDialog
 import com.dowgalolya.gwenthelper.dialogs.EditCardDialog
-import com.dowgalolya.gwenthelper.entities.Card
-import com.dowgalolya.gwenthelper.entities.CardsRow
-import com.dowgalolya.gwenthelper.entities.GameData
-import com.dowgalolya.gwenthelper.entities.PlayerData
+import com.dowgalolya.gwenthelper.entities.*
 import com.dowgalolya.gwenthelper.enums.CardsRowType
 import com.dowgalolya.gwenthelper.enums.Player
 import com.dowgalolya.gwenthelper.enums.Winner
@@ -89,6 +87,11 @@ class GameViewModel(
         .map { it.key to cardRowAdapterFactory.create(it.value, this) }
         .toMap()
 
+    @IntRange(from = 0, to = 3)
+    private var roundCounter : Int = 0
+
+    private val roundsData : RoundsData = RoundsData()
+
 
     override fun onCardAdd(cardsRowType: CardsRowType, card: Card) {
 
@@ -107,35 +110,6 @@ class GameViewModel(
         }
         _gameData.notifyDataChanged()
 
-    }
-
-    fun onPassClicked() {
-        when (_gameData.value?.winner) {
-            Winner.FIRST -> _gameData.value!!.secondPlayerData.minusLive()
-            Winner.SECOND -> _gameData.value!!.firstPlayerData.minusLive()
-            Winner.TIE -> {
-                _gameData.value!!.secondPlayerData.minusLive()
-                _gameData.value!!.firstPlayerData.minusLive()
-            }
-        }
-        if (_gameData.value!!.firstPlayerData.lives == 0 || _gameData.value!!.secondPlayerData.lives == 0) {
-            if (_gameData.value!!.firstPlayerData.lives == 0 && _gameData.value!!.secondPlayerData.lives == 0) {
-
-                _gameOver.value = Winner.TIE
-            } else {
-                if (gameData.value!!.firstPlayerData.lives == 0) _gameOver.value = Winner.SECOND
-                if (gameData.value!!.secondPlayerData.lives == 0) _gameOver.value = Winner.FIRST
-            }
-            _gameData.notifyDataChanged()
-        } else {
-            _gameData.value?.firstPlayerData?.cardsRows?.forEach { _, value ->
-                value.cards = emptyList()
-            }
-            _gameData.value?.secondPlayerData?.cardsRows?.forEach { _, value ->
-                value.cards = emptyList()
-            }
-            _gameData.notifyDataChanged()
-        }
     }
 
     fun onUserClicked(player: Player) {
@@ -184,6 +158,50 @@ class GameViewModel(
         _gameData.notifyDataChanged()
     }
 
+    fun onRoundEnds() {
+        roundCounter += 1
+        when (_gameData.value?.winner) {
+            Winner.FIRST -> _gameData.value!!.secondPlayerData.minusLive()
+            Winner.SECOND -> _gameData.value!!.firstPlayerData.minusLive()
+            Winner.TIE -> {
+                _gameData.value!!.secondPlayerData.minusLive()
+                _gameData.value!!.firstPlayerData.minusLive()
+            }
+        }
+        when (roundCounter) {
+            1 -> {
+                roundsData.firstRoundFirstPlayerPoints = _gameData.value!!.firstPlayerData.totalPoints
+                roundsData.firstRoundSecondPlayerPoints = _gameData.value!!.secondPlayerData.totalPoints
+            }
+            2 -> {
+                roundsData.secondRoundFirstPlayerPoints =_gameData.value!!.firstPlayerData.totalPoints
+                roundsData.secondRoundSecondPlayerPoints = _gameData.value!!.secondPlayerData.totalPoints
+            }
+            3 -> {
+                roundsData.thirdRoundFirstPlayerPoints =_gameData.value!!.firstPlayerData.totalPoints
+                roundsData.thirdRoundSecondPlayerPoints =_gameData.value!!.secondPlayerData.totalPoints
+            }
+        }
+        if (_gameData.value!!.firstPlayerData.lives == 0 || _gameData.value!!.secondPlayerData.lives == 0) {
+            if (_gameData.value!!.firstPlayerData.lives == 0 && _gameData.value!!.secondPlayerData.lives == 0) {
+
+                _gameOver.value = Winner.TIE
+            } else {
+                if (gameData.value!!.firstPlayerData.lives == 0) _gameOver.value = Winner.SECOND
+                if (gameData.value!!.secondPlayerData.lives == 0) _gameOver.value = Winner.FIRST
+            }
+            _gameData.notifyDataChanged()
+        } else {
+            _gameData.value?.firstPlayerData?.cardsRows?.forEach { _, value ->
+                value.cards = emptyList()
+            }
+            _gameData.value?.secondPlayerData?.cardsRows?.forEach { _, value ->
+                value.cards = emptyList()
+            }
+            _gameData.notifyDataChanged()
+        }
+    }
+
     @MainThread
     fun onGameEnds() {
 
@@ -195,7 +213,14 @@ class GameViewModel(
                 date = formatter.format(Calendar.getInstance().time),
                 firstPlayer = it.firstPlayerData.name,
                 secondPlayer = it.secondPlayerData.name,
-                winner = _gameOver.value!!.name
+                winner = _gameOver.value!!.name,
+                firstRoundFirstPlayerPoints = roundsData.firstRoundFirstPlayerPoints,
+                secondRoundFirstPlayerPoints = roundsData.secondRoundFirstPlayerPoints,
+                thirdRoundFirstPlayerPoints = roundsData.thirdRoundFirstPlayerPoints,
+                firstRoundSecondPlayerPoints = roundsData.firstRoundSecondPlayerPoints,
+                secondRoundSecondPlayerPoints = roundsData.secondRoundSecondPlayerPoints,
+                thirdRoundSecondPlayerPoints = roundsData.thirdRoundSecondPlayerPoints,
+                roundsCount = roundCounter
             )
         }
         GlobalScope.launch {

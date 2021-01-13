@@ -19,5 +19,19 @@ data class GameScore
     val firstPlayer : String,
     @ColumnInfo(name = "second_player")
     val secondPlayer : String,
-    val winner : String
+    val winner : String,
+    @ColumnInfo(name = "first_round_first_player")
+    val firstRoundFirstPlayerPoints : Int,
+    @ColumnInfo(name = "second_round_first_player")
+    val secondRoundFirstPlayerPoints : Int,
+    @ColumnInfo(name = "third_round_first_player")
+    val thirdRoundFirstPlayerPoints : Int,
+    @ColumnInfo(name = "first_round_second_player")
+    val firstRoundSecondPlayerPoints : Int,
+    @ColumnInfo(name = "second_round_second_player")
+    val secondRoundSecondPlayerPoints : Int,
+    @ColumnInfo(name = "third_round_third_player")
+    val thirdRoundSecondPlayerPoints : Int,
+    @ColumnInfo(name = "rounds_count")
+    val roundsCount : Int
 )

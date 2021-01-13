@@ -601,7 +601,7 @@ class GameViewModelTest {
         vm.gameData.value?.secondPlayerData?.cardsRows?.get(CardsRowType.CLOSE_COMBAT)?.apply {
             cards = listOf(Card(points = 10, abilities = emptyList()))
         }
-        vm.onPassClicked()
+        vm.onRoundEnds()
         //Then
         assertEquals(1, vm.gameData.value?.firstPlayerData?.lives)
     }
@@ -612,7 +612,7 @@ class GameViewModelTest {
         vm.gameData.value?.firstPlayerData?.cardsRows?.get(CardsRowType.CLOSE_COMBAT)?.apply {
             cards = listOf(Card(points = 10, abilities = emptyList()))
         }
-        vm.onPassClicked()
+        vm.onRoundEnds()
         //Then
         assertEquals(1, vm.gameData.value?.secondPlayerData?.lives)
     }
@@ -623,11 +623,11 @@ class GameViewModelTest {
         vm.gameData.value?.firstPlayerData?.cardsRows?.get(CardsRowType.CLOSE_COMBAT)?.apply {
             cards = listOf(Card(points = 10, abilities = emptyList()))
         }
-        vm.onPassClicked()
+        vm.onRoundEnds()
         vm.gameData.value?.firstPlayerData?.cardsRows?.get(CardsRowType.CLOSE_COMBAT)?.apply {
             cards = listOf(Card(points = 10, abilities = emptyList()))
         }
-        vm.onPassClicked()
+        vm.onRoundEnds()
         //Then
         assertEquals(0, vm.gameData.value?.secondPlayerData?.lives)
     }
@@ -638,11 +638,11 @@ class GameViewModelTest {
         vm.gameData.value?.secondPlayerData?.cardsRows?.get(CardsRowType.CLOSE_COMBAT)?.apply {
             cards = listOf(Card(points = 10, abilities = emptyList()))
         }
-        vm.onPassClicked()
+        vm.onRoundEnds()
         vm.gameData.value?.secondPlayerData?.cardsRows?.get(CardsRowType.CLOSE_COMBAT)?.apply {
             cards = listOf(Card(points = 10, abilities = emptyList()))
         }
-        vm.onPassClicked()
+        vm.onRoundEnds()
         //Then
         assertEquals(0, vm.gameData.value?.firstPlayerData?.lives)
     }
@@ -653,11 +653,11 @@ class GameViewModelTest {
         vm.gameData.value?.secondPlayerData?.cardsRows?.get(CardsRowType.CLOSE_COMBAT)?.apply {
             cards = listOf(Card(points = 10, abilities = emptyList()))
         }
-        vm.onPassClicked()
+        vm.onRoundEnds()
         vm.gameData.value?.firstPlayerData?.cardsRows?.get(CardsRowType.CLOSE_COMBAT)?.apply {
             cards = listOf(Card(points = 10, abilities = emptyList()))
         }
-        vm.onPassClicked()
+        vm.onRoundEnds()
         //Then
         assertEquals(1, vm.gameData.value?.firstPlayerData?.lives)
         assertEquals(1, vm.gameData.value?.secondPlayerData?.lives)
