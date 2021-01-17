@@ -13,7 +13,7 @@ import kotlin.collections.ArrayList
 
 class ScoreAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val _stats: MutableList<GameScore> = ArrayList()
+    private var _scores: MutableList<GameScore> = ArrayList()
 
     init {
         setHasStableIds(true)
@@ -36,27 +36,27 @@ class ScoreAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is FeedItemViewHolder -> {
-                holder.onBind(_stats[position])
+                holder.onBind(_scores[position])
             }
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (_stats.isEmpty()) ViewType.PLACEHOLDER
+        return if (_scores.isEmpty()) ViewType.PLACEHOLDER
         else ViewType.FEED
     }
 
     override fun getItemCount(): Int {
-        return if (_stats.isNullOrEmpty()) 1 else _stats.size
+        return if (_scores.isNullOrEmpty()) 1 else _scores.size
     }
 
-    fun add(score: GameScore) {
-        _stats.add(score)
-        notifyItemInserted(_stats.size)
+    fun addAll(score: List<GameScore>) {
+        _scores = score.toMutableList()
+        notifyItemInserted(_scores.size)
     }
 
     fun clearAll() {
-        _stats.clear()
+        _scores.clear()
     }
 
     inner class FeedItemViewHolder(
@@ -71,8 +71,20 @@ class ScoreAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             containerView.txt_round_1_player_2.text = item.firstRoundSecondPlayerPoints.toString()
             containerView.txt_round_2_player_1.text = item.secondRoundFirstPlayerPoints.toString()
             containerView.txt_round_2_player_2.text = item.secondRoundSecondPlayerPoints.toString()
-            containerView.txt_round_3_player_1.text = item.thirdRoundFirstPlayerPoints.toString()
-            containerView.txt_round_3_player_2.text = item.thirdRoundSecondPlayerPoints.toString()
+
+            if (item.thirdRoundFirstPlayerPoints == null) {
+                containerView.txt_round_3_player_1.text = "-"
+            } else {
+                containerView.txt_round_3_player_1.text =
+                    item.thirdRoundFirstPlayerPoints.toString()
+            }
+            if (item.thirdRoundSecondPlayerPoints == null) {
+                containerView.txt_round_3_player_2.text = "-"
+            } else {
+                containerView.txt_round_3_player_2.text =
+                    item.thirdRoundSecondPlayerPoints.toString()
+            }
+
             when (item.winner) {
                 Winner.FIRST.name -> {
                     containerView.img_winner_user_2.setColorFilter(R.color.colorSimpleCard)

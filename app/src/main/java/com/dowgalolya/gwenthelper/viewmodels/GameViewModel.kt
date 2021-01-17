@@ -219,8 +219,7 @@ class GameViewModel(
                 thirdRoundFirstPlayerPoints = roundsData.thirdRoundFirstPlayerPoints,
                 firstRoundSecondPlayerPoints = roundsData.firstRoundSecondPlayerPoints,
                 secondRoundSecondPlayerPoints = roundsData.secondRoundSecondPlayerPoints,
-                thirdRoundSecondPlayerPoints = roundsData.thirdRoundSecondPlayerPoints,
-                roundsCount = roundCounter
+                thirdRoundSecondPlayerPoints = roundsData.thirdRoundSecondPlayerPoints
             )
         }
         GlobalScope.launch {

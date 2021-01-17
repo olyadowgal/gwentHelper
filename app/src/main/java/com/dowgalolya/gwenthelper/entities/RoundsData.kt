@@ -1,11 +1,11 @@
 package com.dowgalolya.gwenthelper.entities
 
 class RoundsData {
-    var firstRoundFirstPlayerPoints : Int = 0
-    var secondRoundFirstPlayerPoints : Int = 0
-    var thirdRoundFirstPlayerPoints : Int = 0
+    var firstRoundFirstPlayerPoints : Int? = null
+    var secondRoundFirstPlayerPoints : Int? = null
+    var thirdRoundFirstPlayerPoints : Int? = null
 
-    var firstRoundSecondPlayerPoints : Int = 0
-    var secondRoundSecondPlayerPoints : Int = 0
-    var thirdRoundSecondPlayerPoints : Int = 0
+    var firstRoundSecondPlayerPoints : Int? = null
+    var secondRoundSecondPlayerPoints : Int? = null
+    var thirdRoundSecondPlayerPoints : Int? = null
 }
