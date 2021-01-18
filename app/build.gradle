@@ -28,6 +28,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        androidTest.assets.srcDirs +=
+                files("$projectDir/roomSchemas".toString())
+    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -88,6 +92,7 @@ dependencies {
     implementation "androidx.room:room-runtime:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
     implementation "androidx.room:room-ktx:$roomVersion"
+    androidTestImplementation "androidx.room:room-testing:2.2.6"
 
     //Stetho
     implementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'

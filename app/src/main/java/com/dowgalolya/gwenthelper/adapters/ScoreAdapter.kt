@@ -3,6 +3,7 @@ package com.dowgalolya.gwenthelper.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dowgalolya.gwenthelper.R
 import com.dowgalolya.gwenthelper.db.GameScore
@@ -67,23 +68,13 @@ class ScoreAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             containerView.txt_game_date.text = item.date
             containerView.txt_user_1.text = item.firstPlayer
             containerView.txt_user_2.text = item.secondPlayer
-            containerView.txt_round_1_player_1.text = item.firstRoundFirstPlayerPoints.toString()
-            containerView.txt_round_1_player_2.text = item.firstRoundSecondPlayerPoints.toString()
-            containerView.txt_round_2_player_1.text = item.secondRoundFirstPlayerPoints.toString()
-            containerView.txt_round_2_player_2.text = item.secondRoundSecondPlayerPoints.toString()
 
-            if (item.thirdRoundFirstPlayerPoints == null) {
-                containerView.txt_round_3_player_1.text = "-"
-            } else {
-                containerView.txt_round_3_player_1.text =
-                    item.thirdRoundFirstPlayerPoints.toString()
-            }
-            if (item.thirdRoundSecondPlayerPoints == null) {
-                containerView.txt_round_3_player_2.text = "-"
-            } else {
-                containerView.txt_round_3_player_2.text =
-                    item.thirdRoundSecondPlayerPoints.toString()
-            }
+            addPointsFromItem(containerView.txt_round_1_player_1, item.firstRoundFirstPlayerPoints)
+            addPointsFromItem(containerView.txt_round_2_player_1, item.secondRoundFirstPlayerPoints)
+            addPointsFromItem(containerView.txt_round_3_player_1, item.thirdRoundFirstPlayerPoints)
+            addPointsFromItem(containerView.txt_round_1_player_2, item.firstRoundSecondPlayerPoints)
+            addPointsFromItem(containerView.txt_round_2_player_2, item.secondRoundSecondPlayerPoints)
+            addPointsFromItem(containerView.txt_round_3_player_2, item.thirdRoundSecondPlayerPoints)
 
             when (item.winner) {
                 Winner.FIRST.name -> {
@@ -98,6 +89,11 @@ class ScoreAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 }
             }
 
+        }
+        private fun addPointsFromItem(view : TextView, points : Int?) {
+            if (points == null) {
+                view.text = "-"
+            } else { view.text = points.toString() }
         }
     }
 

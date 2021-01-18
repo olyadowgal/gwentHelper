@@ -52,6 +52,8 @@ class GameViewModelTest {
     }
     //endregion
 
+
+
     private val vm by lazy { GameViewModel(app, cardRowAdapterFactory) }
 
     //region onCardAdd Tests
