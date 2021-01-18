@@ -1,0 +1,97 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "3b68de35c805a458aa08e736a40cca5c",
+    "entities": [
+      {
+        "tableName": "game_score",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`date` TEXT NOT NULL, `first_player` TEXT NOT NULL, `second_player` TEXT NOT NULL, `winner` TEXT NOT NULL, `first_round_first_player` INTEGER, `second_round_first_player` INTEGER, `third_round_first_player` INTEGER, `first_round_second_player` INTEGER, `second_round_second_player` INTEGER, `third_round_second_player` INTEGER, PRIMARY KEY(`date`))",
+        "fields": [
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "firstPlayer",
+            "columnName": "first_player",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "secondPlayer",
+            "columnName": "second_player",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "winner",
+            "columnName": "winner",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "firstRoundFirstPlayerPoints",
+            "columnName": "first_round_first_player",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "secondRoundFirstPlayerPoints",
+            "columnName": "second_round_first_player",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "thirdRoundFirstPlayerPoints",
+            "columnName": "third_round_first_player",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "firstRoundSecondPlayerPoints",
+            "columnName": "first_round_second_player",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "secondRoundSecondPlayerPoints",
+            "columnName": "second_round_second_player",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "thirdRoundSecondPlayerPoints",
+            "columnName": "third_round_second_player",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "date"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_game_score_date",
+            "unique": false,
+            "columnNames": [
+              "date"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_game_score_date` ON `${TABLE_NAME}` (`date`)"
+          }
+        ],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3b68de35c805a458aa08e736a40cca5c')"
+    ]
+  }
+}

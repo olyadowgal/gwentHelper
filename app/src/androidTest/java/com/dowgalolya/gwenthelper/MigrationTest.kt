@@ -11,6 +11,7 @@ import com.dowgalolya.gwenthelper.db.GameScoreDatabase
 import com.dowgalolya.gwenthelper.di.SingletonHolder
 import com.dowgalolya.gwenthelper.enums.Winner
 import junit.framework.Assert.assertEquals
+import kotlinx.coroutines.runBlocking
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -29,19 +30,38 @@ class MigrationTest {
     )
 
     @Test
-    fun migrationFrom1To2() {
+    fun migrationFrom1To2() = runBlocking {
         val db = helper.createDatabase(TEST_DB, 1)
 
         val values = ContentValues().apply {
-            put("date", "some date")
-            put("first_player", "User 1")
-            put("second_player", "User 2")
-            put("winner", Winner.FIRST.name)
+            put("date", "test")
+            put("first_player", "test")
+            put("second_player", "test")
+            put("winner", "test")
         }
 
         db.insert("game_score", SQLiteDatabase.CONFLICT_REPLACE,values)
 
         helper.runMigrationsAndValidate(TEST_DB,2, true, GameScoreDatabase.MigrationFrom1To2)
+
+        val database = Room.databaseBuilder(SingletonHolder.application.applicationContext,
+        GameScoreDatabase::class.java, TEST_DB)
+        .addMigrations(GameScoreDatabase.MigrationFrom1To2)
+            .build()
+
+        val testGameScore = database.gameScoreDao().getGameScoreById("test")
+
+        assertEquals("test", testGameScore.date)
+        assertEquals("test", testGameScore.firstPlayer)
+        assertEquals("test", testGameScore.secondPlayer)
+        assertEquals("test", testGameScore.winner)
+        assertEquals(null, testGameScore.firstRoundFirstPlayerPoints)
+        assertEquals(null, testGameScore.secondRoundFirstPlayerPoints)
+        assertEquals(null, testGameScore.thirdRoundFirstPlayerPoints)
+        assertEquals(null, testGameScore.firstRoundSecondPlayerPoints)
+        assertEquals(null, testGameScore.secondRoundSecondPlayerPoints)
+        assertEquals(null, testGameScore.thirdRoundSecondPlayerPoints)
+
 
     }
 

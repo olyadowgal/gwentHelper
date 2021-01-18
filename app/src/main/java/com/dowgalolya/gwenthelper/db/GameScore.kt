@@ -31,6 +31,6 @@ data class GameScore
     val firstRoundSecondPlayerPoints: Int?,
     @ColumnInfo(name = "second_round_second_player")
     val secondRoundSecondPlayerPoints: Int?,
-    @ColumnInfo(name = "third_round_third_player")
+    @ColumnInfo(name = "third_round_second_player")
     val thirdRoundSecondPlayerPoints: Int?
 )
