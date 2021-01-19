@@ -1,27 +1,18 @@
 package com.dowgalolya.gwenthelper.fragments
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dowgalolya.gwenthelper.R
 import com.dowgalolya.gwenthelper.di.SingletonHolder
-import com.dowgalolya.gwenthelper.dialogs.AddCardDialog
-import com.dowgalolya.gwenthelper.dialogs.EditCardDialog
-import com.dowgalolya.gwenthelper.entities.Card
-import com.dowgalolya.gwenthelper.entities.CardsRow
-import com.dowgalolya.gwenthelper.enums.CardsRowType
-import com.dowgalolya.gwenthelper.livedata.ViewAction
-import com.dowgalolya.gwenthelper.viewmodels.GameViewModel
 import com.dowgalolya.gwenthelper.viewmodels.ScoreViewModel
-import com.google.android.play.core.review.ReviewInfo
-import com.google.android.play.core.review.ReviewManager
 import kotlinx.android.synthetic.main.score_fragment.*
 
 class ScoreFragment : BaseFragment(), View.OnLongClickListener, View.OnClickListener {
@@ -36,27 +27,17 @@ class ScoreFragment : BaseFragment(), View.OnLongClickListener, View.OnClickList
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        list_stats.layoutManager = LinearLayoutManager(context)
+        list_stats.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         list_stats.adapter = viewModel.statsAdapter
-        img_back.setOnClickListener(this)
-        img_reset_db.setOnClickListener(this)
-        img_reset_db.setOnLongClickListener(this)
-        viewModel.loadDatabaseScores()
-    }
-
-    override fun handleViewAction(action: ViewAction) {
-        when (action) {
-            is ViewAction.Custom -> when (action.action) {
-                ScoreViewModel.CustomViewAction.SHOW_RESET_SCORES_BUTTON -> {
-                    img_reset_db.visibility = View.VISIBLE
-                }
-                ScoreViewModel.CustomViewAction.HIDE_RESET_SCORES_BUTTON -> {
-                    img_reset_db.visibility = View.INVISIBLE
-                }
-            }
-            else -> super.handleViewAction(action)
+        btn_back.setOnClickListener(this)
+        btn_reset_db.setOnClickListener(this)
+        btn_reset_db.setOnLongClickListener(this)
+        viewModel.isScoresButtonActive.observe(viewLifecycleOwner) {
+            btn_reset_db.isVisible = it
         }
     }
+
 
     override fun onLongClick(view: View): Boolean {
         AlertDialog.Builder(requireContext())
@@ -72,8 +53,8 @@ class ScoreFragment : BaseFragment(), View.OnLongClickListener, View.OnClickList
 
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.img_back -> findNavController().popBackStack()
-            R.id.img_reset_db -> {
+            R.id.btn_back -> findNavController().popBackStack()
+            R.id.btn_reset_db -> {
                 Toast.makeText(
                     context,
                     getString(R.string.click_reset_db),

@@ -17,7 +17,8 @@ object SingletonHolder {
             application,
             GameScoreDatabase::class.java,
             "database"
-        ).build()
+        ).addMigrations(GameScoreDatabase.MigrationFrom1To2)
+            .build()
     }
 
     private val gwentRepository: GwentRepository by lazy {
