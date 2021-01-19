@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -118,46 +117,35 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
             viewModel.onHornChecked(CardsRowType.SIEGE, isChecked)
         }
 
-        viewModel.selectedPlayer.observe(
-            viewLifecycleOwner, Observer {
-                when (it) {
+        viewModel.selectedPlayer.observe(viewLifecycleOwner) {
+            with(requireContext()) {
+                when (it!!) {
                     Player.FIRST -> {
-                        context?.getColor(R.color.colorPrimary)?.let {
-                            widget_user1.img_avatar_ring.setColorFilter(it)
-                        }
-                        context?.getColor(R.color.white)?.let {
-                            widget_user2.img_avatar_ring.setColorFilter(it)
-                        }
+                        widget_user1.img_avatar_ring.setColorFilter(getColor(R.color.colorPrimary))
+                        widget_user2.img_avatar_ring.setColorFilter(getColor(R.color.white))
 
                     }
                     Player.SECOND -> {
-                        context?.getColor(R.color.colorPrimary)?.let {
-                            widget_user2.img_avatar_ring.setColorFilter(it)
-                        }
-                        context?.getColor(R.color.white)?.let {
-                            widget_user1.img_avatar_ring.setColorFilter(it)
-                        }
+                        widget_user2.img_avatar_ring.setColorFilter(getColor(R.color.colorPrimary))
+                        widget_user1.img_avatar_ring.setColorFilter(getColor(R.color.white))
                     }
                 }
-
             }
-        )
+        }
 
-        viewModel.selectedPlayerData.observe(
-            viewLifecycleOwner,
-            Observer { playerData: PlayerData ->
-                rowStats.forEach { (type, view) ->
-                    view.setCardCounterValue(playerData.cardsRows.getValue(type).totalPoints)
-                    view.setHornValue(playerData.cardsRows.getValue(type).horn)
-                }
-                widget_weather.setWeather(
-                    playerData.cardsRows.getValue(CardsRowType.CLOSE_COMBAT).badWeather,
-                    playerData.cardsRows.getValue(CardsRowType.LONG_RANGE).badWeather,
-                    playerData.cardsRows.getValue(CardsRowType.SIEGE).badWeather
-                )
-            })
+        viewModel.selectedPlayerData.observe(viewLifecycleOwner) { playerData: PlayerData ->
+            rowStats.forEach { (type, view) ->
+                view.setCardCounterValue(playerData.cardsRows.getValue(type).totalPoints)
+                view.setHornValue(playerData.cardsRows.getValue(type).horn)
+            }
+            widget_weather.setWeather(
+                playerData.cardsRows.getValue(CardsRowType.CLOSE_COMBAT).badWeather,
+                playerData.cardsRows.getValue(CardsRowType.LONG_RANGE).badWeather,
+                playerData.cardsRows.getValue(CardsRowType.SIEGE).badWeather
+            )
+        }
 
-        viewModel.gameData.observe(viewLifecycleOwner, Observer {
+        viewModel.gameData.observe(viewLifecycleOwner) {
             widget_user1.txt_user_name.text = it.firstPlayerData.name
             widget_user2.txt_user_name.text = it.secondPlayerData.name
             widget_user1.txt_user_points.text = it.firstPlayerData.totalPoints.toString()
@@ -180,11 +168,10 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
                     widget_user2.loserPointsColor()
                 }
             }
+        }
 
-        })
-
-        viewModel.gameOver.observe(viewLifecycleOwner, Observer {
-            val message = when (it) {
+        viewModel.gameOver.observe(viewLifecycleOwner) {
+            val message = when (it!!) {
                 Winner.FIRST -> getString(R.string.end_of_game_message) + " " + widget_user1.txt_user_name.text.toString()
                 Winner.SECOND -> getString(R.string.end_of_game_message) + " " + widget_user2.txt_user_name.text.toString()
                 Winner.TIE -> getString(R.string.end_of_game_tie_message)
@@ -200,7 +187,7 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
                     viewModel.onGameEndsWithoutSaving()
                 }
                 .show()
-        })
+        }
     }
 
     override fun handleViewAction(action: ViewAction) {
@@ -245,7 +232,7 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
                     activity?.let { manager.launchReviewFlow(it, reviewInfo) }
                         ?.addOnCompleteListener { _ ->
                             findNavController().popBackStack()
-                    }
+                        }
                 }
                 else -> super.handleViewAction(action)
             }

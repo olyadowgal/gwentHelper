@@ -75,7 +75,9 @@ class MainFragment : BaseFragment(), View.OnClickListener {
                     f_user2_name.text?.toString()
                 )
             }
-            R.id.img_scores -> {viewModel.onScoresClicked()}
+            R.id.img_scores -> {
+                viewModel.onScoresClicked()
+            }
             R.id.img_user1_avatar -> {
                 viewModel.onPhotoClicked(R.id.img_user1_avatar)
             }
