@@ -14,7 +14,7 @@ import kotlin.collections.ArrayList
 
 class ScoreAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var _scores: MutableList<GameScore> = ArrayList()
+    private var _scores: List<GameScore> = emptyList()
 
     init {
         setHasStableIds(true)
@@ -47,17 +47,16 @@ class ScoreAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         else ViewType.FEED
     }
 
-    override fun getItemCount(): Int {
-        return if (_scores.isNullOrEmpty()) 1 else _scores.size
-    }
+    override fun getItemCount(): Int = if (_scores.isNullOrEmpty()) 1 else _scores.size
 
     fun addAll(score: List<GameScore>) {
-        _scores = score.toMutableList()
-        notifyItemInserted(_scores.size)
+        _scores = score
+        notifyDataSetChanged()
     }
 
     fun clearAll() {
-        _scores.clear()
+        _scores = emptyList()
+        notifyDataSetChanged()
     }
 
     inner class FeedItemViewHolder(
