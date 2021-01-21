@@ -9,6 +9,8 @@ import com.dowgalolya.gwenthelper.R
 import com.dowgalolya.gwenthelper.db.GameScore
 import com.dowgalolya.gwenthelper.enums.Winner
 import kotlinx.android.synthetic.main.item_score.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ScoreAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -53,9 +55,10 @@ class ScoreAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     inner class FeedItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val formatter = SimpleDateFormat("hh:mm dd MMM yyyy", Locale.getDefault())
 
         fun onBind(item: GameScore) = with(itemView) {
-            txt_game_date.text = item.date.toString()
+            txt_game_date.text = formatter.format(item.date)
             txt_user_1.text = item.firstPlayer
             txt_user_2.text = item.secondPlayer
 

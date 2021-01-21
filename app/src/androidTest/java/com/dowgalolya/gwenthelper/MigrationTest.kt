@@ -30,7 +30,7 @@ class MigrationTest {
     )
 
     @Test
-    fun migrationFrom1To2() = runBlocking {
+    fun migrationFrom1To2() = runBlocking<Unit> {
         val db = helper.createDatabase(TEST_DB, 1)
 
         val values = ContentValues().apply {
