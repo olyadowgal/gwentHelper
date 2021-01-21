@@ -3,6 +3,7 @@ package com.dowgalolya.gwenthelper.db
 import androidx.annotation.VisibleForTesting
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
@@ -13,6 +14,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase
     exportSchema = true
 )
 
+@TypeConverters(DateConverter::class)
+
 abstract class GameScoreDatabase : RoomDatabase() {
 
     abstract fun gameScoreDao(): GameScoreDao
@@ -20,12 +23,7 @@ abstract class GameScoreDatabase : RoomDatabase() {
    @VisibleForTesting
    object MigrationFrom1To2 : Migration(1, 2) {
         override fun migrate(database: SupportSQLiteDatabase) {
-            database.execSQL("ALTER TABLE game_score ADD COLUMN first_round_first_player INTEGER")
-            database.execSQL("ALTER TABLE game_score ADD COLUMN second_round_first_player INTEGER")
-            database.execSQL("ALTER TABLE game_score ADD COLUMN third_round_first_player INTEGER")
-            database.execSQL("ALTER TABLE game_score ADD COLUMN first_round_second_player INTEGER")
-            database.execSQL("ALTER TABLE game_score ADD COLUMN second_round_second_player INTEGER")
-            database.execSQL("ALTER TABLE game_score ADD COLUMN third_round_second_player INTEGER")
+            database.execSQL("DROP TABLE game_score")
         }
     }
 }

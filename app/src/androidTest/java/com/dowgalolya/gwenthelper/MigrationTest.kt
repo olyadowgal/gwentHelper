@@ -44,24 +44,6 @@ class MigrationTest {
 
         helper.runMigrationsAndValidate(TEST_DB,2, true, GameScoreDatabase.MigrationFrom1To2)
 
-        val database = Room.databaseBuilder(SingletonHolder.application.applicationContext,
-        GameScoreDatabase::class.java, TEST_DB)
-        .addMigrations(GameScoreDatabase.MigrationFrom1To2)
-            .build()
-
-        val testGameScore = database.gameScoreDao().getGameScoreById("test")
-
-        assertEquals("test", testGameScore.date)
-        assertEquals("test", testGameScore.firstPlayer)
-        assertEquals("test", testGameScore.secondPlayer)
-        assertEquals("test", testGameScore.winner)
-        assertEquals(null, testGameScore.firstRoundFirstPlayerPoints)
-        assertEquals(null, testGameScore.secondRoundFirstPlayerPoints)
-        assertEquals(null, testGameScore.thirdRoundFirstPlayerPoints)
-        assertEquals(null, testGameScore.firstRoundSecondPlayerPoints)
-        assertEquals(null, testGameScore.secondRoundSecondPlayerPoints)
-        assertEquals(null, testGameScore.thirdRoundSecondPlayerPoints)
-
 
     }
 

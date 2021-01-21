@@ -9,16 +9,10 @@ import com.dowgalolya.gwenthelper.R
 import com.dowgalolya.gwenthelper.db.GameScore
 import com.dowgalolya.gwenthelper.enums.Winner
 import kotlinx.android.synthetic.main.item_score.view.*
-import java.lang.IllegalArgumentException
-import kotlin.collections.ArrayList
 
 class ScoreAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var _scores: List<GameScore> = emptyList()
-
-    init {
-        setHasStableIds(true)
-    }
 
     object ViewType {
         const val PLACEHOLDER = R.layout.item_placehoder
@@ -42,10 +36,9 @@ class ScoreAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return if (_scores.isEmpty()) ViewType.PLACEHOLDER
-        else ViewType.FEED
-    }
+    override fun getItemViewType(
+        position: Int
+    ): Int = if (_scores.isEmpty()) ViewType.PLACEHOLDER else ViewType.FEED
 
     override fun getItemCount(): Int = if (_scores.isNullOrEmpty()) 1 else _scores.size
 
@@ -59,40 +52,25 @@ class ScoreAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         notifyDataSetChanged()
     }
 
-    inner class FeedItemViewHolder(
-        private val containerView: View
-    ) : RecyclerView.ViewHolder(containerView) {
+    inner class FeedItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun onBind(item: GameScore) {
-            containerView.txt_game_date.text = item.date
-            containerView.txt_user_1.text = item.firstPlayer
-            containerView.txt_user_2.text = item.secondPlayer
+        fun onBind(item: GameScore) = with(itemView) {
+            txt_game_date.text = item.date.toString()
+            txt_user_1.text = item.firstPlayer
+            txt_user_2.text = item.secondPlayer
 
-            addPointsFromItem(containerView.txt_round_1_player_1, item.firstRoundFirstPlayerPoints)
-            addPointsFromItem(containerView.txt_round_2_player_1, item.secondRoundFirstPlayerPoints)
-            addPointsFromItem(containerView.txt_round_3_player_1, item.thirdRoundFirstPlayerPoints)
-            addPointsFromItem(containerView.txt_round_1_player_2, item.firstRoundSecondPlayerPoints)
-            addPointsFromItem(containerView.txt_round_2_player_2, item.secondRoundSecondPlayerPoints)
-            addPointsFromItem(containerView.txt_round_3_player_2, item.thirdRoundSecondPlayerPoints)
+            txt_round_1_player_1.text = item.firstRoundFirstPlayerPoints?.toString() ?: "-"
+            txt_round_2_player_1.text = item.secondRoundFirstPlayerPoints?.toString() ?: "-"
+            txt_round_3_player_1.text = item.thirdRoundFirstPlayerPoints?.toString() ?: "-"
 
-            when (item.winner) {
-                Winner.FIRST.name -> {
-                    containerView.img_winner_user_2.setColorFilter(R.color.colorSimpleCard)
-                }
-                Winner.SECOND.name -> {
-                    containerView.img_winner_user_1.setColorFilter(R.color.colorSimpleCard)
-                }
-                Winner.TIE.name -> {
-                    containerView.img_winner_user_1.setColorFilter(R.color.colorSimpleCard)
-                    containerView.img_winner_user_2.setColorFilter(R.color.colorSimpleCard)
-                }
-            }
+            txt_round_1_player_2.text = item.firstRoundSecondPlayerPoints?.toString() ?: "-"
+            txt_round_2_player_2.text = item.secondRoundSecondPlayerPoints?.toString() ?: "-"
+            txt_round_3_player_2.text = item.thirdRoundSecondPlayerPoints?.toString() ?: "-"
 
-        }
-        private fun addPointsFromItem(view : TextView, points : Int?) {
-            if (points == null) {
-                view.text = "-"
-            } else { view.text = points.toString() }
+            img_winner_user_1.isActivated = item.winner == Winner.FIRST.name
+            img_winner_user_2.isActivated = item.winner == Winner.SECOND.name
+
+
         }
     }
 
