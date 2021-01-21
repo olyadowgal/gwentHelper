@@ -6,6 +6,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.dowgalolya.gwenthelper.entities.PlayerData
 import com.dowgalolya.gwenthelper.enums.Winner
+import java.util.*
 
 @Entity(
     tableName = "game_score",
@@ -15,7 +16,7 @@ import com.dowgalolya.gwenthelper.enums.Winner
 data class GameScore
     (
     @PrimaryKey
-    val date: String,
+    val date: Date,
     @ColumnInfo(name = "first_player")
     val firstPlayer: String,
     @ColumnInfo(name = "second_player")

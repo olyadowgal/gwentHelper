@@ -203,12 +203,9 @@ class GameViewModel(
     @MainThread
     fun onGameEnds() {
 
-        val formatter = SimpleDateFormat(
-            "hh:mm dd MMM yyyy", Locale.getDefault()
-        )
         val gameScore = _gameData.value?.let {
             GameScore(
-                date = formatter.format(Calendar.getInstance().time),
+                date = Calendar.getInstance().time,
                 firstPlayer = it.firstPlayerData.name,
                 secondPlayer = it.secondPlayerData.name,
                 winner = _gameOver.value!!.name,

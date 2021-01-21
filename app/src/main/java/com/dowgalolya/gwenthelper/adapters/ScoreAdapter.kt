@@ -9,6 +9,8 @@ import com.dowgalolya.gwenthelper.R
 import com.dowgalolya.gwenthelper.db.GameScore
 import com.dowgalolya.gwenthelper.enums.Winner
 import kotlinx.android.synthetic.main.item_score.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ScoreAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -53,9 +55,10 @@ class ScoreAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     inner class FeedItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val formatter = SimpleDateFormat("hh:mm dd MMM yyyy", Locale.getDefault())
 
         fun onBind(item: GameScore) = with(itemView) {
-            txt_game_date.text = item.date
+            txt_game_date.text = formatter.format(item.date)
             txt_user_1.text = item.firstPlayer
             txt_user_2.text = item.secondPlayer
 
@@ -67,18 +70,9 @@ class ScoreAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             txt_round_2_player_2.text = item.secondRoundSecondPlayerPoints?.toString() ?: "-"
             txt_round_3_player_2.text = item.thirdRoundSecondPlayerPoints?.toString() ?: "-"
 
-            when (item.winner) {
-                Winner.FIRST.name -> {
-                    img_winner_user_2.setColorFilter(R.color.colorSimpleCard)//TODO: BUG
-                }
-                Winner.SECOND.name -> {
-                    img_winner_user_1.setColorFilter(R.color.colorSimpleCard)//TODO: BUG
-                }
-                Winner.TIE.name -> {
-                    img_winner_user_1.setColorFilter(R.color.colorSimpleCard)
-                    img_winner_user_2.setColorFilter(R.color.colorSimpleCard)
-                }
-            }
+            img_winner_user_1.isActivated = item.winner == Winner.FIRST.name
+            img_winner_user_2.isActivated = item.winner == Winner.SECOND.name
+
 
         }
     }
