@@ -59,9 +59,7 @@ class GameViewModel(
     }
     val gameData: LiveData<GameData> = _gameData
 
-    private val _selectedPlayer = MutableLiveData<Player>().apply {
-        value = Player.FIRST //TODO: check it
-    }
+    private val _selectedPlayer = MutableLiveData(Player.FIRST)
     val selectedPlayer: LiveData<Player> = _selectedPlayer
 
     private val _selectedPlayerData = MediatorLiveData<PlayerData>().apply {
@@ -80,6 +78,7 @@ class GameViewModel(
     }
     val selectedPlayerData: LiveData<PlayerData> = _selectedPlayerData
 
+    //TODO: delete and replace with view action
     private val _gameOver = SingleLiveEvent<Winner>()
     val gameOver: LiveData<Winner> = _gameOver
 
@@ -91,7 +90,6 @@ class GameViewModel(
     private var roundCounter : Int = 0
 
     private val roundsData : RoundsData = RoundsData()
-
 
     override fun onCardAdd(cardsRowType: CardsRowType, card: Card) {
 

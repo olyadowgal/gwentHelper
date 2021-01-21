@@ -3,7 +3,6 @@ package com.dowgalolya.gwenthelper.entities
 import com.dowgalolya.gwenthelper.enums.Ability
 import com.dowgalolya.gwenthelper.enums.CardsRowType
 import kotlin.math.min
-import kotlin.math.pow
 
 data class CardsRow(
     val type: CardsRowType,
