@@ -54,6 +54,10 @@
     <string name="rain_false">Дождь убран</string>
     <string name="scores_placehoder">Вы еще не имеете сохраненных игор.</string>
     <string name="play">Играть</string>
-    <string name="scores">Результаты</string>
+    <string name="scores">История</string>
     <string name="edit_card">Редактировать карточку</string>
+    <string name="round_1">Раунд 1</string>
+    <string name="round_2">Раунд 2</string>
+    <string name="round_3">Раунд 3</string>
+    <string name="round_divider">:</string>
 </resources>

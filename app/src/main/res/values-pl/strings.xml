@@ -56,4 +56,8 @@
     <string name="play">Grać</string>
     <string name="scores">Wyniki</string>
     <string name="edit_card">Edytuj kartę</string>
+    <string name="round_1">Runda 1</string>
+    <string name="round_2">Runda 2</string>
+    <string name="round_3">Runda 3</string>
+    <string name="round_divider">:</string>
 </resources>

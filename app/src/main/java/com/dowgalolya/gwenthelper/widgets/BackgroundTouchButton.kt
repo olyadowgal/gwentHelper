@@ -5,15 +5,32 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.util.AttributeSet
 import android.view.MotionEvent
+import androidx.appcompat.widget.AppCompatButton
 
 
 /**
  * Custom Shape Button which ignores touches on transparent background.
  */
-class TriangularButton(context: Context?, attrs: AttributeSet?, defStyle: Int) :
-    androidx.appcompat.widget.AppCompatButton(context!!, attrs, defStyle) {
-    constructor(context: Context?) : this(context, null)
-    constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
+class BackgroundTouchButton @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyle: Int = 0
+) : AppCompatButton(context, attrs, defStyle) {
+
+    override fun setText(text: CharSequence?, type: BufferType?) {
+        super.setText(
+            text?.let {
+                StringBuilder().apply {
+                    for (i in 0 until it.length - 1) {
+                        append(text[i])
+                        append('\n')
+                    }
+                    append(it.last())
+                }
+            },
+            type
+        )
+    }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         val x = event.x.toInt()

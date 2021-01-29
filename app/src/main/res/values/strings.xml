@@ -51,7 +51,7 @@
     <string name="fog_false">You disable fog</string>
     <string name="rain_true">You activate rain</string>
     <string name="rain_false">You disable rain</string>
-    <string name="scores_placehoder">You don\'t save any game yet.</string>
+    <string name="scores_placehoder">You didn\'t save any game yet.</string>
     <string name="play">Play</string>
     <string name="scores">Scores</string>
     <string name="edit_card">Edit Card</string>

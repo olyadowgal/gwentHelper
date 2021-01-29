@@ -54,6 +54,10 @@
     <string name="rain_false">Дощ прибрано</string>
     <string name="scores_placehoder">Ви ще не маєте збережених ігор. </string>
     <string name="play">Грати</string>
-    <string name="scores">Результати</string>
+    <string name="scores">Історія</string>
     <string name="edit_card">Редагувати картку</string>
+    <string name="round_1">Раунд 1</string>
+    <string name="round_2">Раунд 2</string>
+    <string name="round_3">Раунд 3</string>
+    <string name="round_divider">:</string>
 </resources>

@@ -56,10 +56,9 @@
         <TextView
                 android:id="@+id/txt_user_1"
                 style="@style/Text.PrimarySubtitle"
-                android:layout_width="match_parent"
+                android:layout_width="96dp"
                 android:layout_height="wrap_content"
-                android:lines="2"
-                android:maxWidth="80dp"
+                android:lines="3"
                 android:textAlignment="center"
                 tools:text="Name soooo long" />
         <!--endregion-->
@@ -91,17 +90,16 @@
         <TextView
                 android:id="@+id/txt_user_2"
                 style="@style/Text.PrimarySubtitle"
-                android:layout_width="match_parent"
+                android:layout_width="96dp"
                 android:layout_height="wrap_content"
-                android:lines="2"
-                android:maxWidth="80dp"
+                android:lines="3"
                 android:textAlignment="center"
                 tools:text="Name" />
         <!--endregion-->
 
         <GridLayout
                 android:id="@+id/layout_scores_table"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:columnCount="4"
                 android:useDefaultMargins="true"
@@ -113,11 +111,12 @@
             <TextView
                     android:id="@+id/txt_round_1_title"
                     style="@style/Text.PrimarySubtitle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill_horizontal"
                     android:layout_marginBottom="8dp"
-                    android:text="@string/round_1"
-                    android:textAlignment="center" />
+                    android:text="@string/round_1" />
 
             <TextView
                     android:id="@+id/txt_round_1_player_1"
@@ -145,10 +144,11 @@
             <TextView
                     android:id="@+id/txt_round_2_title"
                     style="@style/Text.PrimarySubtitle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill_horizontal"
                     android:layout_marginBottom="8dp"
-                    android:gravity="center"
                     android:text="@string/round_2" />
 
             <TextView
@@ -178,9 +178,10 @@
             <TextView
                     android:id="@+id/txt_round_3_title"
                     style="@style/Text.PrimarySubtitle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill_horizontal"
                     android:text="@string/round_3" />
 
             <TextView
