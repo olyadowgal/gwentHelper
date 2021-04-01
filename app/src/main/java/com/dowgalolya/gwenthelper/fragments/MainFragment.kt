@@ -33,7 +33,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         btn_play.setOnClickListener(this)
-        img_scores.setOnClickListener(this)
+        btn_exit.setOnClickListener(this)
         img_user1_avatar.setOnClickListener(this)
         img_user2_avatar.setOnClickListener(this)
 
@@ -75,7 +75,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
                     f_user2_name.text?.toString()
                 )
             }
-            R.id.img_scores -> {
+            R.id.btn_exit -> {
                 viewModel.onScoresClicked()
             }
             R.id.img_user1_avatar -> {

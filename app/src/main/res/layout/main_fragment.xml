@@ -22,7 +22,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     <com.dowgalolya.gwenthelper.widgets.BackgroundTouchButton
-            android:id="@+id/img_scores"
+            android:id="@+id/btn_exit"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/scores"
@@ -36,7 +36,7 @@
             android:background="@color/colorSimpleCard"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/txt_vs"
-            app:layout_constraintStart_toEndOf="@id/img_scores"
+            app:layout_constraintStart_toEndOf="@id/btn_exit"
             app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout

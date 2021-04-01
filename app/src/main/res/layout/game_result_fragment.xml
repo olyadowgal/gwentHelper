@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/oxford_blue"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:theme="@style/DarkAppTheme"
+        tools:context=".activities.MainActivity">
+
+    <com.dowgalolya.gwenthelper.widgets.BackgroundTouchButton
+            android:id="@+id/btn_exit"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/exit"
+            android:theme="@style/Button.Triangular.Scores"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container_user1"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/txt_game_result"
+            app:layout_constraintEnd_toStartOf="@id/btn_play"
+            app:layout_constraintStart_toEndOf="@id/btn_exit"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+                android:id="@+id/img_user1_crown"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_crown"
+                app:layout_constraintBottom_toTopOf="@id/img_user1_avatar"
+                app:layout_constraintEnd_toEndOf="@id/img_user1_avatar"
+                app:layout_constraintStart_toStartOf="@id/img_user1_avatar"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/colorSecondary"
+                tools:ignore="ContentDescription" />
+
+        <ImageView
+                android:id="@+id/img_user1_avatar"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:src="@drawable/ic_male_avatar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/img_user1_crown"
+                tools:ignore="ContentDescription" />
+
+        <TextView
+                android:id="@+id/txt_user1_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/user1"
+                android:theme="@style/DarkThemeText.Title.White"
+                app:layout_constraintBottom_toTopOf="@id/txt_user1_score"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/img_user1_avatar"
+                app:layout_constraintTop_toTopOf="@id/img_user1_avatar"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+                android:id="@+id/txt_user1_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:theme="@style/DarkThemeText.Primary"
+                app:layout_constraintBottom_toBottomOf="@id/img_user1_avatar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/img_user1_avatar"
+                app:layout_constraintTop_toBottomOf="@id/txt_user1_name"
+                tools:text="Total points : 49" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <TextView
+            android:id="@+id/txt_game_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:theme="@style/Text.Secondary.Subtitle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Player 1 wins!" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container_user2"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_play"
+            app:layout_constraintStart_toEndOf="@id/btn_exit"
+            app:layout_constraintTop_toBottomOf="@id/txt_game_result">
+
+        <ImageView
+                android:id="@+id/img_user2_crown"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_crown"
+                app:layout_constraintBottom_toTopOf="@id/img_user2_avatar"
+                app:layout_constraintEnd_toEndOf="@id/img_user2_avatar"
+                app:layout_constraintStart_toStartOf="@id/img_user2_avatar"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/colorSecondary"
+                tools:ignore="ContentDescription" />
+
+        <ImageView
+                android:id="@+id/img_user2_avatar"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:src="@drawable/ic_male_avatar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/img_user2_crown"
+                tools:ignore="ContentDescription" />
+
+        <TextView
+                android:id="@+id/txt_user2_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="36dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/user2"
+                android:theme="@style/DarkThemeText.Title.White"
+                app:layout_constraintBottom_toTopOf="@id/txt_user2_score"
+                app:layout_constraintEnd_toStartOf="@id/img_user2_avatar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/img_user2_avatar"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+                android:id="@+id/txt_user2_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="36dp"
+                android:theme="@style/DarkThemeText.Primary"
+                app:layout_constraintBottom_toBottomOf="@id/img_user2_avatar"
+                app:layout_constraintEnd_toStartOf="@id/img_user2_avatar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_user2_name"
+                tools:text="Total points : 49" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.dowgalolya.gwenthelper.widgets.BackgroundTouchButton
+            android:id="@+id/btn_play"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/play"
+            android:theme="@style/Button.Triangular.Play"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

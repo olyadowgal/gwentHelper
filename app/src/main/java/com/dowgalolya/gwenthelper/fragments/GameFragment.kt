@@ -37,7 +37,7 @@ import kotlinx.android.synthetic.main.game_fragment.*
 import kotlinx.android.synthetic.main.view_cards_stats.view.*
 import kotlinx.android.synthetic.main.view_user.view.*
 
-class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListener {
+class GameFragment : BaseFragment(), View.OnClickListener {
 
     override val viewModel: GameViewModel by viewModels { SingletonHolder.viewModelFactory }
 
@@ -100,10 +100,8 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
 
         widget_user1.setOnClickListener(this)
         widget_user2.setOnClickListener(this)
-        btn_reset.setOnLongClickListener(this)
         btn_reset.setOnClickListener(this)
         btn_exit_game.setOnClickListener(this)
-        btn_exit_game.setOnLongClickListener(this)
 
         widget_stats_close_combat.cb_horn.setOnCheckedChangeListener { _, isChecked ->
             viewModel.onHornChecked(CardsRowType.CLOSE_COMBAT, isChecked)
@@ -245,25 +243,6 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
             R.id.widget_user1 -> viewModel.onUserClicked(Player.FIRST)
             R.id.widget_user2 -> viewModel.onUserClicked(Player.SECOND)
             R.id.btn_reset -> {
-                Toast.makeText(
-                    context,
-                    getString(R.string.click_reset_msg),
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-            R.id.btn_exit_game -> {
-                Toast.makeText(
-                    context,
-                    getString(R.string.end_game_msg),
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-        }
-    }
-
-    override fun onLongClick(view: View): Boolean {
-        when (view.id) {
-            R.id.btn_reset -> {
                 AlertDialog.Builder(requireContext())
                     .setTitle(getString(R.string.end_round_title))
                     .setMessage(getString(R.string.end_round_message))
@@ -284,7 +263,5 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
                     .show()
             }
         }
-
-        return true
     }
 }

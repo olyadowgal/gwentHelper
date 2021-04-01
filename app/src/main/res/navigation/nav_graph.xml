@@ -40,11 +40,26 @@
                 android:name="user2Photo"
                 android:defaultValue=" "
                 app:argType="string" />
+        <action
+                android:id="@+id/action_gameFragment_to_gameResultFragment"
+                app:destination="@id/gameResultFragment" />
     </fragment>
     <fragment
             android:id="@+id/statsFragment"
             android:name="com.dowgalolya.gwenthelper.fragments.ScoreFragment"
             android:label="StatsFragment"
             tools:layout="@layout/score_fragment" />
+    <fragment
+            android:id="@+id/gameResultFragment"
+            android:name="com.dowgalolya.gwenthelper.fragments.GameResultFragment"
+            android:label="game_result_fragment"
+            tools:layout="@layout/game_result_fragment">
+        <action
+                android:id="@+id/action_gameResultFragment_to_gameFragment"
+                app:destination="@id/gameFragment" />
+        <action
+                android:id="@+id/action_gameResultFragment_to_mainFragment"
+                app:destination="@id/mainFragment" />
+    </fragment>
 
 </navigation>

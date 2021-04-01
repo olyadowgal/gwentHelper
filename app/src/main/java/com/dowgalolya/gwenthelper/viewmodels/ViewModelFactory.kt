@@ -23,6 +23,9 @@ class ViewModelFactory(
             ScoreViewModel::class.java -> {
                 ScoreViewModel(application, gwentRepository) as T
             }
+            GameResultViewModel::class.java -> {
+                GameResultViewModel(application) as T
+            }
             else -> throw IllegalArgumentException()
         }
     }
