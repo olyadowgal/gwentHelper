@@ -8,6 +8,8 @@ class PlayerData {
 
     var name: String = ""
 
+    var pic : String = ""
+
 
     @IntRange(from = 0, to = 2)
     var lives: Int = 2

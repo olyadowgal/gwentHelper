@@ -28,7 +28,7 @@
     <string name="vs">VS</string>
     <string name="camera_error">Щось пішло не так!</string>
     <string name="end_of_game_title">Кінець гри</string>
-    <string name="end_of_game_message">Переможець це </string>
+    <string name="end_of_game_message">%s переміг!</string>
     <string name="end_of_game_tie_message">Це нічия!</string>
     <string name="end_of_game_positive_btn">Закінчити гру</string>
     <string name="end_of_game_negative_btn">Закінчити без збереження</string>
@@ -60,4 +60,5 @@
     <string name="round_2">Раунд 2</string>
     <string name="round_3">Раунд 3</string>
     <string name="round_divider">:</string>
+    <string name="global_score">Загальний рахунок : %s</string>
 </resources>

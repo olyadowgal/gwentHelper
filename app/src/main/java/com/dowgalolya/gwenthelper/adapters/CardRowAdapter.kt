@@ -13,12 +13,13 @@ import com.dowgalolya.gwenthelper.enums.CardsRowType
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_card.view.*
 
+//TODO: rewrite with ListAdapter and ConcatAdapter
 class CardRowAdapter private constructor(
     cardsRow: CardsRow,
     private val callback: Callback
 ) : RecyclerView.Adapter<CardRowAdapter.BaseViewHolder>() {
 
-    class Factory() {
+    class Factory {
 
         fun create(cardsRow: CardsRow, callback: Callback) = CardRowAdapter(cardsRow, callback)
     }

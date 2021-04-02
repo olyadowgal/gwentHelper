@@ -28,7 +28,7 @@
     <string name="vs">VS</string>
     <string name="camera_error">Coś poszło nie tak!</string>
     <string name="end_of_game_title">Koniec gry</string>
-    <string name="end_of_game_message">Zwycięzcą jest </string>
+    <string name="end_of_game_message">>%s wygrała!</string>
     <string name="end_of_game_tie_message">Jest remis!</string>
     <string name="end_of_game_positive_btn">Koniec gry</string>
     <string name="end_of_game_negative_btn">Zakończ grę bez zapisywania</string>
@@ -60,4 +60,5 @@
     <string name="round_2">Runda 2</string>
     <string name="round_3">Runda 3</string>
     <string name="round_divider">:</string>
+    <string name="global_score">Konto główne : %s</string>
 </resources>

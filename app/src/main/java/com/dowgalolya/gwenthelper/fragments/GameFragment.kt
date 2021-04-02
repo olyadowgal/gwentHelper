@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -83,17 +82,19 @@ class GameFragment : BaseFragment(), View.OnClickListener {
         widget_weather.listener = viewModel
         viewModel.init(
             GameFragmentArgs.fromBundle(requireArguments()).user1,
-            GameFragmentArgs.fromBundle(requireArguments()).user2
+            GameFragmentArgs.fromBundle(requireArguments()).user2,
+            GameFragmentArgs.fromBundle(requireArguments()).user1Photo,
+            GameFragmentArgs.fromBundle(requireArguments()).user2Photo
         )
 
         Glide.with(this)
-            .load(GameFragmentArgs.fromBundle(requireArguments()).user1Photo)
+            .load(viewModel.gameData.value!!.firstPlayerData.pic)
             .placeholder(R.drawable.ic_male_avatar)
             .transform(CircleCrop())
             .into(widget_user1.img_user_avatar)
 
         Glide.with(this)
-            .load(GameFragmentArgs.fromBundle(requireArguments()).user2Photo)
+            .load(viewModel.gameData.value!!.secondPlayerData.pic)
             .placeholder(R.drawable.ic_female_avatar)
             .transform(CircleCrop())
             .into(widget_user2.img_user_avatar)
@@ -167,25 +168,6 @@ class GameFragment : BaseFragment(), View.OnClickListener {
                 }
             }
         }
-
-        viewModel.gameOver.observe(viewLifecycleOwner) {
-            val message = when (it!!) {
-                Winner.FIRST -> getString(R.string.end_of_game_message) + " " + widget_user1.txt_user_name.text.toString()
-                Winner.SECOND -> getString(R.string.end_of_game_message) + " " + widget_user2.txt_user_name.text.toString()
-                Winner.TIE -> getString(R.string.end_of_game_tie_message)
-            }
-            AlertDialog.Builder(requireContext())
-                .setTitle(getString(R.string.end_of_game_title))
-                .setMessage(message)
-                .setCancelable(false)
-                .setPositiveButton(getString(R.string.end_of_game_positive_btn)) { _, _ ->
-                    viewModel.onGameEnds()
-                }
-                .setNegativeButton(getString(R.string.end_of_game_negative_btn)) { _, _ ->
-                    viewModel.onGameEndsWithoutSaving()
-                }
-                .show()
-        }
     }
 
     override fun handleViewAction(action: ViewAction) {
@@ -220,17 +202,6 @@ class GameFragment : BaseFragment(), View.OnClickListener {
                         }
                         .setNeutralButton(getString(R.string.config_card_dialog_neutral), null)
                         .show()
-                }
-                CustomViewAction.FINISH_GAME -> {
-                    findNavController().popBackStack()
-                }
-                CustomViewAction.LAUNCH_REVIEW_AND_FINISH_GAME -> {
-                    val manager = action.args[REVIEW_MANAGER] as ReviewManager
-                    val reviewInfo = action.args[REVIEW_INFO] as ReviewInfo
-                    activity?.let { manager.launchReviewFlow(it, reviewInfo) }
-                        ?.addOnCompleteListener { _ ->
-                            findNavController().popBackStack()
-                        }
                 }
                 else -> super.handleViewAction(action)
             }

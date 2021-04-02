@@ -54,6 +54,34 @@
             android:name="com.dowgalolya.gwenthelper.fragments.GameResultFragment"
             android:label="game_result_fragment"
             tools:layout="@layout/game_result_fragment">
+        <argument
+                android:name="winner"
+                android:defaultValue="no Data"
+                app:argType="string" />
+        <argument
+                android:name="user1"
+                android:defaultValue="User 1"
+                app:argType="string" />
+        <argument
+                android:name="user2"
+                android:defaultValue="User 2"
+                app:argType="string" />
+        <argument
+                android:name="user1Photo"
+                android:defaultValue=" "
+                app:argType="string" />
+        <argument
+                android:name="user2Photo"
+                android:defaultValue=" "
+                app:argType="string" />
+        <argument
+                android:name="user1TotalPoints"
+                android:defaultValue="no Data"
+                app:argType="string" />
+        <argument
+                android:name="user2TotalPoints"
+                android:defaultValue="no Data"
+                app:argType="string" />
         <action
                 android:id="@+id/action_gameResultFragment_to_gameFragment"
                 app:destination="@id/gameFragment" />
