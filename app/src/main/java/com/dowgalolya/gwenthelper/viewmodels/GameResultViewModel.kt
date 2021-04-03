@@ -1,7 +1,6 @@
 package com.dowgalolya.gwenthelper.viewmodels
 
 import android.app.Application
-import androidx.annotation.MainThread
 import com.dowgalolya.gwenthelper.fragments.GameResultFragmentDirections
 import com.dowgalolya.gwenthelper.livedata.ViewAction
 import com.google.android.play.core.review.ReviewManagerFactory

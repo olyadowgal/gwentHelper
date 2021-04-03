@@ -97,6 +97,7 @@ class GameResultFragment : BaseFragment(), View.OnClickListener {
                     val manager = action.args[REVIEW_MANAGER] as ReviewManager
                     val reviewInfo = action.args[REVIEW_INFO] as ReviewInfo
                     activity?.let { manager.launchReviewFlow(it, reviewInfo) }
+                        ?.addOnCompleteListener { _ -> }
                 }
                 GameResultViewModel.CustomViewAction.PLAY_AGAIN -> {
                     findNavController().popBackStack()

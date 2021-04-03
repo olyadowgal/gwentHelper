@@ -198,6 +198,12 @@ class GameViewModel(
             this.winner = winner.name
         }
 
+        _gameData.value = GameData(
+            firstPlayerData = PlayerData(),
+            secondPlayerData = PlayerData()
+        )
+        _gameData.notifyDataChanged()
+
         _viewAction.value = ViewAction.NavigateWithDirection(direction)
     }
 
