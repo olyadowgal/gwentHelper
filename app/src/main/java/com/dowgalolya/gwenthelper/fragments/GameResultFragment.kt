@@ -21,6 +21,8 @@ import com.dowgalolya.gwenthelper.enums.CardsRowType
 import com.dowgalolya.gwenthelper.enums.Winner
 import com.dowgalolya.gwenthelper.livedata.ViewAction
 import com.dowgalolya.gwenthelper.viewmodels.GameResultViewModel
+import com.dowgalolya.gwenthelper.viewmodels.GameResultViewModel.Companion.REVIEW_INFO
+import com.dowgalolya.gwenthelper.viewmodels.GameResultViewModel.Companion.REVIEW_MANAGER
 import com.dowgalolya.gwenthelper.viewmodels.GameViewModel
 import com.google.android.play.core.review.ReviewInfo
 import com.google.android.play.core.review.ReviewManager
@@ -43,6 +45,7 @@ class GameResultFragment : BaseFragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
+
         with(GameResultFragmentArgs.fromBundle(requireArguments())) {
             txt_user1_name.text = user1
             txt_user2_name.text = user2
@@ -82,6 +85,8 @@ class GameResultFragment : BaseFragment(), View.OnClickListener {
 
         btn_exit.setOnClickListener(this)
         btn_play.setOnClickListener(this)
+
+        viewModel.startReviewRequest()
     }
 
     override fun handleViewAction(action: ViewAction) {
@@ -89,12 +94,12 @@ class GameResultFragment : BaseFragment(), View.OnClickListener {
             is ViewAction.Custom -> when (action.action) {
 
                 GameResultViewModel.CustomViewAction.LAUNCH_REVIEW -> {
-                    val manager = action.args[GameViewModel.REVIEW_MANAGER] as ReviewManager
-                    val reviewInfo = action.args[GameViewModel.REVIEW_INFO] as ReviewInfo
+                    val manager = action.args[REVIEW_MANAGER] as ReviewManager
+                    val reviewInfo = action.args[REVIEW_INFO] as ReviewInfo
                     activity?.let { manager.launchReviewFlow(it, reviewInfo) }
-                        ?.addOnCompleteListener { _ ->
-                            findNavController().popBackStack()
-                        }
+                }
+                GameResultViewModel.CustomViewAction.PLAY_AGAIN -> {
+                    findNavController().popBackStack()
                 }
                 else -> super.handleViewAction(action)
             }
@@ -104,11 +109,8 @@ class GameResultFragment : BaseFragment(), View.OnClickListener {
 
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.btn_exit -> {
-
-            }
-            R.id.btn_play -> {
-            }
+            R.id.btn_exit -> viewModel.onExit()
+            R.id.btn_play -> viewModel.onPlay()
         }
     }
 }

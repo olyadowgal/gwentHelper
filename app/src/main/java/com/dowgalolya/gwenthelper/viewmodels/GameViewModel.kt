@@ -34,8 +34,6 @@ class GameViewModel(
     companion object {
         const val CARD_ROW = "CARD_ROW"
         const val CARD = "CARD"
-        const val REVIEW_INFO = "REVIEW_INFO"
-        const val REVIEW_MANAGER = "REVIEW_MANAGER"
     }
 
     object CustomViewAction {

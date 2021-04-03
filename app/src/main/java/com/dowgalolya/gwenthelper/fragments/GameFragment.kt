@@ -26,12 +26,8 @@ import com.dowgalolya.gwenthelper.livedata.ViewAction
 import com.dowgalolya.gwenthelper.viewmodels.GameViewModel
 import com.dowgalolya.gwenthelper.viewmodels.GameViewModel.Companion.CARD
 import com.dowgalolya.gwenthelper.viewmodels.GameViewModel.Companion.CARD_ROW
-import com.dowgalolya.gwenthelper.viewmodels.GameViewModel.Companion.REVIEW_INFO
-import com.dowgalolya.gwenthelper.viewmodels.GameViewModel.Companion.REVIEW_MANAGER
 import com.dowgalolya.gwenthelper.viewmodels.GameViewModel.CustomViewAction
 import com.dowgalolya.gwenthelper.widgets.CardsStatsView
-import com.google.android.play.core.review.ReviewInfo
-import com.google.android.play.core.review.ReviewManager
 import kotlinx.android.synthetic.main.game_fragment.*
 import kotlinx.android.synthetic.main.view_cards_stats.view.*
 import kotlinx.android.synthetic.main.view_user.view.*
