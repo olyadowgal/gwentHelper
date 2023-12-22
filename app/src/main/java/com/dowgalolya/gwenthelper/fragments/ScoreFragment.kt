@@ -11,30 +11,35 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dowgalolya.gwenthelper.R
+import com.dowgalolya.gwenthelper.databinding.ScoreFragmentBinding
 import com.dowgalolya.gwenthelper.di.SingletonHolder
 import com.dowgalolya.gwenthelper.viewmodels.ScoreViewModel
-import kotlinx.android.synthetic.main.score_fragment.*
 
 class ScoreFragment : BaseFragment(), View.OnLongClickListener, View.OnClickListener {
 
     override val viewModel: ScoreViewModel by viewModels { SingletonHolder.viewModelFactory }
+    private var _binding: ScoreFragmentBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = inflater.inflate(R.layout.score_fragment, container, false)
+    ): View {
+        _binding = ScoreFragmentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        list_stats.layoutManager =
+        _binding!!.listStats.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        list_stats.adapter = viewModel.statsAdapter
-        btn_back.setOnClickListener(this)
-        btn_reset_db.setOnClickListener(this)
-        btn_reset_db.setOnLongClickListener(this)
+        _binding!!.listStats.adapter = viewModel.statsAdapter
+        _binding!!.btnBack.setOnClickListener(this)
+        _binding!!.btnResetDb.setOnClickListener(this)
+        _binding!!.btnResetDb.setOnLongClickListener(this)
         viewModel.isScoresButtonActive.observe(viewLifecycleOwner) {
-            btn_reset_db.isVisible = it
+            _binding!!.btnResetDb.isVisible = it
         }
     }
 

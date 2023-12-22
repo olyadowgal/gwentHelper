@@ -7,7 +7,6 @@ import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
-
 @Database(
     entities = [GameScore::class],
     version = 2,

@@ -15,10 +15,11 @@ import com.dowgalolya.gwenthelper.di.SingletonHolder
 import com.dowgalolya.gwenthelper.viewmodels.MainViewModel
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
-import kotlinx.android.synthetic.main.main_fragment.*
 
 
 class MainFragment : BaseFragment(), View.OnClickListener {
+
+    private lateinit var binding: ResultProfileBinding
 
     override val viewModel: MainViewModel by viewModels {
         SingletonHolder.viewModelFactory
@@ -37,7 +38,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         img_user1_avatar.setOnClickListener(this)
         img_user2_avatar.setOnClickListener(this)
 
-        viewModel.selectedUser.observe(viewLifecycleOwner, Observer {
+        viewModel.selectedUser.observe(viewLifecycleOwner) {
             context?.let {
                 CropImage.activity()
                     .setGuidelines(CropImageView.Guidelines.ON)
@@ -48,22 +49,22 @@ class MainFragment : BaseFragment(), View.OnClickListener {
                     .setAutoZoomEnabled(true)
                     .start(it, this)
             }
-        })
+        }
 
-        viewModel.firstUserPhotoUri.observe(viewLifecycleOwner, Observer {
+        viewModel.firstUserPhotoUri.observe(viewLifecycleOwner) {
             Glide.with(this)
                 .load(it)
                 .transform(CircleCrop())
                 .into(img_user1_avatar)
 
-        })
+        }
 
-        viewModel.secondUserPhotoUri.observe(viewLifecycleOwner, Observer {
+        viewModel.secondUserPhotoUri.observe(viewLifecycleOwner) {
             Glide.with(this)
                 .load(it)
                 .transform(CircleCrop())
                 .into(img_user2_avatar)
-        })
+        }
 
     }
 
@@ -88,6 +89,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
     }
 
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -106,7 +108,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
                 }
 
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                val error = result.error
+                result.error
             }
         }
     }

@@ -17,7 +17,7 @@ data class GameScore
     (
     @PrimaryKey
     val date: Date,
-    @ColumnInfo(name = "first_player")
+    @ColumnInfo(name = "first_player_")
     val firstPlayer: String,
     @ColumnInfo(name = "second_player")
     val secondPlayer: String,

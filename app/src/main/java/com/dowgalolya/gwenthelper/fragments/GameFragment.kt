@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.dowgalolya.gwenthelper.R
 import com.dowgalolya.gwenthelper.adapters.itemdecoration.CardRowItemDecoration
+import com.dowgalolya.gwenthelper.databinding.GameFragmentBinding
 import com.dowgalolya.gwenthelper.di.SingletonHolder
 import com.dowgalolya.gwenthelper.dialogs.AddCardDialog
 import com.dowgalolya.gwenthelper.dialogs.EditCardDialog
@@ -40,20 +41,24 @@ import kotlinx.android.synthetic.main.view_user.view.*
 class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListener {
 
     override val viewModel: GameViewModel by viewModels { SingletonHolder.viewModelFactory }
+    private var _binding: GameFragmentBinding? = null
+    // This property is only valid between onCreateView and
+// onDestroyView.
+    private val binding get() = _binding!!
 
     private val rowStats: Map<CardsRowType, CardsStatsView> by lazy {
         mapOf(
-            CardsRowType.CLOSE_COMBAT to widget_stats_close_combat,
-            CardsRowType.LONG_RANGE to widget_stats_long_range,
-            CardsRowType.SIEGE to widget_stats_siege
+            CardsRowType.CLOSE_COMBAT to _binding!!.widgetStatsCloseCombat,
+            CardsRowType.LONG_RANGE to _binding!!.widgetStatsLongRange,
+            CardsRowType.SIEGE to _binding!!.widgetStatsSiege
         )
     }
 
     private val rowCards: Map<CardsRowType, RecyclerView> by lazy {
         mapOf(
-            CardsRowType.CLOSE_COMBAT to rv_close_combat,
-            CardsRowType.LONG_RANGE to rv_long_range,
-            CardsRowType.SIEGE to rv_siege
+            CardsRowType.CLOSE_COMBAT to _binding!!.rvCloseCombat,
+            CardsRowType.LONG_RANGE to _binding!!.rvLongRange,
+            CardsRowType.SIEGE to _binding!!.rvSiege
         )
     }
 
@@ -61,7 +66,10 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = inflater.inflate(R.layout.game_fragment, container, false)
+    ): View {
+        _binding = GameFragmentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -80,7 +88,7 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
 
         }
 
-        widget_weather.listener = viewModel
+        _binding!!.widgetWeather.listener = viewModel
         viewModel.init(
             GameFragmentArgs.fromBundle(requireArguments()).user1,
             GameFragmentArgs.fromBundle(requireArguments()).user2
@@ -90,7 +98,7 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
             .load(GameFragmentArgs.fromBundle(requireArguments()).user1Photo)
             .placeholder(R.drawable.ic_male_avatar)
             .transform(CircleCrop())
-            .into(widget_user1.img_user_avatar)
+            .into(_binding!!.widgetUser1.img_user_avatar)
 
         Glide.with(this)
             .load(GameFragmentArgs.fromBundle(requireArguments()).user2Photo)
@@ -98,18 +106,18 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
             .transform(CircleCrop())
             .into(widget_user2.img_user_avatar)
 
-        widget_user1.setOnClickListener(this)
-        widget_user2.setOnClickListener(this)
-        btn_reset.setOnLongClickListener(this)
-        btn_reset.setOnClickListener(this)
-        btn_exit_game.setOnClickListener(this)
-        btn_exit_game.setOnLongClickListener(this)
+        _binding!!.widgetUser1.setOnClickListener(this)
+        _binding!!.widgetUser2.setOnClickListener(this)
+        _binding!!.btnReset.setOnLongClickListener(this)
+        _binding!!.btnReset.setOnClickListener(this)
+        _binding!!.btnExitGame.setOnClickListener(this)
+        _binding!!.btnExitGame.setOnLongClickListener(this)
 
-        widget_stats_close_combat.cb_horn.setOnCheckedChangeListener { _, isChecked ->
+        _binding!!.widgetStatsCloseCombat.cb_horn.setOnCheckedChangeListener { _, isChecked ->
             viewModel.onHornChecked(CardsRowType.CLOSE_COMBAT, isChecked)
         }
 
-        widget_stats_long_range.cb_horn.setOnCheckedChangeListener { _, isChecked ->
+        _binding!!.widgetStatsCloseCombat.cb_horn.setOnCheckedChangeListener { _, isChecked ->
             viewModel.onHornChecked(CardsRowType.LONG_RANGE, isChecked)
         }
 

@@ -5,21 +5,24 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import com.dowgalolya.gwenthelper.R
+import com.dowgalolya.gwenthelper.databinding.ActivityMainBinding
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics.*
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var firebaseAnalytics: FirebaseCrashlytics
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         // Obtain the FirebaseAnalytics instance.
         firebaseAnalytics = getInstance()
+
 
     }
 
