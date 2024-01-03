@@ -2,9 +2,10 @@ package com.dowgalolya.gwenthelper.widgets
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.View
+import android.view.LayoutInflater
 import android.widget.FrameLayout
-import com.dowgalolya.gwenthelper.
+import com.dowgalolya.gwenthelper.databinding.ViewCardsStatsBinding
+
 
 class  CardsStatsView @JvmOverloads constructor(
     context: Context,
@@ -12,15 +13,17 @@ class  CardsStatsView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
+    private var binding: ViewCardsStatsBinding? = null
+
     init {
-        View.inflate(context, R.layout.view_cards_stats, this)
+        binding = ViewCardsStatsBinding.inflate(LayoutInflater.from(context),this)
     }
 
     fun setCardCounterValue(value: Int) {
-        txt_cards_counter.text = value.toString()
+        binding!!.txtCardsCounter.text = value.toString()
     }
 
     fun setHornValue(isChecked : Boolean) {
-        cb_horn.isChecked = isChecked
+        binding!!.cbHorn.isChecked = isChecked
     }
 }
