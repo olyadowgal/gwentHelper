@@ -7,7 +7,6 @@ import com.dowgalolya.gwenthelper.R
 import com.dowgalolya.gwenthelper.enums.Ability
 import com.dowgalolya.gwenthelper.entities.Card
 import com.dowgalolya.gwenthelper.entities.CardsRow
-import kotlinx.android.synthetic.main.card_dialog_fragment.*
 
 class EditCardDialog(
     context: Context,
@@ -28,15 +27,15 @@ class EditCardDialog(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        txt_card_points.text = card.points.toString()
+        binding!!.txtCardPoints.text = card.points.toString()
         card.abilities
             .map {
                 when (it) {
-                    Ability.HERO -> sw_hero.isChecked = true
-                    Ability.DECOY -> sw_decoy.isChecked = true
-                    Ability.HORN -> ability_horn.isChecked = true
-                    Ability.MORALE_BOOST -> ability_moral_boost.isChecked = true
-                    Ability.TIGHT_BOND -> ability_tight_bond.isChecked = true
+                    Ability.HERO -> binding!!.swHero.isChecked = true
+                    Ability.DECOY -> binding!!.swDecoy.isChecked = true
+                    Ability.HORN -> binding!!.abilityHorn.isChecked = true
+                    Ability.MORALE_BOOST -> binding!!.abilityMoralBoost.isChecked = true
+                    Ability.TIGHT_BOND -> binding!!.abilityTightBond.isChecked = true
                     else -> throw RuntimeException()
                 }
             }
@@ -52,6 +51,7 @@ class EditCardDialog(
                 )
                 dismiss()
             }
+
             DialogInterface.BUTTON_NEGATIVE -> cancel()
         }
     }

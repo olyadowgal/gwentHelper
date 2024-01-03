@@ -13,7 +13,7 @@ class  CardsStatsView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-    private var binding: ViewCardsStatsBinding? = null
+    var binding: ViewCardsStatsBinding? = null
 
     init {
         binding = ViewCardsStatsBinding.inflate(LayoutInflater.from(context),this)

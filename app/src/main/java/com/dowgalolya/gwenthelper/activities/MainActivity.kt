@@ -3,6 +3,7 @@ package com.dowgalolya.gwenthelper.activities
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.dowgalolya.gwenthelper.R
 import com.dowgalolya.gwenthelper.databinding.ActivityMainBinding
@@ -13,12 +14,15 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var firebaseAnalytics: FirebaseCrashlytics
     private lateinit var binding: ActivityMainBinding
+    private lateinit var navHostFragment: NavHostFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
 
         // Obtain the FirebaseAnalytics instance.
         firebaseAnalytics = getInstance()
@@ -27,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp() =
-        NavHostFragment.findNavController(nav_host_fragment).navigateUp()
+        NavHostFragment.findNavController(navHostFragment).navigateUp()
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)

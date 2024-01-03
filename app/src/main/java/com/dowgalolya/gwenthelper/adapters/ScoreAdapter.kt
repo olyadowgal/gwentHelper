@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dowgalolya.gwenthelper.R
+import com.dowgalolya.gwenthelper.databinding.ItemScoreBinding
 import com.dowgalolya.gwenthelper.db.GameScore
 import com.dowgalolya.gwenthelper.enums.Winner
-import kotlinx.android.synthetic.main.item_score.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -56,22 +56,23 @@ class ScoreAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     inner class FeedItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val formatter = SimpleDateFormat("hh:mm dd MMM yyyy", Locale.getDefault())
+        private val binding: ItemScoreBinding = ItemScoreBinding.bind(itemView)
 
         fun onBind(item: GameScore) = with(itemView) {
-            txt_game_date.text = formatter.format(item.date)
-            txt_user_1.text = item.firstPlayer
-            txt_user_2.text = item.secondPlayer
+            binding.txtGameDate.text = formatter.format(item.date)
+            binding.txtUser1.text = item.firstPlayer
+            binding.txtUser2.text = item.secondPlayer
 
-            txt_round_1_player_1.text = item.firstRoundFirstPlayerPoints?.toString() ?: "-"
-            txt_round_2_player_1.text = item.secondRoundFirstPlayerPoints?.toString() ?: "-"
-            txt_round_3_player_1.text = item.thirdRoundFirstPlayerPoints?.toString() ?: "-"
+            binding.txtRound1Player1.text = item.firstRoundFirstPlayerPoints?.toString() ?: "-"
+            binding.txtRound2Player1.text = item.secondRoundFirstPlayerPoints?.toString() ?: "-"
+            binding.txtRound3Player1.text = item.thirdRoundFirstPlayerPoints?.toString() ?: "-"
 
-            txt_round_1_player_2.text = item.firstRoundSecondPlayerPoints?.toString() ?: "-"
-            txt_round_2_player_2.text = item.secondRoundSecondPlayerPoints?.toString() ?: "-"
-            txt_round_3_player_2.text = item.thirdRoundSecondPlayerPoints?.toString() ?: "-"
+            binding.txtRound1Player2.text = item.firstRoundSecondPlayerPoints?.toString() ?: "-"
+            binding.txtRound2Player2.text = item.secondRoundSecondPlayerPoints?.toString() ?: "-"
+            binding.txtRound3Player2.text = item.thirdRoundSecondPlayerPoints?.toString() ?: "-"
 
-            img_winner_user_1.isActivated = item.winner == Winner.FIRST.name
-            img_winner_user_2.isActivated = item.winner == Winner.SECOND.name
+            binding.imgWinnerUser1.isActivated = item.winner == Winner.FIRST.name
+            binding.imgWinnerUser2.isActivated = item.winner == Winner.SECOND.name
 
 
         }

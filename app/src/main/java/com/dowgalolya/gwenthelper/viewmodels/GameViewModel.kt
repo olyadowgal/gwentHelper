@@ -165,6 +165,8 @@ class GameViewModel(
                 _gameData.value!!.secondPlayerData.minusLive()
                 _gameData.value!!.firstPlayerData.minusLive()
             }
+
+            else -> {}
         }
         when (roundCounter) {
             1 -> {
