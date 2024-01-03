@@ -4,8 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
-import com.dowgalolya.gwenthelper.R
-import kotlinx.android.synthetic.main.view_cards_stats.view.*
+import com.dowgalolya.gwenthelper.
 
 class  CardsStatsView @JvmOverloads constructor(
     context: Context,

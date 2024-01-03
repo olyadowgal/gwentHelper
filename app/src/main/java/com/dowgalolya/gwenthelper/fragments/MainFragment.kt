@@ -7,10 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.dowgalolya.gwenthelper.R
+import com.dowgalolya.gwenthelper.databinding.MainFragmentBinding
 import com.dowgalolya.gwenthelper.di.SingletonHolder
 import com.dowgalolya.gwenthelper.viewmodels.MainViewModel
 import com.theartofdev.edmodo.cropper.CropImage
@@ -19,24 +19,33 @@ import com.theartofdev.edmodo.cropper.CropImageView
 
 class MainFragment : BaseFragment(), View.OnClickListener {
 
-    private lateinit var binding: ResultProfileBinding
+    private var _binding: MainFragmentBinding? = null
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
 
     override val viewModel: MainViewModel by viewModels {
         SingletonHolder.viewModelFactory
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = inflater.inflate(R.layout.main_fragment, container, false)
+    ): View {
+        _binding = MainFragmentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        btn_play.setOnClickListener(this)
-        img_scores.setOnClickListener(this)
-        img_user1_avatar.setOnClickListener(this)
-        img_user2_avatar.setOnClickListener(this)
+
+
+        _binding?.btnPlay?.setOnClickListener(this)
+        _binding?.imgScores?.setOnClickListener(this)
+        _binding?.imgUser1Avatar?.setOnClickListener(this)
+        _binding?.imgUser2Avatar?.setOnClickListener(this)
 
         viewModel.selectedUser.observe(viewLifecycleOwner) {
             context?.let {
@@ -55,7 +64,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
             Glide.with(this)
                 .load(it)
                 .transform(CircleCrop())
-                .into(img_user1_avatar)
+                .into(_binding?.imgUser1Avatar!!)
 
         }
 
@@ -63,7 +72,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
             Glide.with(this)
                 .load(it)
                 .transform(CircleCrop())
-                .into(img_user2_avatar)
+                .into(_binding?.imgUser2Avatar!!)
         }
 
     }
@@ -72,8 +81,8 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         when (view.id) {
             R.id.btn_play -> {
                 viewModel.onPlayClicked(
-                    f_user1_name.text?.toString(),
-                    f_user2_name.text?.toString()
+                    _binding?.fUser1Name?.text?.toString(),
+                    _binding?.fUser2Name?.text?.toString()
                 )
             }
             R.id.img_scores -> {

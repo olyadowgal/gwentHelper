@@ -146,7 +146,7 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
                 view.setCardCounterValue(playerData.cardsRows.getValue(type).totalPoints)
                 view.setHornValue(playerData.cardsRows.getValue(type).horn)
             }
-            widget_weather.setWeather(
+            binding.widgetWeather.setWeather(
                 playerData.cardsRows.getValue(CardsRowType.CLOSE_COMBAT).badWeather,
                 playerData.cardsRows.getValue(CardsRowType.LONG_RANGE).badWeather,
                 playerData.cardsRows.getValue(CardsRowType.SIEGE).badWeather
