@@ -23,7 +23,6 @@ class WeatherView @JvmOverloads constructor(
 
     init {
         binding = ViewWeatherBinding.inflate(LayoutInflater.from(context),this)
-        addView(binding!!.root)
         binding!!.cbFrost.setOnCheckedChangeListener(this)
         binding!!.cbFog.setOnCheckedChangeListener(this)
         binding!!.cbRain.setOnCheckedChangeListener(this)
