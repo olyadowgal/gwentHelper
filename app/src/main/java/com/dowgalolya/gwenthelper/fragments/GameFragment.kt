@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.dowgalolya.gwenthelper.R
 import com.dowgalolya.gwenthelper.adapters.itemdecoration.CardRowItemDecoration
+import com.dowgalolya.gwenthelper.databinding.GameFragmentBinding
 import com.dowgalolya.gwenthelper.di.SingletonHolder
 import com.dowgalolya.gwenthelper.dialogs.AddCardDialog
 import com.dowgalolya.gwenthelper.dialogs.EditCardDialog
@@ -33,27 +34,28 @@ import com.dowgalolya.gwenthelper.viewmodels.GameViewModel.CustomViewAction
 import com.dowgalolya.gwenthelper.widgets.CardsStatsView
 import com.google.android.play.core.review.ReviewInfo
 import com.google.android.play.core.review.ReviewManager
-import kotlinx.android.synthetic.main.game_fragment.*
-import kotlinx.android.synthetic.main.view_cards_stats.view.*
-import kotlinx.android.synthetic.main.view_user.view.*
 
 class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListener {
 
     override val viewModel: GameViewModel by viewModels { SingletonHolder.viewModelFactory }
+    private var _binding: GameFragmentBinding? = null
+    // This property is only valid between onCreateView and
+// onDestroyView.
+    private val binding get() = _binding!!
 
     private val rowStats: Map<CardsRowType, CardsStatsView> by lazy {
         mapOf(
-            CardsRowType.CLOSE_COMBAT to widget_stats_close_combat,
-            CardsRowType.LONG_RANGE to widget_stats_long_range,
-            CardsRowType.SIEGE to widget_stats_siege
+            CardsRowType.CLOSE_COMBAT to _binding!!.widgetStatsCloseCombat,
+            CardsRowType.LONG_RANGE to _binding!!.widgetStatsLongRange,
+            CardsRowType.SIEGE to _binding!!.widgetStatsSiege
         )
     }
 
     private val rowCards: Map<CardsRowType, RecyclerView> by lazy {
         mapOf(
-            CardsRowType.CLOSE_COMBAT to rv_close_combat,
-            CardsRowType.LONG_RANGE to rv_long_range,
-            CardsRowType.SIEGE to rv_siege
+            CardsRowType.CLOSE_COMBAT to _binding!!.rvCloseCombat,
+            CardsRowType.LONG_RANGE to _binding!!.rvLongRange,
+            CardsRowType.SIEGE to _binding!!.rvSiege
         )
     }
 
@@ -61,7 +63,10 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = inflater.inflate(R.layout.game_fragment, container, false)
+    ): View {
+        _binding = GameFragmentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -80,7 +85,7 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
 
         }
 
-        widget_weather.listener = viewModel
+        _binding!!.widgetWeather.listener = viewModel
         viewModel.init(
             GameFragmentArgs.fromBundle(requireArguments()).user1,
             GameFragmentArgs.fromBundle(requireArguments()).user2
@@ -90,30 +95,30 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
             .load(GameFragmentArgs.fromBundle(requireArguments()).user1Photo)
             .placeholder(R.drawable.ic_male_avatar)
             .transform(CircleCrop())
-            .into(widget_user1.img_user_avatar)
+            .into(binding.widgetUser1.binding.imgUserAvatar)
 
         Glide.with(this)
             .load(GameFragmentArgs.fromBundle(requireArguments()).user2Photo)
             .placeholder(R.drawable.ic_female_avatar)
             .transform(CircleCrop())
-            .into(widget_user2.img_user_avatar)
+            .into(binding.widgetUser2.binding.imgUserAvatar)
 
-        widget_user1.setOnClickListener(this)
-        widget_user2.setOnClickListener(this)
-        btn_reset.setOnLongClickListener(this)
-        btn_reset.setOnClickListener(this)
-        btn_exit_game.setOnClickListener(this)
-        btn_exit_game.setOnLongClickListener(this)
+        _binding!!.widgetUser1.setOnClickListener(this)
+        _binding!!.widgetUser2.setOnClickListener(this)
+        _binding!!.btnReset.setOnLongClickListener(this)
+        _binding!!.btnReset.setOnClickListener(this)
+        _binding!!.btnExitGame.setOnClickListener(this)
+        _binding!!.btnExitGame.setOnLongClickListener(this)
 
-        widget_stats_close_combat.cb_horn.setOnCheckedChangeListener { _, isChecked ->
+        _binding!!.widgetStatsCloseCombat.binding!!.cbHorn.setOnCheckedChangeListener { _, isChecked ->
             viewModel.onHornChecked(CardsRowType.CLOSE_COMBAT, isChecked)
         }
 
-        widget_stats_long_range.cb_horn.setOnCheckedChangeListener { _, isChecked ->
+        _binding!!.widgetStatsLongRange.binding!!.cbHorn.setOnCheckedChangeListener { _, isChecked ->
             viewModel.onHornChecked(CardsRowType.LONG_RANGE, isChecked)
         }
 
-        widget_stats_siege.cb_horn.setOnCheckedChangeListener { _, isChecked ->
+        binding.widgetStatsSiege.binding!!.cbHorn.setOnCheckedChangeListener { _, isChecked ->
             viewModel.onHornChecked(CardsRowType.SIEGE, isChecked)
         }
 
@@ -121,13 +126,13 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
             with(requireContext()) {
                 when (it!!) {
                     Player.FIRST -> {
-                        widget_user1.img_avatar_ring.setColorFilter(getColor(R.color.colorPrimary))
-                        widget_user2.img_avatar_ring.setColorFilter(getColor(R.color.white))
+                        binding.widgetUser1.binding.imgAvatarRing.setColorFilter(getColor(R.color.colorPrimary))
+                        binding.widgetUser2.binding.imgAvatarRing.setColorFilter(getColor(R.color.white))
 
                     }
                     Player.SECOND -> {
-                        widget_user2.img_avatar_ring.setColorFilter(getColor(R.color.colorPrimary))
-                        widget_user1.img_avatar_ring.setColorFilter(getColor(R.color.white))
+                        binding.widgetUser2.binding.imgAvatarRing.setColorFilter(getColor(R.color.colorPrimary))
+                        binding.widgetUser1.binding.imgAvatarRing.setColorFilter(getColor(R.color.white))
                     }
                 }
             }
@@ -138,7 +143,7 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
                 view.setCardCounterValue(playerData.cardsRows.getValue(type).totalPoints)
                 view.setHornValue(playerData.cardsRows.getValue(type).horn)
             }
-            widget_weather.setWeather(
+            binding.widgetWeather.setWeather(
                 playerData.cardsRows.getValue(CardsRowType.CLOSE_COMBAT).badWeather,
                 playerData.cardsRows.getValue(CardsRowType.LONG_RANGE).badWeather,
                 playerData.cardsRows.getValue(CardsRowType.SIEGE).badWeather
@@ -146,34 +151,34 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
         }
 
         viewModel.gameData.observe(viewLifecycleOwner) {
-            widget_user1.txt_user_name.text = it.firstPlayerData.name
-            widget_user2.txt_user_name.text = it.secondPlayerData.name
-            widget_user1.txt_user_points.text = it.firstPlayerData.totalPoints.toString()
-            widget_user2.txt_user_points.text = it.secondPlayerData.totalPoints.toString()
+            binding.widgetUser1.binding.txtUserName.text = it.firstPlayerData.name
+            binding.widgetUser2.binding.txtUserName.text = it.secondPlayerData.name
+            binding.widgetUser1.binding.txtUserPoints.text = it.firstPlayerData.totalPoints.toString()
+            binding.widgetUser2.binding.txtUserPoints.text = it.secondPlayerData.totalPoints.toString()
 
-            widget_user1.setLives(it.firstPlayerData.lives)
-            widget_user2.setLives(it.secondPlayerData.lives)
+            binding.widgetUser1.setLives(it.firstPlayerData.lives)
+            binding.widgetUser2.setLives(it.secondPlayerData.lives)
 
             when (it.winner) {
                 Winner.FIRST -> {
-                    widget_user1.winnerPointsColor()
-                    widget_user2.loserPointsColor()
+                    binding.widgetUser1.winnerPointsColor()
+                    binding.widgetUser2.loserPointsColor()
                 }
                 Winner.SECOND -> {
-                    widget_user1.loserPointsColor()
-                    widget_user2.winnerPointsColor()
+                    binding.widgetUser1.loserPointsColor()
+                    binding.widgetUser2.winnerPointsColor()
                 }
                 Winner.TIE -> {
-                    widget_user1.loserPointsColor()
-                    widget_user2.loserPointsColor()
+                    binding.widgetUser1.loserPointsColor()
+                    binding.widgetUser2.loserPointsColor()
                 }
             }
         }
 
         viewModel.gameOver.observe(viewLifecycleOwner) {
             val message = when (it!!) {
-                Winner.FIRST -> getString(R.string.end_of_game_message) + " " + widget_user1.txt_user_name.text.toString()
-                Winner.SECOND -> getString(R.string.end_of_game_message) + " " + widget_user2.txt_user_name.text.toString()
+                Winner.FIRST -> getString(R.string.end_of_game_message) + " " + binding.widgetUser1.binding.txtUserName.text.toString()
+                Winner.SECOND -> getString(R.string.end_of_game_message) + " " + binding.widgetUser2.binding.txtUserName.text.toString()
                 Winner.TIE -> getString(R.string.end_of_game_tie_message)
             }
             AlertDialog.Builder(requireContext())

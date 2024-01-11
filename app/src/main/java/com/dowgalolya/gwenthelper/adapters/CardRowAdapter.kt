@@ -6,12 +6,12 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.dowgalolya.gwenthelper.R
+import com.dowgalolya.gwenthelper.databinding.ItemCardBinding
 import com.dowgalolya.gwenthelper.enums.Ability
 import com.dowgalolya.gwenthelper.entities.Card
 import com.dowgalolya.gwenthelper.entities.CardsRow
 import com.dowgalolya.gwenthelper.enums.CardsRowType
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.item_card.view.*
 
 class CardRowAdapter private constructor(
     cardsRow: CardsRow,
@@ -93,22 +93,23 @@ class CardRowAdapter private constructor(
     ) : BaseViewHolder(containerView), View.OnLongClickListener {
 
         private val context get() = containerView.context
+        private val binding: ItemCardBinding = ItemCardBinding.bind(containerView)
 
         init {
-            containerView.card_view.setOnLongClickListener(this)
+            binding.cardView.setOnLongClickListener(this)
         }
 
         fun onBind(item: Card) {
-            containerView.txt_card_value.text = row.pointsOf(item).toString()
+            binding.txtCardValue.text = row.pointsOf(item).toString()
             if (item.abilities.contains(Ability.HERO)) {
-                containerView.card_view.setCardBackgroundColor(
+                binding.cardView.setCardBackgroundColor(
                     ContextCompat.getColor(
                         context,
                         R.color.colorHeroCard
                     )
                 )
             } else {
-                containerView.card_view.setCardBackgroundColor(
+                binding.cardView.setCardBackgroundColor(
                     ContextCompat.getColor(
                         context,
                         R.color.colorSimpleCard
@@ -118,10 +119,10 @@ class CardRowAdapter private constructor(
             val abilityIconRes =
                 item.abilities.filterNot { it == Ability.HERO }.firstOrNull()?.iconRes
             if (abilityIconRes == null) {
-                containerView.img_card_type.visibility = View.INVISIBLE
+                binding.imgCardType.visibility = View.INVISIBLE
             } else {
-                containerView.img_card_type.visibility = View.VISIBLE
-                containerView.img_card_type.setImageResource(abilityIconRes)
+                binding.imgCardType.visibility = View.VISIBLE
+                binding.imgCardType.setImageResource(abilityIconRes)
             }
         }
 

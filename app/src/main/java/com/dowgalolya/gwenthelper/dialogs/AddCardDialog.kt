@@ -6,7 +6,6 @@ import android.util.Log
 import com.dowgalolya.gwenthelper.R
 import com.dowgalolya.gwenthelper.entities.Card
 import com.dowgalolya.gwenthelper.enums.CardsRowType
-import kotlinx.android.synthetic.main.card_dialog_fragment.*
 
 class AddCardDialog(
     context: Context,
