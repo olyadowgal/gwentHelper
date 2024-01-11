@@ -131,29 +131,4 @@ class MainFragment : BaseFragment(), View.OnClickListener {
     }
 
 
-//    @Deprecated("Deprecated in Java")
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//
-//        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-//            val result = CropImage.getActivityResult(data)
-//
-//            if (resultCode == RESULT_OK) {
-//
-//                when (viewModel.selectedUser.value) {
-//                    R.id.img_user1_avatar -> {
-//                        viewModel.firstUserPhotoUpdate(result.uri)
-//                    }
-//                    R.id.img_user2_avatar -> {
-//                        viewModel.secondUserPhotoUpdate(result.uri)
-//                    }
-//                }
-//
-//            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-//                result.error
-//            }
-//        }
-//    }
-
-
 }
