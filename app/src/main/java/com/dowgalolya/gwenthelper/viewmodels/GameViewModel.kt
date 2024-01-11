@@ -103,9 +103,7 @@ class GameViewModel(
 
     @MainThread
     fun onHornChecked(cardsRowType: CardsRowType, isChecked: Boolean) {
-        _selectedPlayerData.value!!.let { playerData ->
-            playerData.cardsRows.getValue(cardsRowType).horn = isChecked
-        }
+        _selectedPlayerData.value!!.cardsRows.getValue(cardsRowType).horn = isChecked
         _gameData.notifyDataChanged()
 
     }

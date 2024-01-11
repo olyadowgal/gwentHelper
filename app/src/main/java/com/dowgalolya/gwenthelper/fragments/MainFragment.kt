@@ -1,8 +1,5 @@
 package com.dowgalolya.gwenthelper.fragments
 
-import android.app.Activity.RESULT_OK
-import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +11,6 @@ import com.dowgalolya.gwenthelper.R
 import com.dowgalolya.gwenthelper.databinding.MainFragmentBinding
 import com.dowgalolya.gwenthelper.di.SingletonHolder
 import com.dowgalolya.gwenthelper.viewmodels.MainViewModel
-import com.canhub.cropper.CropImage
 import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageContractOptions
 import com.canhub.cropper.CropImageOptions
@@ -91,14 +87,6 @@ class MainFragment : BaseFragment(), View.OnClickListener {
                         )
                     )
                 )
-//                CropImage.activity()
-//                    .setGuidelines(CropImageView.Guidelines.ON)
-//                    .setCropShape(CropImageView.CropShape.RECTANGLE)
-//                    .setFixAspectRatio(true)
-//                    .setBorderLineColor(resources.getColor(R.color.colorPrimary, null))
-//                    .setGuidelinesColor(resources.getColor(R.color.oxford_blue, null))
-//                    .setAutoZoomEnabled(true)
-//                    .start(it, this)
             }
         }
 

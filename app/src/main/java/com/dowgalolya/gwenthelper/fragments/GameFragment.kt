@@ -95,13 +95,13 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
             .load(GameFragmentArgs.fromBundle(requireArguments()).user1Photo)
             .placeholder(R.drawable.ic_male_avatar)
             .transform(CircleCrop())
-            .into(binding.widgetUser1.binding!!.imgUserAvatar)
+            .into(binding.widgetUser1.binding.imgUserAvatar)
 
         Glide.with(this)
             .load(GameFragmentArgs.fromBundle(requireArguments()).user2Photo)
             .placeholder(R.drawable.ic_female_avatar)
             .transform(CircleCrop())
-            .into(binding.widgetUser2.binding!!.imgUserAvatar)
+            .into(binding.widgetUser2.binding.imgUserAvatar)
 
         _binding!!.widgetUser1.setOnClickListener(this)
         _binding!!.widgetUser2.setOnClickListener(this)
@@ -114,7 +114,7 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
             viewModel.onHornChecked(CardsRowType.CLOSE_COMBAT, isChecked)
         }
 
-        _binding!!.widgetStatsCloseCombat.binding!!.cbHorn.setOnCheckedChangeListener { _, isChecked ->
+        _binding!!.widgetStatsLongRange.binding!!.cbHorn.setOnCheckedChangeListener { _, isChecked ->
             viewModel.onHornChecked(CardsRowType.LONG_RANGE, isChecked)
         }
 
@@ -126,13 +126,13 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
             with(requireContext()) {
                 when (it!!) {
                     Player.FIRST -> {
-                        binding.widgetUser1.binding!!.imgAvatarRing.setColorFilter(getColor(R.color.colorPrimary))
-                        binding.widgetUser2.binding!!.imgAvatarRing.setColorFilter(getColor(R.color.white))
+                        binding.widgetUser1.binding.imgAvatarRing.setColorFilter(getColor(R.color.colorPrimary))
+                        binding.widgetUser2.binding.imgAvatarRing.setColorFilter(getColor(R.color.white))
 
                     }
                     Player.SECOND -> {
-                        binding.widgetUser2.binding!!.imgAvatarRing.setColorFilter(getColor(R.color.colorPrimary))
-                        binding.widgetUser1.binding!!.imgAvatarRing.setColorFilter(getColor(R.color.white))
+                        binding.widgetUser2.binding.imgAvatarRing.setColorFilter(getColor(R.color.colorPrimary))
+                        binding.widgetUser1.binding.imgAvatarRing.setColorFilter(getColor(R.color.white))
                     }
                 }
             }
@@ -151,10 +151,10 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
         }
 
         viewModel.gameData.observe(viewLifecycleOwner) {
-            binding.widgetUser1.binding!!.txtUserName.text = it.firstPlayerData.name
-            binding.widgetUser2.binding!!.txtUserName.text = it.secondPlayerData.name
-            binding.widgetUser1.binding!!.txtUserPoints.text = it.firstPlayerData.totalPoints.toString()
-            binding.widgetUser2.binding!!.txtUserPoints.text = it.secondPlayerData.totalPoints.toString()
+            binding.widgetUser1.binding.txtUserName.text = it.firstPlayerData.name
+            binding.widgetUser2.binding.txtUserName.text = it.secondPlayerData.name
+            binding.widgetUser1.binding.txtUserPoints.text = it.firstPlayerData.totalPoints.toString()
+            binding.widgetUser2.binding.txtUserPoints.text = it.secondPlayerData.totalPoints.toString()
 
             binding.widgetUser1.setLives(it.firstPlayerData.lives)
             binding.widgetUser2.setLives(it.secondPlayerData.lives)
@@ -177,8 +177,8 @@ class GameFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
 
         viewModel.gameOver.observe(viewLifecycleOwner) {
             val message = when (it!!) {
-                Winner.FIRST -> getString(R.string.end_of_game_message) + " " + binding.widgetUser1.binding!!.txtUserName.text.toString()
-                Winner.SECOND -> getString(R.string.end_of_game_message) + " " + binding.widgetUser2.binding!!.txtUserName.text.toString()
+                Winner.FIRST -> getString(R.string.end_of_game_message) + " " + binding.widgetUser1.binding.txtUserName.text.toString()
+                Winner.SECOND -> getString(R.string.end_of_game_message) + " " + binding.widgetUser2.binding.txtUserName.text.toString()
                 Winner.TIE -> getString(R.string.end_of_game_tie_message)
             }
             AlertDialog.Builder(requireContext())
